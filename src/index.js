@@ -3,11 +3,13 @@ const { ApolloServer } = require("apollo-server-express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 
+dotenv.config();
+
+
 require("./db");
 const models = require("./db/models");
 const schema = require("./schema");
 
-dotenv.config();
 
 const app = express();
 app.use("*", cors());
