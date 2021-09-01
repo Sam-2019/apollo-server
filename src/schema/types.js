@@ -55,7 +55,6 @@ const typeDefs = gql`
   }
 
   input AddMember {
-    id: ID
     firstName: String
     lastName: String
     otherName: String
@@ -79,7 +78,7 @@ const typeDefs = gql`
     previousChurch: String
   }
 
-  type SundaySession {
+  type SundayService {
     id: ID
     adultFemale: Int
     adultMale: Int
@@ -102,7 +101,7 @@ const typeDefs = gql`
     visitorsMale: Int
   }
 
-  input AddSundaySession {
+  input AddSundayService {
     id: ID
     adultFemale: Int
     adultMale: Int
@@ -130,7 +129,6 @@ const typeDefs = gql`
   }
 
   input AddTithePayer {
-    id: ID
     member: ID
   }
 
@@ -151,7 +149,6 @@ const typeDefs = gql`
   }
 
   input AddVisitor {
-    id: ID
     firstName: String
     lastName: String
     ageGroup: String
@@ -172,16 +169,17 @@ const typeDefs = gql`
     amount: String
     programme: String
     status: PledgeStatus
-    date: String
+    pledgeDate: String
+    redeemedDate: String
   }
 
   input AddPledge {
-    id: ID
     pledgeID: ID
     amount: String
     programme: String
     status: PledgeStatus
-    date: String
+    pledgeDate: String
+    redeemedDate: String
   }
 
   type Query {
@@ -195,7 +193,7 @@ const typeDefs = gql`
 
   type Mutation {
     addMember(input: AddMember): Payload
-    addSundaySession(input: AddSundaySession): Payload
+    addSundayService(input: AddSundayService): Payload
     AddTithePayer(input: AddTithePayer): Payload
     addVisitor(input: AddVisitor): Payload
     addPledge(input: AddPledge): Payload
