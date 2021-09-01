@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 
-const ChildSchema = new Schema({
+const childSchema = new mongoose.Schema({
   firstName: {
     type: String,
   },
@@ -10,4 +9,5 @@ const ChildSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("Child", ChildSchema);
+const Child = mongoose.model("Child", childSchema);
+module.exports = Child;

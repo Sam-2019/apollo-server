@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 
-const PledgeSchema = new Schema({
+const pledgeSchema = new mongoose.Schema({
   pledgeID: {
     type: String,
   },
@@ -22,4 +21,5 @@ const PledgeSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("Pledge", PledgeSchema);
+const Pledge = mongoose.model("Pledge", pledgeSchema);
+module.exports = Pledge;

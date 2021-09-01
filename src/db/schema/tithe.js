@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 
-const TitheSchema = new Schema({
+const titheSchema = new mongoose.Schema({
   memberID: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Member",
   },
 });
 
-module.exports = mongoose.model("Tithe", TitheSchema);
+const Tithe = mongoose.model("Tithe", titheSchema);
+module.exports = Tithe;

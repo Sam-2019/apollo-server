@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 
-const MemberSchema = new Schema({
+const memberSchema = mongoose.Schema({
   firstName: {
     type: String,
   },
@@ -15,11 +14,10 @@ const MemberSchema = new Schema({
     type: Date,
   },
   age: {
-    type: String,
+    type: Number,
   },
   gender: {
-    type: Number,
-    min: 1,
+    type: String,
   },
   hometown: {
     type: String,
@@ -57,7 +55,7 @@ const MemberSchema = new Schema({
   },
   nameOfChildren: [
     {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Child",
     },
   ],
@@ -72,4 +70,5 @@ const MemberSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("Member", MemberSchema);
+const Member = mongoose.model("Member", memberSchema);
+module.exports = Member;

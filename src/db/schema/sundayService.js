@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 
-const SundayServiceSchema = new Schema({
+const sundayServiceSchema = new mongoose.Schema({
   date: {
     type: Number,
   },
@@ -61,4 +60,5 @@ const SundayServiceSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("SundayService", SundayServiceSchema);
+const SundayService = mongoose.model("SundayService", sundayServiceSchema);
+module.exports = SundayService
