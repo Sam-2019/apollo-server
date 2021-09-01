@@ -35,7 +35,7 @@ const typeDefs = gql`
     lastName: String
     otherName: String
     dateOfBirth: String
-    age: String
+    age: Int
     gender: String
     hometown: String
     region: String
@@ -59,7 +59,7 @@ const typeDefs = gql`
     lastName: String
     otherName: String
     dateOfBirth: String
-    age: String
+    age: Int
     gender: String
     hometown: String
     region: String
@@ -192,9 +192,9 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addMember(input: AddMember): Payload
+    addMember(input: AddMember): Member
     addSundayService(input: AddSundayService): Payload
-    AddTithePayer(input: AddTithePayer): Payload
+    addTithePayer(input: AddTithePayer): Payload
     addVisitor(input: AddVisitor): Payload
     addPledge(input: AddPledge): Payload
   }
