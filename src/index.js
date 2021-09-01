@@ -1,15 +1,23 @@
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const cors = require("cors");
+const dotenv = require("dotenv");
 
+require("./db");
+const models = require("./db/models");
 const schema = require("./schema");
 
-const port = process.env.PORT || 4000;
+dotenv.config();
 
 const app = express();
 app.use("*", cors());
 
-const server = new ApolloServer({ schema });
+const server = new ApolloServer({
+  schema,
+  context: () => {
+    return { models };
+  },
+});
 
 async function data() {
   await server.start();
@@ -18,6 +26,8 @@ async function data() {
 }
 
 data();
+
+const port = process.env.PORT || 4000;
 
 app.listen({ port }, () => {
   console.log(
