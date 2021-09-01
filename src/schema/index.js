@@ -1,10 +1,6 @@
 const { makeExecutableSchema } = require("@graphql-tools/schema");
 const typeDefs = require("./types");
-
-const resolvers = {
-  Query: {},
-  Mutation: {},
-};
+const resolvers = require("./resolvers");
 
 const schema = makeExecutableSchema({
   typeDefs,
