@@ -1,2 +1,4 @@
 node_modules
 src/schema/schema.graphql
+yarn-error.log
+src/.env
