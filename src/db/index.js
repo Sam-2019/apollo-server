@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
-const mongoURI = `mongodb://localhost:27017/elim-app`;
+
+const DB_NAME = process.env.DB_NAME;
+const mongoURI = `mongodb://localhost:27017/${DB_NAME}`;
 
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true,
   autoIndex: false,
-  useFindAndModify: false,
 });
 
 var dbConn = mongoose.connection;
