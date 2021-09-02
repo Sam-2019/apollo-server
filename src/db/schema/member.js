@@ -53,18 +53,15 @@ const memberSchema = mongoose.Schema({
   numberOfChildren: {
     type: Number,
   },
-  nameOfChildren: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Child",
-    },
-  ],
+  nameOfChildren: [{ firstName: String, lastName: String }],
   dateJoinedChurch: {
     type: Date,
   },
-  department: {
-    type: String,
-  },
+  department: [
+    {
+      type: String,
+    },
+  ],
   previousChurch: {
     type: String,
   },
