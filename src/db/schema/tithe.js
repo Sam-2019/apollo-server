@@ -2,8 +2,12 @@ const mongoose = require("mongoose");
 
 const titheSchema = new mongoose.Schema({
   memberID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Member",
+    // type: mongoose.Schema.Types.ObjectId,
+    // ref: "Member",
+    type: String,
+  },
+  month: {
+    type: String,
   },
 });
 
