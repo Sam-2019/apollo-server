@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const sundayServiceSchema = new mongoose.Schema({
   date: {
-    type: Number,
+    type: Date,
   },
   startTime: {
     type: String,
@@ -14,7 +14,7 @@ const sundayServiceSchema = new mongoose.Schema({
     type: String,
   },
   bibleText: {
-    type: Number,
+    type: String,
   },
   adultFemale: {
     type: Number,
