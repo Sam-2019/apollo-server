@@ -11,10 +11,10 @@ const visitorSchema = new mongoose.Schema({
     type: String,
   },
   monthOfBirth: {
-    type: Number,
+    type: String,
   },
   awarenessChannel: {
-    type: Date,
+    type: String,
   },
   awarenessChannelOther: {
     type: String,
