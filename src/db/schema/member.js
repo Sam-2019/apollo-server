@@ -11,7 +11,10 @@ const memberSchema = mongoose.Schema({
     type: String,
   },
   dateOfBirth: {
-    type: Date,
+    type: String,
+  },
+  chapel: {
+    type: String,
   },
   age: {
     type: Number,
