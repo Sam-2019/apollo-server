@@ -2,3 +2,4 @@ node_modules
 src/schema/schema.graphql
 yarn-error.log
 .env
+mutation
