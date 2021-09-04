@@ -1,8 +1,31 @@
-const addPledge = async (parent, { input: { age, firstName } }, { models }) => {
-  try {
-    return await models.Member.create({
-      age,
+const addPledge = async (
+  parent,
+  {
+    input: {
+      pledgeDate,
       firstName,
+      lastName,
+      otherName,
+      contact,
+      emailAddress,
+      programme,
+      redeemedDate,
+      amount,
+    },
+  },
+  { models }
+) => {
+  
+  //check if name exists
+  //create new member
+  //get member id for pledge entry
+
+  try {
+    return await models.Pledge.create({
+      pledgeDate,
+      programme,
+      redeemedDate,
+      amount,
     });
   } catch (err) {
     console.log(err);
