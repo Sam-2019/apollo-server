@@ -23,7 +23,7 @@ const visitorSchema = new mongoose.Schema({
     type: String,
   },
   date: {
-    type: Date,
+    type: String,
   },
   invitedBy: {
     type: String,

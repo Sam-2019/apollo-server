@@ -1,23 +1,25 @@
 const mongoose = require("mongoose");
 
 const pledgeSchema = new mongoose.Schema({
-  pledgeID: {
-    type: String,
+  pledgeeID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Member",
   },
-  amount: {
+  status: {
+    type: String,
+    default: 'PENDING'
+  },
+  pledgeDate: {
     type: String,
   },
   programme: {
     type: String,
   },
-  status: {
+  redeemedDate: {
     type: String,
   },
-  pledgeDate: {
-    type: Date,
-  },
-  redeemedDate: {
-    type: Date,
+  amount: {
+    type: Number,
   },
 });
 
