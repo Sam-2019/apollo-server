@@ -37,10 +37,10 @@ const pledgeFeed = async (parent, args, { models }) => {
   return await models.Pledge.find();
 };
 const visitors = async (parent, args, { models }) => {
-  return await models.Visitors.find().limit(10);
+  return await models.Visitor.find().limit(10);
 };
 const visitorsFeed = async (parent, args, { models }) => {
-  return await models.Visitors.find();
+  return await models.Visitor.find();
 };
 const visitor = async (parent, { id }, { models }) => {
   return await models.Visitor.findById(id);
@@ -59,9 +59,14 @@ const sundayServiceFeed = async (parent, args, { models }) => {
 };
 
 const chapel = async (parent, { chapel }, { models }) => {
-
   return await models.Member.find({
     chapel: { $regex: chapel, $options: "i" },
+  });
+};
+
+const department = async (parent, { department }, { models }) => {
+  return await models.Member.find({
+    department: { $regex: department, $options: "i" },
   });
 };
 
@@ -79,4 +84,5 @@ module.exports = {
   sundayService,
   sundayServiceFeed,
   chapel,
+  department
 };
