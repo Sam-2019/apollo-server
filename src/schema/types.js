@@ -1,6 +1,8 @@
 const { gql } = require("apollo-server");
 
 const typeDefs = gql`
+  scalar DateTime
+
   enum PledgeStatus {
     PENDING
     REDEEMED
@@ -24,6 +26,11 @@ const typeDefs = gql`
     lastName: String
   }
 
+  input AddChild {
+    firstName: String
+    lastName: String
+  }
+
   type Department {
     id: ID
     name: String
@@ -35,6 +42,7 @@ const typeDefs = gql`
     lastName: String
     otherName: String
     dateOfBirth: String
+    chapel: String
     age: Int
     gender: String
     hometown: String
@@ -47,11 +55,17 @@ const typeDefs = gql`
     postalAddress: String
     maritalStatus: String
     spouseName: String
-    numberOfChlidren: String
+    numberOfChlidren: Int
     nameOfChildren: [Child]
     dateJoinedChurch: String
-    department: [Department]
+    department: [String]
     previousChurch: String
+  }
+
+  type MembersFeed {
+    members: [Member]
+    cursor: String
+    hasNextPage: Boolean
   }
 
   input AddMember {
@@ -71,8 +85,8 @@ const typeDefs = gql`
     postalAddress: String
     maritalStatus: String
     spouseName: String
-    numberOfChlidren: String
-    nameOfChildren: [String]
+    numberOfChlidren: Int
+    nameOfChildren: [AddChild]
     dateJoinedChurch: String
     department: [String]
     previousChurch: String
@@ -101,8 +115,13 @@ const typeDefs = gql`
     visitorsMale: Int
   }
 
+  type SundayServiceFeed {
+    sundayServices: [SundayService]
+    cursor: String
+    hasNextPage: Boolean
+  }
+
   input AddSundayService {
-    id: ID
     adultFemale: Int
     adultMale: Int
     altercallFemale: Int
@@ -128,8 +147,20 @@ const typeDefs = gql`
     members: [ID]
   }
 
-  input AddTithePayer {
+  type TitheFeed {
+    members: [Tithe]
+    cursor: String
+    hasNextPage: Boolean
+  }
+
+  type TithePayer {
     member: ID
+    month: String
+  }
+
+  input AddTithePayer {
+    member: [ID]
+    month: String
   }
 
   type Visitor {
@@ -146,6 +177,12 @@ const typeDefs = gql`
     location: String
     membership: String
     monthOfBirth: String
+  }
+
+  type VisitorFeed {
+    visitors: [Visitor]
+    cursor: String
+    hasNextPage: Boolean
   }
 
   input AddVisitor {
@@ -173,30 +210,70 @@ const typeDefs = gql`
     redeemedDate: String
   }
 
+  type PledgeFeed {
+    pledges: [Pledge]
+    cursor: String
+    hasNextPage: Boolean
+  }
+
   input AddPledge {
-    pledgeID: ID
-    amount: String
-    programme: String
-    status: PledgeStatus
     pledgeDate: String
+    firstName: String
+    lastName: String
+    otherName: String
+    contact: String
+    emailAddress: String
+    programme: String
     redeemedDate: String
+    amount: Int
   }
 
   type Query {
     members: [Member]
+    membersFeed(cursor: String): [MembersFeed]
     member(id: ID): Member
+
     pledge: [Pledge]
+    pledgeFeed(cursor: String): [PledgeFeed]
+
     visitors: [Visitor]
+    visitorsFeed(cursor: String): [VisitorFeed]
     visitor(id: ID): Visitor
+
     tithe: [Tithe]
+    titheFeed(cursor: String): [TitheFeed]
+
+    sundayService: [SundayService]
+    sundayServiceFeed(cursor: String): [SundayServiceFeed]
+
+    chapel(chapel: String): [Member]
+    department(department: String): [Member]
   }
 
   type Mutation {
     addMember(input: AddMember): Member
-    addSundayService(input: AddSundayService): Payload
-    addTithePayer(input: AddTithePayer): Payload
-    addVisitor(input: AddVisitor): Payload
-    addPledge(input: AddPledge): Payload
+    deleteMember(id: ID): Member
+    updateMember(id: ID, input: AddMember): Member
+
+    addChild(input: AddChild): Payload
+    deleteChild(id: ID): Payload
+    updateChild(id: ID, input: AddChild): Payload
+
+    addSundayService(input: AddSundayService): SundayService
+    deleteSundayService(id: ID): Payload
+    updateSundayService(id: ID, input: AddSundayService): Payload
+
+    addTithePayer(input: AddTithePayer): TithePayer
+    deleteTithePayer(id: ID): Payload
+    updateTithePayer(id: ID, input: AddTithePayer): Payload
+
+    addVisitor(input: AddVisitor): Visitor
+    deleteVisitor(id: ID): Payload
+    updateVisitor(id: ID, input: AddVisitor): Payload
+
+    addPledge(input: AddPledge): Pledge
+    deletePledge(id: ID): Payload
+    updatePledge(id: ID, input: AddPledge): Payload
   }
 `;
 
