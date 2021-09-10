@@ -20,6 +20,7 @@ const addSundayService = async (
       startTime,
       theme,
       visitorsFemale,
+      type
     },
   },
   { models }
@@ -44,6 +45,7 @@ const addSundayService = async (
       startTime,
       theme,
       visitorsFemale,
+      type
     });
   } catch (err) {
     console.log(err);
