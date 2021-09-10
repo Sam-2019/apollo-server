@@ -58,7 +58,10 @@ const sundayServiceSchema = new mongoose.Schema({
   endTime: {
     type: String,
   },
+  type: {
+    type: String,
+  },
 });
 
 const SundayService = mongoose.model("SundayService", sundayServiceSchema);
-module.exports = SundayService
+module.exports = SundayService;
