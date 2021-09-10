@@ -1,30 +1,26 @@
 const models = require("../db/models");
 
-const paymentType = (type) => {
-
-    console.log(type)
-    ///
+const paymentType = async (type) => {
   let model;
 
-
   switch (type) {
-    case "tithe":
+    case "Tithe":
       model = models.Tithe;
       break;
 
-    case "welfare":
+    case "Welfare":
       model = models.Welfare;
       break;
 
-    case "projectOffering":
+    case "ProjectOffering":
       model = models.ProjectOffering;
       break;
 
-    case "pvv":
+    case "Pvv":
       model = models.Pvv;
       break;
 
-    case "mmv":
+    case "Mmv":
       model = models.Mvv;
       break;
 
@@ -32,7 +28,7 @@ const paymentType = (type) => {
       model = null;
   }
 
-  return model;
+  return await model;
 };
 
 module.exports = {
