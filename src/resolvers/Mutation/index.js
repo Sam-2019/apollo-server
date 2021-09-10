@@ -1,7 +1,7 @@
 const child = require("./child");
 const member = require("./member");
 const sundayService = require("./sundayService");
-const tithe = require("./tithe");
+const payment = require("./payment");
 const pledge = require("./pledge");
 const visitor = require("./visitor");
 
@@ -9,7 +9,7 @@ const resolvers = {
   ...child,
   ...member,
   ...sundayService,
-  ...tithe,
+  ...payment,
   ...pledge,
   ...visitor,
 };
