@@ -33,6 +33,10 @@ const member = async (parent, { id }, { models }) => {
   return await models.Member.findById(id);
 };
 
+const memberByName = async (parent, { firstName, lastName }, { models }) => {
+  return await models.Member.find({ firstName, lastName });
+};
+
 const pledge = async (parent, args, { models }) => {
   return await models.Pledge.find();
 };
@@ -117,6 +121,7 @@ module.exports = {
   members,
   membersFeed,
   member,
+  memberByName,
   pledge,
   pledgeFeed,
   visitors,
