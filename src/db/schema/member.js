@@ -22,6 +22,9 @@ const memberSchema = mongoose.Schema({
   gender: {
     type: String,
   },
+  location: {
+    type: String,
+  },
   hometown: {
     type: String,
   },

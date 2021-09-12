@@ -46,6 +46,7 @@ const typeDefs = gql`
     age: Int
     gender: String
     hometown: String
+    location: String
     region: String
     country: String
     residentialAddress: String
@@ -75,6 +76,7 @@ const typeDefs = gql`
     dateOfBirth: String
     age: Int
     gender: String
+    location: String
     hometown: String
     region: String
     country: String
@@ -143,24 +145,25 @@ const typeDefs = gql`
     visitorsMale: Int
   }
 
-  type Tithe {
+  type Payment {
     members: [ID]
   }
 
-  type TitheFeed {
-    members: [Tithe]
+  type PaymentFeed {
+    members: [Payment]
     cursor: String
     hasNextPage: Boolean
   }
 
-  type TithePayer {
+  type PaymentPayer {
     member: ID
     month: String
   }
 
-  input AddTithePayer {
-    member: [ID]
+  input AddPayer {
+    members: [ID]
     month: String
+    type: String
   }
 
   type Visitor {
@@ -232,6 +235,7 @@ const typeDefs = gql`
     members: [Member]
     membersFeed(cursor: String): [MembersFeed]
     member(id: ID): Member
+    memberByName(firstName: String, lastName: String): Member
 
     pledge: [Pledge]
     pledgeFeed(cursor: String): [PledgeFeed]
@@ -240,11 +244,23 @@ const typeDefs = gql`
     visitorsFeed(cursor: String): [VisitorFeed]
     visitor(id: ID): Visitor
 
-    tithe: [Tithe]
-    titheFeed(cursor: String): [TitheFeed]
-
     sundayService: [SundayService]
     sundayServiceFeed(cursor: String): [SundayServiceFeed]
+
+    tithe: [Payment]
+    titheFeed(cursor: String): [PaymentFeed]
+
+    welfare: [Payment]
+    welfareFeed(cursor: String): [PaymentFeed]
+
+    projectOffering: [Payment]
+    projectOfferingFeed(cursor: String): [PaymentFeed]
+
+    pvv: [Payment]
+    pvvFeed(cursor: String): [PaymentFeed]
+
+    mmv: [Payment]
+    mmvFeed(cursor: String): [PaymentFeed]
 
     chapel(chapel: String): [Member]
     department(department: String): [Member]
@@ -263,9 +279,16 @@ const typeDefs = gql`
     deleteSundayService(id: ID): Payload
     updateSundayService(id: ID, input: AddSundayService): Payload
 
-    addTithePayer(input: AddTithePayer): TithePayer
-    deleteTithePayer(id: ID): Payload
-    updateTithePayer(id: ID, input: AddTithePayer): Payload
+    addPaymentPayer(input: AddPayer): Payment
+
+    addTithe(input: AddPayer): Payment
+    addMMV(input: AddPayer): Payment
+    addPVV(input: AddPayer): Payment
+    addProjectOffering(input: AddPayer): Payment
+    addWelfare(input: AddPayer): Payment
+
+    deletePaymentPayer(id: ID): Payload
+    updatePaymentPayer(id: ID, input: AddPayer): Payload
 
     addVisitor(input: AddVisitor): Visitor
     deleteVisitor(id: ID): Payload
