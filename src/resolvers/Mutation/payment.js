@@ -1,28 +1,28 @@
 const { paymentType } = require("../../utils/switchPaymentType");
 
-console.log(paymentType);
-
 const addPaymentPayer = async (
   parent,
-  { input: { member, month, type } },
+  { input: { members, month, type } },
   { models }
 ) => {
   let dbModel = await paymentType(type);
-  // console.log(member);
-  // console.log(dbModel, "new");
-  //console.log(type);
 
   try {
-    return await member.forEach((text) => {
+    const data = await members.forEach((text) => {
       dbModel.create({
         memberID: text,
         month,
       });
     });
+    if (!data) {
+      return "Error";
+    }
+    return "Success";
   } catch (err) {
     console.log(err);
   }
 };
+
 const deletePaymentPayer = async (parent, { id, type }, { models }) => {
   let dbModel = await paymentType(type);
 
@@ -32,6 +32,7 @@ const deletePaymentPayer = async (parent, { id, type }, { models }) => {
     console.log(err);
   }
 };
+
 const updatePaymentPayer = async (
   parent,
   { id, type, input: { member } },
