@@ -4,24 +4,24 @@ const paymentType = async (type) => {
   let model;
 
   switch (type) {
-    case "Tithe":
+    case "tithe":
       model = models.Tithe;
       break;
 
-    case "Welfare":
+    case "welfare":
       model = models.Welfare;
       break;
 
-    case "ProjectOffering":
+    case "project offering":
       model = models.ProjectOffering;
       break;
 
-    case "Pvv":
+    case "pvv":
       model = models.Pvv;
       break;
 
-    case "Mmv":
-      model = models.Mvv;
+    case "mmv":
+      model = models.Mmv;
       break;
 
     default:
