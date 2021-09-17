@@ -5,6 +5,12 @@ const pledgeSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Member",
   },
+  firstName: {
+    type: String,
+  },
+  lastName: {
+    type: String,
+  },
   status: {
     type: String,
     default: 'PENDING'
