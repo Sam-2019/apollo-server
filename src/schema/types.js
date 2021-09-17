@@ -22,8 +22,7 @@ const typeDefs = gql`
 
   type Child {
     id: ID
-    firstName: String
-    lastName: String
+    name: String
   }
 
   input AddChild {
@@ -57,7 +56,7 @@ const typeDefs = gql`
     maritalStatus: String
     spouseName: String
     numberOfChlidren: Int
-    nameOfChildren: [Child]
+    nameOfChildren: [String]
     dateJoinedChurch: String
     department: [String]
     previousChurch: String
@@ -88,7 +87,7 @@ const typeDefs = gql`
     maritalStatus: String
     spouseName: String
     numberOfChlidren: Int
-    nameOfChildren: [AddChild]
+    nameOfChildren: [String]
     dateJoinedChurch: String
     department: [String]
     previousChurch: String
@@ -180,6 +179,7 @@ const typeDefs = gql`
     location: String
     membership: String
     monthOfBirth: String
+    chapel: String
   }
 
   type VisitorFeed {
@@ -206,6 +206,8 @@ const typeDefs = gql`
   type Pledge {
     id: ID
     pledgeeID: ID
+    firstName: String
+    lastName: String
     amount: String
     programme: String
     status: PledgeStatus
