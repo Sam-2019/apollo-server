@@ -1,3 +1,5 @@
+const { extractMonth, extractYear } = require("../../utils/index");
+
 const addVisitor = async (
   parent,
   {
@@ -18,6 +20,8 @@ const addVisitor = async (
   },
   { models }
 ) => {
+  const chapel = extractMonth(monthOfBirth);
+
   try {
     return await models.Visitor.create({
       ageGroup,
@@ -32,6 +36,7 @@ const addVisitor = async (
       location,
       membership,
       monthOfBirth,
+      chapel,
     });
   } catch (err) {
     console.log(err);
