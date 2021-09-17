@@ -13,6 +13,9 @@ const visitorSchema = new mongoose.Schema({
   monthOfBirth: {
     type: String,
   },
+  chapel: {
+    type: String,
+  },
   awarenessChannel: {
     type: String,
   },
