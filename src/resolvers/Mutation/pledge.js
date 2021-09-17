@@ -22,6 +22,11 @@ const addPledge = async (
 
   try {
     return await models.Pledge.create({
+      firstName,
+      lastName,
+      otherName,
+      contact,
+      emailAddress,
       pledgeDate,
       programme,
       redeemedDate,
