@@ -36,6 +36,7 @@ const addMember = async (
       firstName,
       lastName,
       otherName,
+      imageURL: null,
       dateOfBirth,
       chapel,
       age,
@@ -86,9 +87,26 @@ const updateMember = async (
     console.log(err);
   }
 };
+const uploadImage = async (parent, { input: { id, imageURL } }, { models }) => {
+  try {
+    //  console.log(id, imageURL);
+    return await models.Member.findByIdAndUpdate(
+      id,
+      {
+        $set: { imageURL },
+      },
+      {
+        new: true,
+      }
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 module.exports = {
   addMember,
   deleteMember,
   updateMember,
+  uploadImage,
 };

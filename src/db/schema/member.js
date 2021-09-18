@@ -10,6 +10,9 @@ const memberSchema = mongoose.Schema({
   otherName: {
     type: String,
   },
+  imageURL: {
+    type: String,
+  },
   dateOfBirth: {
     type: String,
   },
@@ -59,7 +62,11 @@ const memberSchema = mongoose.Schema({
   numberOfChildren: {
     type: Number,
   },
-  nameOfChildren: [{ firstName: String, lastName: String }],
+  nameOfChildren: [
+    {
+      type: String,
+    },
+  ],
   dateJoinedChurch: {
     type: Date,
   },

@@ -35,11 +35,22 @@ const typeDefs = gql`
     name: String
   }
 
+  type ProfileImage {
+    id: ID
+    imageURL: String
+  }
+
+  input AddImage {
+    id: ID
+    imageURL: String
+  }
+
   type Member {
     id: ID
     firstName: String
     lastName: String
     otherName: String
+    imageURL: String
     dateOfBirth: String
     chapel: String
     age: Int
@@ -272,6 +283,8 @@ const typeDefs = gql`
     addMember(input: AddMember): Member
     deleteMember(id: ID): Member
     updateMember(id: ID, input: AddMember): Member
+
+    uploadImage(input: AddImage ):ProfileImage
 
     addChild(input: AddChild): Payload
     deleteChild(id: ID): Payload
