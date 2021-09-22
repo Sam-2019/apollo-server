@@ -20,13 +20,18 @@ const addSundayService = async (
       startTime,
       theme,
       visitorsFemale,
-      type
+      type,
     },
   },
   { models }
 ) => {
+  const vehicleArray = [
+    { key: "Cars", value: cars },
+    { key: "Motors", value: motors },
+    { key: "Bicycles", value: bicycles },
+  ];
   try {
-    return await models.SundayService.create({
+    const sundayServiceData = await models.SundayService.create({
       adultFemale,
       adultMale,
       altercallFemale,
@@ -45,12 +50,22 @@ const addSundayService = async (
       startTime,
       theme,
       visitorsFemale,
-      type
+      type,
+    });
+
+    vehicleArray.forEach(async (text) => {
+      await models.Vehicle.create({
+        sundayService: sundayServiceData.id,
+        type: text.key,
+        date,
+        number: text.value,
+      });
     });
   } catch (err) {
     console.log(err);
   }
 };
+
 const deleteSundayService = async (parent, { id }, { models }) => {
   try {
     return await models.SundayService.findByIdAndDelete(id);
@@ -58,6 +73,7 @@ const deleteSundayService = async (parent, { id }, { models }) => {
     console.log(err);
   }
 };
+
 const updateSundayService = async (
   parent,
   { id, input: { preacher } },
