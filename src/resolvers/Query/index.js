@@ -1,3 +1,5 @@
+const { paymentType } = require("../../utils/switchPaymentType");
+
 const members = async (parent, args, { models }) => {
   return await models.Member.find();
 };
@@ -117,6 +119,110 @@ const department = async (parent, { department }, { models }) => {
   });
 };
 
+const payment = async (parent, { month, type }, { models }) => {
+  //console.log(month);
+  let dbModel = await paymentType(type);
+
+  try {
+    let list = [];
+
+    await dbModel.find({ month }).then((results) => {
+      for (result of results) {
+        const memberIDS = String(result.memberID);
+        list.push(memberIDS);
+      }
+    });
+
+    // console.log(list);
+
+    return list.map(async (element) => {
+      return await models.Member.findById(element).then((data) => {
+        return {
+          ...data._docs,
+          id: data._id,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          chapel: data.chapel,
+          contact: data.contact,
+        };
+      });
+    });
+
+    // const house = list.map(async (element) => {
+    //   return await models.Member.findById(element).then((result) => {
+    //     return {
+    //       ...result._docs,
+    //       firstName: result.firstName,
+    //     };
+    //   });
+    // });
+
+    // console.log(house);
+    // const data = await dbModel.find({ month }).then((results) =>
+    //   results.forEach((element) => {
+    //     return models.Member.findById(element.id);
+    //   })
+    // );
+
+    // .populate("member", { path: "firstName", select: "_id" });
+
+    // const reviews = await models.Member.find({
+    //   _id: data._id,
+    // });
+
+    // console.log(reviews);
+
+    // async function getName() {
+    //   const name = await models.Member.find({
+    //     _id: result._id,
+    //   });
+
+    //   console.log(name);
+    // }
+
+    // getName();
+    // return await dbModel.find({
+    //   month: { $regex: month, $options: "i" },
+    // });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const countGender = async (parent, args, { models }) => {
+  let genderData = [];
+  const male = await models.Member.find({
+    gender: "Male",
+  }).estimatedDocumentCount();
+
+  const female = await models.Member.find({
+    gender: "Female",
+  }).estimatedDocumentCount();
+
+  genderData.push(
+    {
+      type: "Male",
+      value: male,
+    },
+    {
+      type: "Female",
+      value: female,
+    }
+  );
+
+  return genderData;
+};
+
+const countVehicle = async (parent, args, { models }) => {
+  try {
+    return await models.Vehicle.find();
+  } catch (err) {
+    console.log(err);
+  }
+
+  // return VehiclesData;
+};
+
 module.exports = {
   members,
   membersFeed,
@@ -143,4 +249,8 @@ module.exports = {
   sundayServiceFeed,
   chapel,
   department,
+
+  payment,
+  countGender,
+  countVehicle,
 };
