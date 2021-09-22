@@ -30,6 +30,18 @@ const typeDefs = gql`
     lastName: String
   }
 
+  type CountGender {
+    type: String
+    value: Int
+  }
+
+  type CountVehicle {
+    sundayService: ID
+    type: String
+    date: String
+    number: Int
+  }
+
   type Department {
     id: ID
     name: String
@@ -125,6 +137,7 @@ const typeDefs = gql`
     endTime: String
     visitorsFemale: Int
     visitorsMale: Int
+    type: String
   }
 
   type SundayServiceFeed {
@@ -153,6 +166,7 @@ const typeDefs = gql`
     endTime: String
     visitorsFemale: Int
     visitorsMale: Int
+    type: String
   }
 
   type Payment {
@@ -166,8 +180,16 @@ const typeDefs = gql`
   }
 
   type PaymentPayer {
-    member: ID
+    memberID: ID
     month: String
+  }
+
+  type PaymentPayer2 {
+    id: ID
+    firstName: String
+    lastName: String
+    chapel: String
+    contact: String
   }
 
   input AddPayer {
@@ -277,6 +299,10 @@ const typeDefs = gql`
 
     chapel(chapel: String): [Member]
     department(department: String): [Member]
+
+    payment(month: String, type: String): [PaymentPayer2]
+    countGender: [CountGender]
+    countVehicle: [CountVehicle]
   }
 
   type Mutation {
@@ -284,7 +310,7 @@ const typeDefs = gql`
     deleteMember(id: ID): Member
     updateMember(id: ID, input: AddMember): Member
 
-    uploadImage(input: AddImage ):ProfileImage
+    uploadImage(input: AddImage): ProfileImage
 
     addChild(input: AddChild): Payload
     deleteChild(id: ID): Payload
