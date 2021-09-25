@@ -5,6 +5,14 @@
 //   return chapel;
 // };
 
+const sumData = (male, female) => {
+  const data = male + female;
+
+  // console.log(data);
+
+  return data;
+};
+
 const extractMonth = (date) => {
   const month = new Date(date);
   return month.toLocaleString(this.locale, { month: "long" });
@@ -17,5 +25,6 @@ const extractYear = (date) => {
 
 module.exports = {
   extractMonth,
-  extractYear
+  extractYear,
+  sumData,
 };
