@@ -19,6 +19,9 @@ const memberSchema = mongoose.Schema({
   chapel: {
     type: String,
   },
+  group: {
+    type: String,
+  },
   age: {
     type: Number,
   },
@@ -78,6 +81,7 @@ const memberSchema = mongoose.Schema({
   previousChurch: {
     type: String,
   },
+
 });
 
 const Member = mongoose.model("Member", memberSchema);

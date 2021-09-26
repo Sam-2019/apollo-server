@@ -40,6 +40,9 @@ const visitorSchema = new mongoose.Schema({
   membership: {
     type: String,
   },
+  group: {
+    type: String,
+  },
 });
 
 const Visitor = mongoose.model("Visitor", visitorSchema);
