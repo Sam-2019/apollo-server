@@ -39,7 +39,8 @@ const typeDefs = gql`
     sundayService: ID
     type: String
     date: String
-    number: Int
+    value: Int
+    group: String
   }
 
   type Department {
@@ -83,6 +84,7 @@ const typeDefs = gql`
     dateJoinedChurch: String
     department: [String]
     previousChurch: String
+    group: String
   }
 
   type MembersFeed {
@@ -114,6 +116,7 @@ const typeDefs = gql`
     dateJoinedChurch: String
     department: [String]
     previousChurch: String
+    group: String
   }
 
   type SundayService {
@@ -213,6 +216,7 @@ const typeDefs = gql`
     membership: String
     monthOfBirth: String
     chapel: String
+    group: String
   }
 
   type VisitorFeed {
@@ -303,6 +307,9 @@ const typeDefs = gql`
     payment(month: String, type: String): [PaymentPayer2]
     countGender: [CountGender]
     countVehicle: [CountVehicle]
+
+    groupStat(type: String): [CountVehicle]
+    sundayStat(type: String): [CountVehicle]
   }
 
   type Mutation {
