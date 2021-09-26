@@ -189,8 +189,31 @@ const payment = async (parent, { month, type }, { models }) => {
   }
 };
 
-const countGender = async (parent, args, { models }) => {
+const countGender = async (parent, { group }, { models }) => {
   let genderData = [];
+
+  if (group != "") {
+    const maleGroup = await models.Member.where("gender", "Male")
+      .where("group", group)
+      .count();
+
+    const femaleGroup = await models.Member.where("gender", "Female")
+      .where("group", group)
+      .count();
+
+    genderData.push(
+      {
+        type: "Male",
+        value: maleGroup,
+      },
+      {
+        type: "Female",
+        value: femaleGroup,
+      }
+    );
+
+    return genderData;
+  }
 
   const male = await models.Member.find({
     gender: "Male",
@@ -213,16 +236,6 @@ const countGender = async (parent, args, { models }) => {
 
   return genderData;
 };
-
-// const groupStat = async (parent, { type }, { models }) => {
-//   let { model, limit } = await groupType(type);
-
-//   try {
-//     return await model.find().limit(limit).sort("-date");
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
 
 const groupStat = async (parent, { type }, { models }) => {
   let adult = [];
@@ -299,7 +312,94 @@ const groupStat = async (parent, { type }, { models }) => {
   }
 };
 
-const sundayStat = async (parent, { type }, { models }) => {
+// const sundayStat = async (parent, { type }, { models }) => {
+//   let adult = [];
+//   let omega = [];
+//   let children = [];
+
+//   let cars = [];
+//   let motors = [];
+//   let bicycles = [];
+
+//   try {
+//     const results = await models.SundayService.find().limit(8).sort("-date");
+
+//     for (result of results) {
+//       const adultData = {
+//         sundayService: result.id,
+//         date: result.date,
+//         type: result.type,
+//         group: "Adult",
+//         value: result.adultMale + result.adultFemale,
+//       };
+
+//       const omegaData = {
+//         sundayService: result.id,
+//         date: result.date,
+//         type: result.type,
+//         group: "Omega",
+//         value: result.omegaMale + result.omegaFemale,
+//       };
+
+//       const childrenData = {
+//         sundayService: result.id,
+//         date: result.date,
+//         type: result.type,
+//         group: "Children",
+//         value: result.childrenBoy + result.childrenGirl,
+//       };
+
+//       const carData = {
+//         sundayService: result.id,
+//         date: result.date,
+//         type: result.type,
+//         group: "Cars",
+//         value: result.cars,
+//       };
+
+//       const motorData = {
+//         sundayService: result.id,
+//         date: result.date,
+//         type: result.type,
+//         group: "Motors",
+//         value: result.motors,
+//       };
+
+//       const bicycleData = {
+//         sundayService: result.id,
+//         date: result.date,
+//         type: result.type,
+//         group: "Bicyles",
+//         value: result.bicycles,
+//       };
+
+//       adult.push(adultData);
+//       omega.push(omegaData);
+//       children.push(childrenData);
+
+//       cars.push(carData);
+//       motors.push(motorData);
+//       bicycles.push(bicycleData);
+//     }
+
+//     if (type === "vehicles") {
+//       return cars.concat(motors, bicycles);
+//     }
+
+//     return adult.concat(omega, children);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
+// get stats for service type
+// first service
+// second service
+// joint service
+
+//vehicles
+
+const sundayStat = async (parent, { type, vehicles }, { models }) => {
   let adult = [];
   let omega = [];
   let children = [];
@@ -309,7 +409,9 @@ const sundayStat = async (parent, { type }, { models }) => {
   let bicycles = [];
 
   try {
-    const results = await models.SundayService.find().limit(8).sort("-date");
+    const results = await models.SundayService.find({ type })
+      .limit(8)
+      .sort("-date");
 
     for (result of results) {
       const adultData = {
@@ -369,7 +471,7 @@ const sundayStat = async (parent, { type }, { models }) => {
       bicycles.push(bicycleData);
     }
 
-    if (type === "vehicles") {
+    if (vehicles === true) {
       return cars.concat(motors, bicycles);
     }
 
