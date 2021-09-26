@@ -306,11 +306,10 @@ const typeDefs = gql`
     department(department: String): [Member]
 
     payment(month: String, type: String): [PaymentPayer2]
-    countGender: [CountGender]
-    countVehicle: [CountVehicle]
+    countGender(group: String): [CountGender]
 
     groupStat(type: String): [CountVehicle]
-    sundayStat(type: String): [CountVehicle]
+    sundayStat(type: String, vehicles: Boolean): [CountVehicle]
   }
 
   type Mutation {
