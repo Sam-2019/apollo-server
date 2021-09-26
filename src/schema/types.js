@@ -81,7 +81,7 @@ const typeDefs = gql`
     spouseName: String
     numberOfChlidren: Int
     nameOfChildren: [String]
-    dateJoinedChurch: String
+    yearJoinedChurch: String
     department: [String]
     previousChurch: String
     group: String
@@ -113,7 +113,7 @@ const typeDefs = gql`
     spouseName: String
     numberOfChlidren: Int
     nameOfChildren: [String]
-    dateJoinedChurch: String
+    yearJoinedChurch: String
     department: [String]
     previousChurch: String
     group: String
@@ -238,6 +238,7 @@ const typeDefs = gql`
     location: String
     membership: String
     monthOfBirth: String
+    group: String
   }
 
   type Pledge {
