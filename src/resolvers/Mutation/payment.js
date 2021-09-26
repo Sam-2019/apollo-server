@@ -1,4 +1,4 @@
-const { paymentType } = require("../../utils/switchPaymentType");
+const { paymentType } = require("../../utils/switchModel");
 
 const addPaymentPayer = async (
   parent,
