@@ -25,6 +25,7 @@ const addMember = async (
       dateJoinedChurch,
       department,
       previousChurch,
+      group
     },
   },
   { models }
@@ -56,6 +57,7 @@ const addMember = async (
       dateJoinedChurch,
       department,
       previousChurch,
+      group,
     });
   } catch (err) {
     console.log(err);
