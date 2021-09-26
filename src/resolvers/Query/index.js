@@ -1,4 +1,4 @@
-const { paymentType } = require("../../utils/switchPaymentType");
+const { paymentType } = require("../../utils/switchModel");
 
 const members = async (parent, args, { models }) => {
   return await models.Member.find();
@@ -191,13 +191,14 @@ const payment = async (parent, { month, type }, { models }) => {
 
 const countGender = async (parent, args, { models }) => {
   let genderData = [];
+
   const male = await models.Member.find({
     gender: "Male",
-  }).estimatedDocumentCount();
+  }).count();
 
   const female = await models.Member.find({
     gender: "Female",
-  }).estimatedDocumentCount();
+  }).count();
 
   genderData.push(
     {
@@ -213,14 +214,169 @@ const countGender = async (parent, args, { models }) => {
   return genderData;
 };
 
-const countVehicle = async (parent, args, { models }) => {
+// const groupStat = async (parent, { type }, { models }) => {
+//   let { model, limit } = await groupType(type);
+
+//   try {
+//     return await model.find().limit(limit).sort("-date");
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
+const groupStat = async (parent, { type }, { models }) => {
+  let adult = [];
+  let omega = [];
+  let children = [];
+
   try {
-    return await models.Vehicle.find();
+    const results = await models.SundayService.find().limit(8).sort("-date");
+
+    for (result of results) {
+      const adultMaleData = {
+        sundayService: result.id,
+        date: result.date,
+        type: result.type,
+        group: "Male",
+        value: result.adultMale,
+      };
+
+      const adultFemaleData = {
+        sundayService: result.id,
+        date: result.date,
+        type: result.type,
+        group: "Female",
+        value: result.adultFemale,
+      };
+      adult.push(adultMaleData, adultFemaleData);
+
+      const omegaMaleData = {
+        sundayService: result.id,
+        date: result.date,
+        type: result.type,
+        group: "Male",
+        value: result.omegaMale,
+      };
+
+      const omegaFemaleData = {
+        sundayService: result.id,
+        date: result.date,
+        type: result.type,
+        group: "Female",
+        value: result.omegaFemale,
+      };
+      omega.push(omegaMaleData, omegaFemaleData);
+
+      const childrenMaleData = {
+        sundayService: result.id,
+        date: result.date,
+        type: result.type,
+        group: "Male",
+        value: result.childrenBoy,
+      };
+
+      const childrenFemaleData = {
+        sundayService: result.id,
+        date: result.date,
+        type: result.type,
+        group: "Female",
+        value: result.childrenGirl,
+      };
+      children.push(childrenMaleData, childrenFemaleData);
+    }
+
+    if (type === "omega") {
+      return omega;
+    }
+
+    if (type === "children") {
+      return children;
+    }
+
+    return adult;
   } catch (err) {
     console.log(err);
   }
+};
 
-  // return VehiclesData;
+const sundayStat = async (parent, { type }, { models }) => {
+  let adult = [];
+  let omega = [];
+  let children = [];
+
+  let cars = [];
+  let motors = [];
+  let bicycles = [];
+
+  try {
+    const results = await models.SundayService.find().limit(8).sort("-date");
+
+    for (result of results) {
+      const adultData = {
+        sundayService: result.id,
+        date: result.date,
+        type: result.type,
+        group: "Adult",
+        value: result.adultMale + result.adultFemale,
+      };
+
+      const omegaData = {
+        sundayService: result.id,
+        date: result.date,
+        type: result.type,
+        group: "Omega",
+        value: result.omegaMale + result.omegaFemale,
+      };
+
+      const childrenData = {
+        sundayService: result.id,
+        date: result.date,
+        type: result.type,
+        group: "Children",
+        value: result.childrenBoy + result.childrenGirl,
+      };
+
+      const carData = {
+        sundayService: result.id,
+        date: result.date,
+        type: result.type,
+        group: "Cars",
+        value: result.cars,
+      };
+
+      const motorData = {
+        sundayService: result.id,
+        date: result.date,
+        type: result.type,
+        group: "Motors",
+        value: result.motors,
+      };
+
+      const bicycleData = {
+        sundayService: result.id,
+        date: result.date,
+        type: result.type,
+        group: "Bicyles",
+        value: result.bicycles,
+      };
+
+      adult.push(adultData);
+      omega.push(omegaData);
+      children.push(childrenData);
+
+      cars.push(carData);
+      motors.push(motorData);
+      bicycles.push(bicycleData);
+    }
+
+    if (type === "vehicles") {
+      return cars.concat(motors, bicycles);
+    }
+
+    return adult.concat(omega, children);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 module.exports = {
@@ -252,5 +408,7 @@ module.exports = {
 
   payment,
   countGender,
-  countVehicle,
+
+  groupStat,
+  sundayStat,
 };
