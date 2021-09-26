@@ -11,7 +11,7 @@ const vehicleSchema = new mongoose.Schema({
   date: {
     type: String,
   },
-  number: {
+  value: {
     type: Number,
   },
 });
