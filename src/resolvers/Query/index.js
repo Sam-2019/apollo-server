@@ -124,6 +124,8 @@ const payment = async (parent, { month, type }, { models }) => {
 
   try {
     let list = [];
+    // const data = await dbModel.find({ month });
+    // console.log(data);
 
     await dbModel.find({ month }).then((results) => {
       for (result of results) {
@@ -135,8 +137,8 @@ const payment = async (parent, { month, type }, { models }) => {
     return list.map(async (element) => {
       return await models.Member.findById(element).then((data) => {
         return {
-          ...data._docs,
-          id: data._id,
+          ...data,
+          id: data.id,
           firstName: data.firstName,
           lastName: data.lastName,
           chapel: data.chapel,
