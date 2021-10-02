@@ -4,7 +4,6 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const depthLimit = require("graphql-depth-limit");
 const { createComplexityLimitRule } = require("graphql-validation-complexity");
-// const helmet = require("helmet");
 
 dotenv.config();
 
