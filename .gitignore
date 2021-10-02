@@ -2,4 +2,12 @@ node_modules
 src/schema/schema.graphql
 yarn-error.log
 .env
+
+
+src/resolvers/Mutation/pvv.js
+src/resolvers/Mutation/mmv.js
+src/resolvers/Mutation/projectOffering.js
+src/resolvers/Mutation/welfare.js
 mutation
+Untitled-1.json
+Untitled-2.json
