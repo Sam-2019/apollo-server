@@ -120,7 +120,6 @@ const department = async (parent, { department }, { models }) => {
 };
 
 const payment = async (parent, { month, type }, { models }) => {
-  //console.log(month);
   let dbModel = await paymentType(type);
 
   try {
@@ -132,8 +131,6 @@ const payment = async (parent, { month, type }, { models }) => {
         list.push(memberIDS);
       }
     });
-
-    // console.log(list);
 
     return list.map(async (element) => {
       return await models.Member.findById(element).then((data) => {
@@ -157,7 +154,6 @@ const payment = async (parent, { month, type }, { models }) => {
     //   });
     // });
 
-    // console.log(house);
     // const data = await dbModel.find({ month }).then((results) =>
     //   results.forEach((element) => {
     //     return models.Member.findById(element.id);
@@ -170,14 +166,11 @@ const payment = async (parent, { month, type }, { models }) => {
     //   _id: data._id,
     // });
 
-    // console.log(reviews);
-
     // async function getName() {
     //   const name = await models.Member.find({
     //     _id: result._id,
     //   });
 
-    //   console.log(name);
     // }
 
     // getName();
@@ -185,7 +178,7 @@ const payment = async (parent, { month, type }, { models }) => {
     //   month: { $regex: month, $options: "i" },
     // });
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -308,7 +301,7 @@ const groupStat = async (parent, { type }, { models }) => {
 
     return adult;
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -388,7 +381,7 @@ const groupStat = async (parent, { type }, { models }) => {
 
 //     return adult.concat(omega, children);
 //   } catch (err) {
-//     console.log(err);
+//     console.error(err);
 //   }
 // };
 
@@ -477,7 +470,7 @@ const sundayStat = async (parent, { type, vehicles }, { models }) => {
 
     return adult.concat(omega, children);
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
