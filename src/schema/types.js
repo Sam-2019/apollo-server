@@ -340,11 +340,11 @@ const typeDefs = gql`
 
     addVisitor(input: AddVisitor): Visitor
     deleteVisitor(id: ID): Payload
-    updateVisitor(id: ID, input: AddVisitor): Payload
+    updateVisitor(id: ID, input: AddVisitor): Visitor
 
     addPledge(input: AddPledge): Pledge
     deletePledge(id: ID): Payload
-    updatePledge(id: ID, input: AddPledge): Payload
+    updatePledge(id: ID, input: AddPledge): Pledge
   }
 `;
 
