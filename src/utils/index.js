@@ -8,8 +8,6 @@
 const sumData = (male, female) => {
   const data = male + female;
 
-  // console.log(data);
-
   return data;
 };
 
