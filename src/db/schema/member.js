@@ -81,7 +81,6 @@ const memberSchema = mongoose.Schema({
   previousChurch: {
     type: String,
   },
-  projectOffering: [{ type: mongoose.ObjectId, ref: "ProjectOffering" }],
 });
 
 const Member = mongoose.model("Member", memberSchema);
