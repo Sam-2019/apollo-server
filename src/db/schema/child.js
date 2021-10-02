@@ -1,12 +1,10 @@
 const mongoose = require("mongoose");
 
 const childSchema = new mongoose.Schema({
-  firstName: {
+  name: {
     type: String,
   },
-  lastName: {
-    type: String,
-  },
+
 });
 
 const Child = mongoose.model("Child", childSchema);
