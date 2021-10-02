@@ -2,9 +2,8 @@ const mongoose = require("mongoose");
 
 const pvvSchema = new mongoose.Schema({
   memberID: {
-    // type: mongoose.Schema.Types.ObjectId,
-    // ref: "Member",
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Member",
   },
   month: {
     type: String,
