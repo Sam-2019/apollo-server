@@ -38,7 +38,6 @@ const groupType = async (type) => {
   switch (type) {
     case "adult":
       model = models.Adult;
-      
       break;
 
     case "omega":
@@ -64,7 +63,7 @@ const groupType = async (type) => {
 
   return {
     model,
-    limit
+    limit,
   };
 };
 
