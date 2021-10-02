@@ -39,34 +39,62 @@ const addVisitor = async (
       chapel,
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 const deleteVisitor = async (parent, { id }, { models }) => {
   try {
     return await models.Visitor.findByIdAndDelete(id);
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 const updateVisitor = async (
   parent,
-  { id, input: { firstName } },
+  {
+    id,
+    input: {
+      ageGroup,
+      awarenessChannel,
+      awarenessChannelOther,
+      contact,
+      date,
+      firstName,
+      invitedBy,
+      knowingChrist,
+      lastName,
+      location,
+      membership,
+      monthOfBirth,
+    },
+  },
   { models }
 ) => {
-  console.log(id);
   try {
     return await models.Visitor.findByIdAndUpdate(
       id,
       {
-        $set: { firstName },
+        $set: {
+          ageGroup,
+          awarenessChannel,
+          awarenessChannelOther,
+          contact,
+          date,
+          firstName,
+          invitedBy,
+          knowingChrist,
+          lastName,
+          location,
+          membership,
+          monthOfBirth,
+        },
       },
       {
         new: true,
       }
     );
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 

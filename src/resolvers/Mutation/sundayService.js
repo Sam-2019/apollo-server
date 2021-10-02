@@ -48,7 +48,7 @@ const addSundayService = async (
       type,
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -56,7 +56,7 @@ const deleteSundayService = async (parent, { id }, { models }) => {
   try {
     return await models.SundayService.findByIdAndDelete(id);
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -76,7 +76,7 @@ const updateSundayService = async (
       }
     );
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 

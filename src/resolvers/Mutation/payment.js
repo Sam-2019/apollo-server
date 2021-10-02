@@ -19,7 +19,7 @@ const addPaymentPayer = async (
     }
     return "Success";
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -29,7 +29,7 @@ const deletePaymentPayer = async (parent, { id, type }, { models }) => {
   try {
     return await dbModel.findByIdAndDelete(id);
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -50,7 +50,7 @@ const updatePaymentPayer = async (
       }
     );
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 

@@ -25,7 +25,7 @@ const addMember = async (
       dateJoinedChurch,
       department,
       previousChurch,
-      group
+      group,
     },
   },
   { models }
@@ -60,38 +60,91 @@ const addMember = async (
       group,
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
+
 const deleteMember = async (parent, { id }, { models }) => {
   try {
     return await models.Member.findByIdAndDelete(id);
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
+
 const updateMember = async (
   parent,
-  { id, input: { firstName, age } },
+  {
+    id,
+    input: {
+      firstName,
+      lastName,
+      otherName,
+      dateOfBirth,
+      chapel,
+      age,
+      gender,
+      hometown,
+      region,
+      country,
+      residentialAddress,
+      contact,
+      emergencyContact,
+      emailAddress,
+      postalAddress,
+      maritalStatus,
+      spouseName,
+      numberOfChlidren,
+      nameOfChildren,
+      dateJoinedChurch,
+      department,
+      previousChurch,
+      group,
+    },
+  },
   { models }
 ) => {
   try {
     return await models.Member.findByIdAndUpdate(
       id,
       {
-        $set: { firstName, age },
+        $set: {
+          firstName,
+          lastName,
+          otherName,
+          dateOfBirth,
+          chapel,
+          age,
+          gender,
+          hometown,
+          region,
+          country,
+          residentialAddress,
+          contact,
+          emergencyContact,
+          emailAddress,
+          postalAddress,
+          maritalStatus,
+          spouseName,
+          numberOfChlidren,
+          nameOfChildren,
+          dateJoinedChurch,
+          department,
+          previousChurch,
+          group,
+        },
       },
       {
         new: true,
       }
     );
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
+
 const uploadImage = async (parent, { input: { id, imageURL } }, { models }) => {
   try {
-    //  console.log(id, imageURL);
     return await models.Member.findByIdAndUpdate(
       id,
       {
@@ -102,7 +155,7 @@ const uploadImage = async (parent, { input: { id, imageURL } }, { models }) => {
       }
     );
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
