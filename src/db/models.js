@@ -1,4 +1,3 @@
-const Child = require("./schema/child");
 const Member = require("./schema/member");
 const SundayService = require("./schema/sundayService");
 const Tithe = require("./schema/tithe");
@@ -13,7 +12,6 @@ const ProjectOffering = require("./schema/project offering");
 const Vehicle = require("./schema/vehicle");
 
 const models = {
-  Child,
   Member,
   SundayService,
   Tithe,
