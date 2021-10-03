@@ -7,9 +7,9 @@ const { createComplexityLimitRule } = require("graphql-validation-complexity");
 
 dotenv.config();
 
-require("./db");
-const models = require("./db/models");
-const schema = require("./schema");
+require("./src/db");
+const models = require("./src/db/models");
+const schema = require("./src/schema");
 
 const app = express();
 app.use("*", cors());
