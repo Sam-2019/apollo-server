@@ -4,7 +4,6 @@ const childSchema = new mongoose.Schema({
   name: {
     type: String,
   },
-
 });
 
 const Child = mongoose.model("Child", childSchema);
