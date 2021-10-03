@@ -21,7 +21,7 @@
     "graphql-iso-date": "^3.6.1",
     "graphql-validation-complexity": "^0.4.2",
     "helmet": "^4.6.0",
-    "mongoose": "^6.0.3"
+    "mongoose": "^6.0.8"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
