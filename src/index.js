@@ -14,6 +14,7 @@ const schema = require("./schema");
 const app = express();
 app.use("*", cors());
 
+
 const server = new ApolloServer({
   schema,
   validationRules: [depthLimit(5), createComplexityLimitRule(1000)],
@@ -24,12 +25,13 @@ const server = new ApolloServer({
 
 async function data() {
   await server.start();
+
   server.applyMiddleware({ app, path: "/graphql" });
 }
 
 data();
 
-const port = process.env.PORT;
+const port = process.env.PORT || 4000;
 
 app.listen({ port }, () => {
   console.log(
