@@ -29,7 +29,7 @@ async function data() {
 
 data();
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT;
 
 app.listen({ port }, () => {
   console.log(
