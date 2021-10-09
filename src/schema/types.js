@@ -183,11 +183,6 @@ const typeDefs = gql`
   }
 
   type PaymentPayer {
-    memberID: ID
-    month: String
-  }
-
-  type PaymentPayer2 {
     id: ID
     firstName: String
     lastName: String
@@ -278,6 +273,12 @@ const typeDefs = gql`
     bicycles: Int
   }
 
+  type VehiclesFeed {
+    vehicles: [Vehicles]
+    cursor: String
+    hasNextPage: Boolean
+  }
+
   input AddVehicles {
     cars: Int
     motors: Int
@@ -316,11 +317,12 @@ const typeDefs = gql`
     mmvFeed(cursor: String): [PaymentFeed]
 
     vehicles: [Vehicles]
+    vehiclesFeed(cursor: String): [VehiclesFeed]
 
     chapel(chapel: String): [Member]
     department(department: String): [Member]
 
-    payment(month: String, type: String): [PaymentPayer2]
+    payment(month: String, type: String): [PaymentPayer]
     countGender(group: String): [CountGender]
 
     groupStat(type: String): [CountVehicle]
