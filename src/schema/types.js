@@ -279,7 +279,6 @@ const typeDefs = gql`
   }
 
   input AddVehicles {
-    sundayService: ID
     cars: Int
     motors: Int
     bicycles: Int
