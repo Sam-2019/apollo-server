@@ -271,6 +271,20 @@ const typeDefs = gql`
     amount: Int
   }
 
+  type Vehicles {
+    sundayService: ID
+    cars: Int
+    motors: Int
+    bicycles: Int
+  }
+
+  input AddVehicles {
+    sundayService: ID
+    cars: Int
+    motors: Int
+    bicycles: Int
+  }
+
   type Query {
     members: [Member]
     membersFeed(cursor: String): [MembersFeed]
@@ -301,6 +315,8 @@ const typeDefs = gql`
 
     mmv: [Payment]
     mmvFeed(cursor: String): [PaymentFeed]
+
+    vehicles: [Vehicles]
 
     chapel(chapel: String): [Member]
     department(department: String): [Member]
@@ -345,6 +361,10 @@ const typeDefs = gql`
     addPledge(input: AddPledge): Pledge
     deletePledge(id: ID): Payload
     updatePledge(id: ID, input: AddPledge): Pledge
+
+    addVehicles(input: AddVehicles): Vehicles
+    deleteVehicles(id: ID): Payload
+    updateVehicles(id: ID, input: AddVehicles): Vehicles
   }
 `;
 

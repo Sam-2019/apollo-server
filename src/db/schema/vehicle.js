@@ -5,15 +5,16 @@ const vehicleSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "SundayService",
   },
-  type: {
-    type: String,
-  },
-  date: {
-    type: String,
-  },
-  value: {
+  cars: {
     type: Number,
   },
+  motors: {
+    type: Number,
+  },
+  bicycles: {
+    type: Number,
+  },
+  timestamps: { createdAt: Date, updatedAt: Date },
 });
 
 const Vehicle = mongoose.model("Vehicle", vehicleSchema);

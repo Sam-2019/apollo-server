@@ -476,6 +476,10 @@ const sundayStat = async (parent, { type, vehicles }, { models }) => {
   }
 };
 
+const vehicles = async (parent, { id }, { models }) => {
+  return await models.Vehicle.find()
+};
+
 module.exports = {
   members,
   membersFeed,
@@ -502,6 +506,7 @@ module.exports = {
   sundayServiceFeed,
   chapel,
   department,
+  vehicles,
 
   payment,
   countGender,
