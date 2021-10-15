@@ -185,51 +185,17 @@ const payment = async (parent, { month, type }, { models }) => {
 };
 
 const countGender = async (parent, { group }, { models }) => {
-  let genderData = [];
-
-  if (group != "") {
-    const maleGroup = await models.Member.where("gender", "Male")
-      .where("group", group)
-      .count();
-
-    const femaleGroup = await models.Member.where("gender", "Female")
-      .where("group", group)
-      .count();
-
-    genderData.push(
-      {
-        type: "Male",
-        value: maleGroup,
+  const data = await models.Member.aggregate([
+    { $match: {} },
+    {
+      $group: {
+        _id: "$gender",
+        count: { $count: "$gender" },
       },
-      {
-        type: "Female",
-        value: femaleGroup,
-      }
-    );
-
-    return genderData;
-  }
-
-  const male = await models.Member.find({
-    gender: "Male",
-  }).count();
-
-  const female = await models.Member.find({
-    gender: "Female",
-  }).count();
-
-  genderData.push(
-    {
-      type: "Male",
-      value: male,
     },
-    {
-      type: "Female",
-      value: female,
-    }
-  );
+  ]);
 
-  return genderData;
+  console.log(data);
 };
 
 const groupStat = async (parent, { type }, { models }) => {
@@ -477,7 +443,7 @@ const sundayStat = async (parent, { type, vehicles }, { models }) => {
 };
 
 const vehicles = async (parent, { id }, { models }) => {
-  return await models.Vehicle.find()
+  return await models.Vehicle.find();
 };
 
 module.exports = {
