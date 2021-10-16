@@ -31,8 +31,8 @@ const typeDefs = gql`
   }
 
   type CountGender {
-    type: String
-    value: Int
+    _id: String
+    count: Int
   }
 
   type CountVehicle {

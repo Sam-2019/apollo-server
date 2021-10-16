@@ -185,17 +185,34 @@ const payment = async (parent, { month, type }, { models }) => {
 };
 
 const countGender = async (parent, { group }, { models }) => {
-  const data = await models.Member.aggregate([
-    { $match: {} },
+  if (group != "") {
+    const groupData = await models.Member.aggregate([
+      {
+        $match: {
+          group,
+        },
+      },
+      {
+        $group: {
+          _id: "$gender",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    return groupData;
+  }
+
+  const gender = await models.Member.aggregate([
     {
       $group: {
         _id: "$gender",
-        count: { $count: "$gender" },
+        count: { $sum: 1 },
       },
     },
   ]);
 
-  console.log(data);
+  return gender;
 };
 
 const groupStat = async (parent, { type }, { models }) => {
