@@ -185,34 +185,51 @@ const payment = async (parent, { month, type }, { models }) => {
 };
 
 const countGender = async (parent, { group }, { models }) => {
-  if (group != "") {
-    const groupData = await models.Member.aggregate([
-      {
-        $match: {
-          group,
-        },
-      },
-      {
-        $group: {
-          _id: "$gender",
-          count: { $sum: 1 },
-        },
-      },
-    ]);
+  let genderData = [];
 
-    return groupData;
+  if (group != "") {
+    const maleGroup = await models.Member.where("gender", "Male")
+      .where("group", group)
+      .count();
+
+    const femaleGroup = await models.Member.where("gender", "Female")
+      .where("group", group)
+      .count();
+
+    genderData.push(
+      {
+        type: "Male",
+        value: maleGroup,
+      },
+      {
+        type: "Female",
+        value: femaleGroup,
+      }
+    );
+
+    return genderData;
   }
 
-  const gender = await models.Member.aggregate([
-    {
-      $group: {
-        _id: "$gender",
-        count: { $sum: 1 },
-      },
-    },
-  ]);
+  const male = await models.Member.find({
+    gender: "Male",
+  }).count();
 
-  return gender;
+  const female = await models.Member.find({
+    gender: "Female",
+  }).count();
+
+  genderData.push(
+    {
+      type: "Male",
+      value: male,
+    },
+    {
+      type: "Female",
+      value: female,
+    }
+  );
+
+  return genderData;
 };
 
 const groupStat = async (parent, { type }, { models }) => {
