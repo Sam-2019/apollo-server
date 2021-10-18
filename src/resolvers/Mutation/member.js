@@ -1,4 +1,5 @@
 const { extractMonth, extractYear } = require("../../utils/index");
+const { sendMail } = require("../../utils/nodemailer");
 
 const addMember = async (
   parent,
@@ -33,7 +34,7 @@ const addMember = async (
   const chapel = extractMonth(dateOfBirth);
 
   try {
-    return await models.Member.create({
+    const saveData = await models.Member.create({
       firstName,
       lastName,
       otherName,
@@ -59,6 +60,14 @@ const addMember = async (
       previousChurch,
       group,
     });
+
+    if (saveData != null && emailAddress) {
+      sendMail(emailAddress)
+        .then((result) => console.log("Email sent....", result))
+        .catch((err) => console.log(err));
+    } else {
+      return null;
+    }
   } catch (err) {
     console.error(err);
   }
