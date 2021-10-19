@@ -6,6 +6,7 @@ const {
   USER_EMAIL,
   CLIENT_SECRET,
   REFRESH_TOKEN,
+  USER_NAME,
 } = require("./config");
 
 const oAuth2Client = new google.auth.OAuth2(
@@ -15,7 +16,7 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
-const sendMail = async ({ email }) => {
+const sendMail = async (emailAddress) => {
   try {
     const accessToken = await oAuth2Client.getAccessToken();
 
@@ -33,10 +34,10 @@ const sendMail = async ({ email }) => {
 
     const mailOptions = {
       from: `${USER_NAME} <${USER_EMAIL}>`,
-      to: email,
-      subject: "Hello gmail using API",
-      text: "Hello gmail using API",
-      html: "<h1>Hello gmail using API</h1>",
+      to: emailAddress,
+      subject: "Membership",
+      text: "Welcome to Elim",
+      html: "<h1>Welcome to Elim</h1>",
     };
 
     const result = await transport.sendMail(mailOptions);
