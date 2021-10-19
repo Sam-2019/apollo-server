@@ -61,12 +61,8 @@ const addMember = async (
       group,
     });
 
-    if (saveData != null && emailAddress) {
-      sendMail(emailAddress)
-        .then((result) => console.log("Email sent....", result))
-        .catch((err) => console.log(err));
-    } else {
-      return null;
+    if (saveData.emailAddress) {
+      return sendMail(emailAddress);
     }
   } catch (err) {
     console.error(err);
