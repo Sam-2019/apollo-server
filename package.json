@@ -1,5 +1,5 @@
 {
-  "name": "apollo-server",
+  "name": "apollo-server-app",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -9,23 +9,25 @@
   },
   "dependencies": {
     "@graphql-tools/schema": "^8.2.0",
-    "apollo-server": "^3.3.0",
+    "apollo-server": "^3.4.0",
     "apollo-server-core": "^3.3.0",
     "apollo-server-express": "^3.3.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "googleapis": "^88.2.0",
-    "graphql": "^15.5.2",
+    "googleapis": "^89.0.0",
+    "graphql": "^15.6.1",
     "graphql-depth-limit": "^1.1.0",
     "graphql-import-node": "^0.0.4",
     "graphql-iso-date": "^3.6.1",
     "graphql-validation-complexity": "^0.4.2",
     "helmet": "^4.6.0",
-    "mongoose": "^6.0.8",
-    "nodemailer": "^6.7.0"
+    "ioredis": "^4.28.0",
+    "mongoose": "^6.0.12",
+    "nodemailer": "^6.7.0",
+    "redis": "^3.1.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.14"
   }
 }
