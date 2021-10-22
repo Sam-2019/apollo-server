@@ -4,9 +4,10 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const depthLimit = require("graphql-depth-limit");
 const { createComplexityLimitRule } = require("graphql-validation-complexity");
+const redis_server = require('./redis')
 
 dotenv.config();
-
+// console.log(redis_server)
 require("./src/db");
 const models = require("./src/db/models");
 const schema = require("./src/schema");
