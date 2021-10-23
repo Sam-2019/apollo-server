@@ -4,17 +4,19 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const depthLimit = require("graphql-depth-limit");
 const { createComplexityLimitRule } = require("graphql-validation-complexity");
-const redis_server = require('./redis')
+const { redisClient } = require("./src/utils/redis");
 
 dotenv.config();
-// console.log(redis_server)
+redisClient;
+
 require("./src/db");
+require("./src/utils/schedule_job");
+
 const models = require("./src/db/models");
 const schema = require("./src/schema");
 
 const app = express();
 app.use("*", cors());
-
 
 const server = new ApolloServer({
   schema,
