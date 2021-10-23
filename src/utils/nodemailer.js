@@ -16,7 +16,7 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
-const sendMail = async (emailAddress) => {
+const sendMail = async (name, email) => {
   try {
     const accessToken = await oAuth2Client.getAccessToken();
 
@@ -34,14 +34,14 @@ const sendMail = async (emailAddress) => {
 
     const mailOptions = {
       from: `${USER_NAME} <${USER_EMAIL}>`,
-      to: emailAddress,
+      to: email,
       subject: "Membership",
-      text: "Welcome to Elim",
-      html: "<h1>Welcome to Elim</h1>",
+      text: `Hello ${name}`,
+      html: `<h1>Hello ${name}</h1>
+      <p>Welcome to Elim Temple</p>`,
     };
 
-    const result = await transport.sendMail(mailOptions);
-    return result;
+    return await transport.sendMail(mailOptions);
   } catch (error) {
     return error;
   }
