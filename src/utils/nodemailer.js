@@ -41,7 +41,9 @@ const sendMail = async (name, email) => {
       <p>Welcome to Elim Temple</p>`,
     };
 
-    return await transport.sendMail(mailOptions);
+    const response = transport.sendMail(mailOptions);
+
+    return response
   } catch (error) {
     return error;
   }
