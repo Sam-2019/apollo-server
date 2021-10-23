@@ -1,5 +1,5 @@
 const { extractMonth, extractYear } = require("../../utils/index");
-const { sendMail } = require("../../utils/nodemailer");
+const { writeRedis } = require("../../utils/redis");
 
 const addMember = async (
   parent,
@@ -61,9 +61,10 @@ const addMember = async (
       group,
     });
 
-    if (saveData.emailAddress) {
-      return sendMail(emailAddress);
+    if (saveData.emailAddress != "") {
+      writeRedis(`${firstName} ${lastName}`, emailAddress);
     }
+
   } catch (err) {
     console.error(err);
   }
