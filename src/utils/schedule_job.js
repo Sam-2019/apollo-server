@@ -5,6 +5,10 @@ const { sendMail } = require("./nodemailer");
 const mailer = async (data) => {
   let response = [];
 
+  if (data === undefined) {
+    return console.error("No data");
+  }
+
   for (member of data) {
     const info = await sendMail(member.name, member.email);
 
@@ -16,7 +20,7 @@ const mailer = async (data) => {
   try {
     if (data.length === response.length) {
       redisClient.expire("h3", 600);
-      return "Success";
+      console.error("Success");
     }
   } catch (err) {
     return err;
