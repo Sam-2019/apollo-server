@@ -6,6 +6,12 @@ const USER_EMAIL = process.env.USER_EMAIL;
 const USER_NAME = process.env.USER_EMAIL;
 const RECEPIENTS_EMAIL = process.env.RECEPIENTS_EMAIL;
 
+const REDIS_HOST = process.env.REDIS_HOST;
+const REDIS_PORT = process.env.REDIS_PORT;
+const REDIS_PASSWORD = process.env.REDIS_PASSWORD;
+
+const DB_URI = process.env.DB_URI;
+
 module.exports = {
   CLIENT_ID,
   CLIENT_SECRET,
@@ -14,4 +20,8 @@ module.exports = {
   USER_EMAIL,
   USER_NAME,
   RECEPIENTS_EMAIL,
+  REDIS_HOST,
+  REDIS_PORT,
+  REDIS_PASSWORD,
+  DB_URI,
 };

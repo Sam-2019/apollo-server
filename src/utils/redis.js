@@ -1,9 +1,10 @@
 const Redis = require("ioredis");
+const { REDIS_HOST, REDIS_PORT } = require("./config");
 
 const redisClient = new Redis({
-  host: process.env.REDIS_HOST,
-  port: process.env.REDIS_PORT,
-  // password: process.env.REDIS_PASSWORD,
+  host: REDIS_HOST,
+  port: REDIS_PORT,
+  // password: REDIS_PASSWORD
 });
 
 Redis.Command.setReplyTransformer("hgetall", (result) => {

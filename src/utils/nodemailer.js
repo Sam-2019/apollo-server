@@ -43,7 +43,7 @@ const sendMail = async (name, email) => {
 
     const response = transport.sendMail(mailOptions);
 
-    return response
+    return response;
   } catch (error) {
     return error;
   }

@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+const { DB_URI } = require("../utils/config");
 
-const mongoURI = process.env.DB_URI;
+const mongoURI = DB_URI;
 
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
