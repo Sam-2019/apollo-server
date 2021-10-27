@@ -15,8 +15,9 @@ Redis.Command.setReplyTransformer("hgetall", (result) => {
   return arr;
 });
 
-function writeRedis(name, email) {
-  if (name) redisClient.hset("h3", name, email);
+function writeRedis(key, name, email) {
+  if (!key && !name && !email) return console.error("Can't write redis");
+  if (key && name && email) redisClient.hset(key, name, email);
 }
 
 writeRedis();

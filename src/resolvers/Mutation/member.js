@@ -62,9 +62,8 @@ const addMember = async (
     });
 
     if (saveData.emailAddress != "") {
-      writeRedis(`${firstName} ${lastName}`, emailAddress);
+      writeRedis("h3", `${firstName} ${lastName}`, emailAddress);
     }
-
   } catch (err) {
     console.error(err);
   }
