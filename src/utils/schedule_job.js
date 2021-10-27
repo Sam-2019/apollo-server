@@ -22,6 +22,8 @@ const mailer = async (data) => {
       redisClient.expire("h3", 600);
       console.error("Success");
     }
+
+    return console.error("failed");
   } catch (err) {
     return err;
   }
