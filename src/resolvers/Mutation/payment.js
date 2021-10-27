@@ -17,6 +17,14 @@ const addPaymentPayer = async (
     if (!data) {
       return "Error";
     }
+
+    if (data.memberID && type === "tithe") {
+      //take memberID
+      //find member firstName, lastName and email
+      //save details in redis
+      //send payment alert after sunday
+    }
+
     return "Success";
   } catch (err) {
     console.error(err);
