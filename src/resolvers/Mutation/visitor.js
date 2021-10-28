@@ -23,7 +23,7 @@ const addVisitor = async (
   const chapel = extractMonth(monthOfBirth);
 
   try {
-    return await models.Visitor.create({
+    const saveData = await models.Visitor.create({
       ageGroup,
       awarenessChannel,
       awarenessChannelOther,
@@ -38,6 +38,10 @@ const addVisitor = async (
       monthOfBirth,
       chapel,
     });
+
+    if (saveData.emailAddress != "") {
+      writeRedis("visitor", `${firstName} ${lastName}`, emailAddress);
+    }
   } catch (err) {
     console.error(err);
   }
