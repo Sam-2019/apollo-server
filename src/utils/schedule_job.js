@@ -2,7 +2,7 @@ const cron = require("node-cron");
 const { redisClient } = require("./redis");
 const { sendMail } = require("./nodemailer");
 
-const mailer = async (data) => {
+const mailer = async (data, key) => {
   let response = [];
 
   if (data === undefined) {
@@ -18,7 +18,12 @@ const mailer = async (data) => {
   }
 
   try {
-    if (data.length === response.length) {
+    if (key === "member" && data.length === response.length) {
+      redisClient.expire("h3", 600);
+      console.error("Success");
+    }
+
+    if (key === "visitor" && data.length === response.length) {
       redisClient.expire("h3", 600);
       console.error("Success");
     }
@@ -30,11 +35,21 @@ const mailer = async (data) => {
 };
 
 cron.schedule("0 10 * * * 2", async function () {
-  redisClient.hgetall("h3", async (err, result) => {
+  const memberKey = "h3";
+  const visitorKey = "visitor";
+
+  redisClient.hgetall(memberKey, async (err, result) => {
     if (err) return err;
     if (result.length === 0) return null;
 
-    return mailer(result);
+    return mailer(result, memberKey);
+  });
+
+  redisClient.hgetall(visitorKey, async (err, result) => {
+    if (err) return err;
+    if (result.length === 0) return null;
+
+    return mailer(result, visitorKey);
   });
 });
 
