@@ -13,8 +13,8 @@ Project is created with:
 - [MongoDB](https://graphql.org/) classified as a NoSQL database program, MongoDB stores data in JSON-like documents.
 - [Mongoose](https://mongoosejs.com/) mongoose provides a straight-forward, schema-based solution to model your application data.
 - [Nodemailer](https://nodemailer.com/about) module for Node.js applications to allow easy as cake email sending.
-- [Redis](https://mongoosejs.com/) open source (BSD licensed), in-memory data structure store, used as a database, cache, and message broker.
-- [Node-cron](https://mongoosejs.com/) module allows you to schedule task in node.js using full crontab syntax.
-- [Googleapis](https://mongoosejs.com/) client library for using Google APIs.
+- [Redis](https://redis.io//) open source (BSD licensed), in-memory data structure store, used as a database, cache, and message broker.
+- [Node-cron](https://www.npmjs.com/package/node-cron/) module allows you to schedule task in node.js using full crontab syntax.
+- [Googleapis](https://www.npmjs.com/package/googleapis/) client library for using Google APIs.
 
 Distributed under the MIT License. See `LICENSE` for more information.
