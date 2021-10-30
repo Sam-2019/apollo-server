@@ -1,7 +1,5 @@
 # apollo-server
 
-## General Info
-
 ## Technologies
 
 Project is created with:
