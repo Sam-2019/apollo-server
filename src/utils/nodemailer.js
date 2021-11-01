@@ -1,5 +1,6 @@
 const { google } = require("googleapis");
 const nodemailer = require("nodemailer");
+const previewEmail = require('preview-email');
 const {
   CLIENT_ID,
   REDIRECT_URI,
@@ -30,6 +31,7 @@ const sendMail = async (name, email) => {
         refreshToken: REFRESH_TOKEN,
         accessToken: accessToken,
       },
+      jsonTransport: true,
     });
 
     const mailOptions = {
@@ -41,9 +43,9 @@ const sendMail = async (name, email) => {
       <p>Welcome to Elim Temple</p>`,
     };
 
-    const response = transport.sendMail(mailOptions);
-
-    return response;
+    previewEmail(mailOptions).then(console.log).catch(console.error);
+    // const response = transport.sendMail(mailOptions);
+    // return response;
   } catch (error) {
     return error;
   }
