@@ -1,6 +1,6 @@
 const { google } = require("googleapis");
 const nodemailer = require("nodemailer");
-const previewEmail = require('preview-email');
+const previewEmail = require("preview-email");
 const {
   CLIENT_ID,
   REDIRECT_URI,
@@ -43,14 +43,35 @@ const sendMail = async (name, email) => {
       <p>Welcome to Elim Temple</p>`,
     };
 
-    previewEmail(mailOptions).then(console.log).catch(console.error);
-    // const response = transport.sendMail(mailOptions);
-    // return response;
+    // previewEmail(mailOptions).then(console.log).catch(console.error);
+    const response = transport.sendMail(mailOptions);
+    return response;
   } catch (error) {
     return error;
   }
 };
 
+const mailer = async (data) => {
+  let response = [];
+
+  if (data === undefined) {
+    return console.error("No data");
+  }
+
+  if (data.length === 0) {
+    return console.error("No data");
+  }
+
+  for (member of data) {
+    const info = await sendMail(member.name, member.email);
+
+    if (info.response.includes("OK")) {
+      response.push("Mail sent");
+    }
+  }
+};
+
 module.exports = {
   sendMail,
+  mailer,
 };

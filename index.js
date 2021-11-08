@@ -10,7 +10,7 @@ dotenv.config();
 redisClient;
 
 require("./src/db");
-require("./src/utils/schedule_job");
+require("./src/utils/scheduledJobs");
 
 const models = require("./src/db/models");
 const schema = require("./src/schema");
@@ -28,7 +28,6 @@ const server = new ApolloServer({
 
 async function data() {
   await server.start();
-
   server.applyMiddleware({ app, path: "/graphql" });
 }
 
