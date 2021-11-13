@@ -20,6 +20,28 @@ function writeRedis(key, name, email) {
   if (key && name && email) redisClient.hset(key, name, email);
 }
 
-writeRedis();
+const expireRedisItem = (key, data, response) => {
+  if (key === undefined || data === undefined) return console.error("No data");
+  if (key.length === 0 || data.length === 0) return console.error("No data");
 
-module.exports = { redisClient, writeRedis };
+  if (data.length === response.length) {
+    redisClient.expire(key, 600);
+    return "Expiration successful";
+  }
+};
+
+const getEmailsFromRedisAndSend = (key) => {
+  redisClient.hgetall(key, async (err, result) => {
+    if (err) return err;
+    if (result.length === 0) return null;
+
+    return mailer(result, key);
+  });
+};
+
+module.exports = {
+  redisClient,
+  writeRedis,
+  expireRedisItem,
+  getEmailsFromRedisAndSend,
+};
