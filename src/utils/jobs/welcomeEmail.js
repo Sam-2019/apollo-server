@@ -1,4 +1,4 @@
-const { redisClient } = require("./redis");
+const { redisClient, getEmailsFromRedisAndSend } = require("./redis");
 const { mailer } = require("./nodemailer");
 
 const memberKey = "h3";
