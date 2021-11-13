@@ -16,8 +16,8 @@ Redis.Command.setReplyTransformer("hgetall", (result) => {
 });
 
 function writeRedis(key, name, email) {
-  if (!key && !name && !email) return console.error("Can't write redis");
-  if (key && name && email) redisClient.hset(key, name, email);
+  if (!key && !name && !email) return console.error("No data");
+  return redisClient.hset(key, name, email);
 }
 
 const expireRedisItem = (key, data, response) => {
