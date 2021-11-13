@@ -1,11 +1,18 @@
 const cron = require("node-cron");
-const { redisClient } = require("./redis");
+const {
+  expireRedisItem,
+  getEmailsFromRedisAndSend,
+} = require("./redis");
 const { sendMail } = require("./nodemailer");
 
 const mailer = async (data, key) => {
   let response = [];
 
   if (data === undefined) {
+    return console.error("No data");
+  }
+
+  if (data.length === 0) {
     return console.error("No data");
   }
 
@@ -18,17 +25,9 @@ const mailer = async (data, key) => {
   }
 
   try {
-    if (key === "member" && data.length === response.length) {
-      redisClient.expire("h3", 600);
-      console.error("Success");
-    }
+    const feedback = expireRedisItem(member, data, response);
 
-    if (key === "visitor" && data.length === response.length) {
-      redisClient.expire("h3", 600);
-      console.error("Success");
-    }
-
-    return console.error("failed");
+    return feedback;
   } catch (err) {
     return err;
   }
@@ -38,19 +37,16 @@ cron.schedule("0 10 * * * 2", async function () {
   const memberKey = "h3";
   const visitorKey = "visitor";
 
-  redisClient.hgetall(memberKey, async (err, result) => {
-    if (err) return err;
-    if (result.length === 0) return null;
+  getEmailsFromRedisAndSend(memberKey);
 
-    return mailer(result, memberKey);
-  });
+  getEmailsFromRedisAndSend(visitorKey);
 
-  redisClient.hgetall(visitorKey, async (err, result) => {
-    if (err) return err;
-    if (result.length === 0) return null;
+  // redisClient.hgetall(visitorKey, async (err, result) => {
+  //   if (err) return err;
+  //   if (result.length === 0) return null;
 
-    return mailer(result, visitorKey);
-  });
+  //   return mailer(result, visitorKey);
+  // });
 });
 
 // https://www.geeksforgeeks.org/how-to-run-cron-jobs-in-node-js/
