@@ -17,3 +17,7 @@ redisClient.hgetall(visitorKey, async (err, result) => {
 
   return mailer(result, visitorKey);
 });
+
+getEmailsFromRedisAndSend(memberKey);
+
+getEmailsFromRedisAndSend(visitorKey);
