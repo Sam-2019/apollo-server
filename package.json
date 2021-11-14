@@ -10,7 +10,8 @@
   "dependencies": {
     "@graphql-tools/schema": "^8.2.0",
     "apollo-server": "^3.4.0",
-    "apollo-server-core": "^3.3.0",
+    "apollo-server-cache-redis": "^3.3.0",
+    "apollo-server-core": "^3.5.0",
     "apollo-server-express": "^3.3.0",
     "consolidate": "^0.16.0",
     "cors": "^2.8.5",
