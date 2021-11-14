@@ -1,5 +1,6 @@
 const Redis = require("ioredis");
 const { REDIS_HOST, REDIS_PORT } = require("./config");
+import { mailer } from "./nodemailer";
 
 const redisClient = new Redis({
   host: REDIS_HOST,
@@ -7,10 +8,10 @@ const redisClient = new Redis({
   // password: REDIS_PASSWORD
 });
 
-Redis.Command.setReplyTransformer("hgetall", (result) => {
+Redis.Command.setReplyTransformer("hgetall", (data) => {
   const arr = [];
-  for (let i = 0; i < result.length; i += 2) {
-    arr.push({ name: result[i], email: result[i + 1] });
+  for (let i = 0; i < data.length; i += 2) {
+    arr.push({ name: data[i], email: data[i + 1] });
   }
   return arr;
 });
@@ -30,12 +31,13 @@ const expireRedisItem = (key, data, response) => {
   }
 };
 
-const getEmailsFromRedisAndSend = (key) => {
-  redisClient.hgetall(key, async (err, result) => {
+const getEmailsFromRedisAndSend = async (key) => {
+  redisClient.hgetall(key, async (err, data) => {
     if (err) return err;
-    if (result.length === 0) return null;
+    if (data.length === 0) return null;
 
-    return mailer(result, key);
+    const response = await mailer(data);
+    return expireRedisItem(key, data, response);
   });
 };
 

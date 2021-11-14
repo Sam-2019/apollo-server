@@ -43,9 +43,9 @@ const sendMail = async (name, email) => {
       <p>Welcome to Elim Temple</p>`,
     };
 
-    // previewEmail(mailOptions).then(console.log).catch(console.error);
-    const response = transport.sendMail(mailOptions);
-    return response;
+    previewEmail(mailOptions).then(console.log).catch(console.error);
+    // const response = transport.sendMail(mailOptions);
+    // return response;
   } catch (error) {
     return error;
   }
@@ -69,6 +69,8 @@ const mailer = async (data) => {
       response.push("Mail sent");
     }
   }
+
+  return response;
 };
 
 module.exports = {
