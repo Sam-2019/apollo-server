@@ -15,7 +15,7 @@ dotenv.config();
 redisClient;
 
 require("./src/db");
-require("./src/utils/scheduledJobs");
+// require("./src/utils/scheduledJobs");
 
 const models = require("./src/db/models");
 const schema = require("./src/schema");
