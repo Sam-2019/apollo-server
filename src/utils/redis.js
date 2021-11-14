@@ -1,6 +1,6 @@
 const Redis = require("ioredis");
 const { REDIS_HOST, REDIS_PORT } = require("./config");
-import { mailer } from "./nodemailer";
+const { mailer } = require("./nodemailer");
 
 const redisClient = new Redis({
   host: REDIS_HOST,
