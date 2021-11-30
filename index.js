@@ -9,10 +9,14 @@ const dotenv = require("dotenv");
 const depthLimit = require("graphql-depth-limit");
 const { createComplexityLimitRule } = require("graphql-validation-complexity");
 const ExpressReactViews = require("express-react-views");
+const result = dotenv.config();
 
 const { redisClient } = require("./src/utils/redis");
 
-dotenv.config();
+if (result.error) {
+  throw result.error;
+}
+
 redisClient;
 
 require("./src/db");
