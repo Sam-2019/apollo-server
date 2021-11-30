@@ -1,5 +1,7 @@
 const { extractMonth, extractYear } = require("../../utils/index");
+const { sendMail } = require("../../utils/nodemailer");
 const { writeRedis } = require("../../utils/redis");
+const { slackpush } = require("../../utils/slack_notifier");
 
 const addMember = async (
   parent,
@@ -62,7 +64,9 @@ const addMember = async (
     });
 
     if (saveData.emailAddress != "") {
-      return writeRedis("h3", `${firstName} ${lastName}`, emailAddress);
+      writeRedis("h3", `${firstName} ${lastName}`, emailAddress);
+      sendMail("Kwame", "majorpaynis18@gmail.com");
+      slackpush(firstName, lastName, chapel);
     }
   } catch (err) {
     console.error(err);

@@ -11,6 +11,7 @@ const REDIS_PORT = process.env.REDIS_PORT;
 const REDIS_PASSWORD = process.env.REDIS_PASSWORD;
 
 const DB_URI = process.env.DB_URI;
+const SLACK_WEBHOOK = process.env.SLACK_WEBHOOK;
 
 module.exports = {
   CLIENT_ID,
@@ -24,4 +25,5 @@ module.exports = {
   REDIS_PORT,
   REDIS_PASSWORD,
   DB_URI,
+  SLACK_WEBHOOK,
 };
