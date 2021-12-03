@@ -8,7 +8,6 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const depthLimit = require("graphql-depth-limit");
 const { createComplexityLimitRule } = require("graphql-validation-complexity");
-const ExpressReactViews = require("express-react-views");
 const result = dotenv.config();
 
 const { redisClient } = require("./src/utils/redis");
@@ -27,13 +26,6 @@ const schema = require("./src/schema");
 
 const app = express();
 app.use("*", cors());
-
-app.set("views", __dirname + "/src/html");
-app.set("view engine", "jsx");
-app.engine("jsx", ExpressReactViews.createEngine());
-
-// app.get("/", require("./src/routes").MemberRegistration);
-// app.get("/second", require("./src/routes").VisitorRegistration);
 
 const server = new ApolloServer({
   schema,

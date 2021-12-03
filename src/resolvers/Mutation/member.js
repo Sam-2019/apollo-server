@@ -1,7 +1,6 @@
 const { extractMonth, extractYear } = require("../../utils/index");
-const { sendMail } = require("../../utils/nodemailer");
 const { writeRedis } = require("../../utils/redis");
-const { slackpush } = require("../../utils/slack_notifier");
+const { memberRegistration } = require("../../utils/slack");
 
 const addMember = async (
   parent,
@@ -65,8 +64,7 @@ const addMember = async (
 
     if (saveData.emailAddress != "") {
       writeRedis("h3", `${firstName} ${lastName}`, emailAddress);
-      sendMail(firstName, emailAddress);
-      slackpush(`${firstName} ${lastName}`, chapel);
+      memberRegistration(`${firstName} ${lastName}`, chapel);
     }
 
     return saveData;
