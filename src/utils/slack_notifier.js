@@ -5,16 +5,20 @@ slack.onError = function (err) {
   console.log("API error:", err);
 };
 
-export const slackpush = ({ firstName, lastName, chapel }) => {
+const slackpush = (name, chapel) => {
   slack.alert({
     text: "Member Registration",
     attachments: [
       {
         fields: [
-          { title: "Name", value: `${firstName} ${lastName}`, short: true },
+          { title: "Name", value: name, short: true },
           { title: "Chapel", value: chapel, short: true },
         ],
       },
     ],
   });
+};
+
+module.exports = {
+  slackpush,
 };

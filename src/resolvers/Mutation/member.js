@@ -65,9 +65,11 @@ const addMember = async (
 
     if (saveData.emailAddress != "") {
       writeRedis("h3", `${firstName} ${lastName}`, emailAddress);
-      sendMail("Kwame", "majorpaynis18@gmail.com");
-      slackpush(firstName, lastName, chapel);
+      sendMail(firstName, emailAddress);
+      slackpush(`${firstName} ${lastName}`, chapel);
     }
+
+    return saveData;
   } catch (err) {
     console.error(err);
   }
