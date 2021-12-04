@@ -7,7 +7,7 @@ const {
   CLIENT_SECRET,
   REFRESH_TOKEN,
   USER_NAME,
-} = require("./config");
+} = require("../utils/config");
 
 const oAuth2Client = new google.auth.OAuth2(
   CLIENT_ID,

@@ -1,5 +1,5 @@
 const { IncomingWebhook } = require("@slack/webhook");
-const { SLACK_WEBHOOK } = require("./config");
+const { SLACK_WEBHOOK } = require("../utils/config");
 
 const webhook = new IncomingWebhook(SLACK_WEBHOOK);
 
