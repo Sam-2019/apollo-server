@@ -1,22 +1,18 @@
-const { google } = require("googleapis");
 const nodemailer = require("nodemailer");
 const {
   CLIENT_ID,
-  REDIRECT_URI,
   USER_EMAIL,
   CLIENT_SECRET,
   REFRESH_TOKEN,
   USER_NAME,
 } = require("../utils/config");
+const {
+  mailTemplate,
+  mailSubject,
+} = require("../utils/email_templates/welcome");
+const { oAuth2Client } = require("../utils/googleapis");
 
-const oAuth2Client = new google.auth.OAuth2(
-  CLIENT_ID,
-  CLIENT_SECRET,
-  REDIRECT_URI
-);
-oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
-
-const sendMail = async (name, email) => {
+const sendMail = async ( email, subject, message) => {
   try {
     const accessToken = await oAuth2Client.getAccessToken();
 
@@ -38,10 +34,8 @@ const sendMail = async (name, email) => {
     const mailOptions = {
       from: `${USER_NAME} <${USER_EMAIL}>`,
       to: email,
-      subject: "Membership",
-      text: `Hello ${name}`,
-      html: `<h1>Hello ${name}</h1>
-      <p>Welcome to Elim Temple</p>`,
+      subject: subject,
+      html: `<body>${message}</body>`,
     };
 
     const response = transport.sendMail(mailOptions);
@@ -62,8 +56,15 @@ const mailer = async (data) => {
     return console.error("No data");
   }
 
-  for (member of data) {
-    const info = await sendMail(member.name, member.email);
+  for (let member of data) {
+    let subject = mailSubject(member[3]);
+    let template = mailTemplate(member[0], member[3]);
+
+    const info = await sendMail(
+      member.email,
+      (member.subject = subject),
+      (member.message = template)
+    );
 
     if (info.response.includes("OK")) {
       response.push("Mail sent");
