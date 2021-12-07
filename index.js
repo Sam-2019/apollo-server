@@ -10,7 +10,7 @@ const depthLimit = require("graphql-depth-limit");
 const { createComplexityLimitRule } = require("graphql-validation-complexity");
 const result = dotenv.config();
 
-const { redisClient } = require("./src/utils/redis");
+const { redisClient } = require("./src/services/redis");
 
 if (result.error) {
   throw result.error;
