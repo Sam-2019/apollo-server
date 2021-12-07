@@ -1,0 +1,7 @@
+MEMBER_REGISTRATION = "Membership";
+VISITOR_REGISTRATION = "Visitor";
+
+module.exports = {
+  MEMBER_REGISTRATION,
+  VISITOR_REGISTRATION,
+};
