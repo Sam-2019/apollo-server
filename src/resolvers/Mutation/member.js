@@ -1,6 +1,6 @@
 const { extractMonth, extractYear } = require("../../utils/index");
-const { writeRedis } = require("../../utils/redis");
-const { memberRegistration } = require("../../utils/slack");
+const { writeRedis } = require("../../services/redis");
+const { memberRegistration } = require("../../services/slack");
 
 const addMember = async (
   parent,
