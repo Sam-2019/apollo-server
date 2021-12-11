@@ -1,4 +1,4 @@
-const { extractMonth, extractYear } = require("../../utils/index");
+const { extractMonth } = require("../../utils/index");
 const { writeRedis } = require("../../services/redis");
 const { memberRegistration } = require("../../services/slack");
 
