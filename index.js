@@ -11,15 +11,17 @@ const { createComplexityLimitRule } = require("graphql-validation-complexity");
 const result = dotenv.config();
 
 const { redisClient } = require("./src/services/redis");
+const { graceful, bree } = require("./src/services/schedule_jobs");
 
 if (result.error) {
   throw result.error;
 }
 
 redisClient;
+graceful.listen();
+bree.start();
 
 require("./src/db");
-// require("./src/utils/scheduledJobs");
 
 const models = require("./src/db/models");
 const schema = require("./src/schema");
