@@ -8,8 +8,8 @@ const redisClient = new Redis({
   // password: REDIS_PASSWORD
 });
 
-Redis.Command.setReplyTransformer("hgetall", (data) => {
-  if (!data) return console.error("No data");
+Redis.Command.setReplyTransformer("hgetall", async (data) => {
+  if (data.length === 0) return console.error({ transformer: "No data" });
 
   const arr = [];
 
@@ -25,12 +25,15 @@ Redis.Command.setReplyTransformer("hgetall", (data) => {
 });
 
 function writeRedis(key, name, email) {
-  if (!key || !name || !email) return console.error("No data");
+  if (!key || !name || !email) return console.error({ writeRedis: "No data" });
   return redisClient.hset(key, name, email);
 }
 
 const expireRedisItem = (key, data, response) => {
-  if (!key || !data || !response) return console.error("No data");
+  if (response.length === 0) return console.error({ expireRedis: "No data" });
+
+  if (!key || !data || !response)
+    return console.error({ expireRedis: "No data" });
 
   if (data.length === response.length) {
     redisClient.expire(key, 600);
@@ -39,16 +42,15 @@ const expireRedisItem = (key, data, response) => {
 };
 
 const getEmailsFromRedisAndSend = (key) => {
-  if (!key) return console.log("No key");
+  if (!key) return console.log({ getEmails: "No key" });
 
   redisClient.hgetall(key, async (err, data) => {
     if (err) return err;
-    if (!data) return console.log("empty");
+    if (!data) return console.error({ getEmails: "No data" });
 
     try {
       const response = await mailer(data);
 
-      console.log({ response: response });
       return expireRedisItem(key, data, response);
     } catch (err) {
       console.log(err);
