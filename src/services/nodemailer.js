@@ -12,10 +12,9 @@ const {
 } = require("../utils/email_templates/welcome");
 const { oAuth2Client } = require("../utils/googleapis");
 
-const sendMail = async ( email, subject, message) => {
+const sendMail = async (email, subject, message) => {
   try {
-    const accessToken = await oAuth2Client.getAccessToken();
-
+    let accessToken = await oAuth2Client.getAccessToken();
     const transport = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -38,10 +37,10 @@ const sendMail = async ( email, subject, message) => {
       html: `<body>${message}</body>`,
     };
 
-    const response = transport.sendMail(mailOptions);
+    const response = await transport.sendMail(mailOptions);
     return response;
-  } catch (error) {
-    return error;
+  } catch (err) {
+    console.error(err);
   }
 };
 
@@ -56,22 +55,28 @@ const mailer = async (data) => {
     return console.error("No data");
   }
 
-  for (let member of data) {
-    let subject = mailSubject(member[3]);
-    let template = mailTemplate(member[0], member[3]);
+  try {
+    for (let member of data) {
+      let subject = mailSubject(member[3]);
+      let template = mailTemplate(member[0], member[3]);
 
-    const info = await sendMail(
-      member.email,
-      (member.subject = subject),
-      (member.message = template)
-    );
-
-    if (info.response.includes("OK")) {
-      response.push("Mail sent");
+      const info = await sendMail(
+        member.email,
+        (member.subject = subject),
+        (member.message = template)
+      );
+      
+      // if (info.response.includes("OK")) {
+      //   response.push("Mail sent");
+      // }
     }
-  }
 
-  return response;
+    if (!response) return console.log("empty response");
+
+    return response;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 module.exports = {
