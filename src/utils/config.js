@@ -11,10 +11,15 @@ const REDIS_HOST = process.env.REDIS_HOST;
 const REDIS_PORT = process.env.REDIS_PORT;
 const REDIS_PASSWORD = process.env.REDIS_PASSWORD;
 const REDIS_USERNAME = process.env.REDIS_USERNAME;
-const REDIS_URI = process.env.REDIS_URI;
+
+const REDIS_HOST_LOCAL = process.env.REDIS_HOST_LOCAL;
+const REDIS_PORT_LOCAL = process.env.REDIS_PORT_LOCAL;
+const REDIS_PASSWORD_LOCAL = process.env.REDIS_PASSWORD_LOCAL;
 
 const DB_URI = process.env.DB_URI;
 const SLACK_WEBHOOK = process.env.SLACK_WEBHOOK;
+
+const NODE_ENV = process.env.NODE_ENV;
 
 module.exports = {
   CLIENT_ID,
@@ -26,10 +31,13 @@ module.exports = {
   RECEPIENTS_EMAIL,
   REDIS_HOST,
   REDIS_PORT,
-  REDIS_URI,
   REDIS_PASSWORD,
   REDIS_USERNAME,
+  REDIS_HOST_LOCAL,
+  REDIS_PORT_LOCAL,
+  REDIS_PASSWORD_LOCAL,
   DB_URI,
   SLACK_WEBHOOK,
-  AUTHORIZATION_TOKEN
+  AUTHORIZATION_TOKEN,
+  NODE_ENV,
 };
