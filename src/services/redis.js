@@ -1,11 +1,19 @@
 const Redis = require("ioredis");
-const { REDIS_HOST, REDIS_PORT, REDIS_PASSWORD } = require("../utils/config");
+const { URL } = require("url");
+const {
+  REDIS_HOST,
+  REDIS_PORT,
+  REDIS_PASSWORD,
+  REDIS_USERNAME,
+  REDIS_URI,
+} = require("../utils/config");
 const { mailer } = require("./nodemailer");
 
 const redisClient = new Redis({
   host: REDIS_HOST,
   port: REDIS_PORT,
-  // password: REDIS_PASSWORD
+  username: REDIS_USERNAME,
+  password: REDIS_PASSWORD,
 });
 
 Redis.Command.setReplyTransformer("hgetall", async (data) => {

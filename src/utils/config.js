@@ -10,6 +10,8 @@ const AUTHORIZATION_TOKEN = process.env.AUTHORIZATION_TOKEN;
 const REDIS_HOST = process.env.REDIS_HOST;
 const REDIS_PORT = process.env.REDIS_PORT;
 const REDIS_PASSWORD = process.env.REDIS_PASSWORD;
+const REDIS_USERNAME = process.env.REDIS_USERNAME;
+const REDIS_URI = process.env.REDIS_URI;
 
 const DB_URI = process.env.DB_URI;
 const SLACK_WEBHOOK = process.env.SLACK_WEBHOOK;
@@ -24,7 +26,9 @@ module.exports = {
   RECEPIENTS_EMAIL,
   REDIS_HOST,
   REDIS_PORT,
+  REDIS_URI,
   REDIS_PASSWORD,
+  REDIS_USERNAME,
   DB_URI,
   SLACK_WEBHOOK,
   AUTHORIZATION_TOKEN
