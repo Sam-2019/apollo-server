@@ -1,4 +1,5 @@
 const { extractMonth } = require("../../utils/index");
+const { countryCode } = require("../../utils/switchModel");
 const { writeRedis } = require("../../services/redis");
 const { memberRegistration } = require("../../services/slack");
 
@@ -33,6 +34,7 @@ const addMember = async (
   { models }
 ) => {
   const chapel = extractMonth(dateOfBirth);
+  const countryCodeContact = countryCode(country, contact);
 
   try {
     const saveData = await models.Member.create({
@@ -48,7 +50,7 @@ const addMember = async (
       region,
       country,
       residentialAddress,
-      contact,
+      contact: countryCodeContact,
       emergencyContact,
       emailAddress,
       postalAddress,
