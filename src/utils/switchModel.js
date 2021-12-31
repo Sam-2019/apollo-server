@@ -1,4 +1,8 @@
 const models = require("../db/models");
+const countries = require("i18n-iso-countries");
+const PhoneNumber = require("awesome-phonenumber");
+
+
 
 const paymentType = async (type) => {
   let model;
@@ -67,32 +71,17 @@ const groupType = async (type) => {
   };
 };
 
-const countryCode = async (country, contact) => {
-  let value;
-  let splitContact = contact.slice(1);
 
-  switch (country) {
-    case "Nigeria":
-      value = `+234${splitContact}`;
-      break;
+const transformNumber = (country, contact) => {
+  let getData = countries.getAlpha2Code(country, "en");
+  let pn = new PhoneNumber(contact, `${getData}`);
 
-    case "United Kingdom":
-      value = `+4${splitContact}`;
-      break;
-
-    case "United States of America":
-      value = `+1${splitContact}`;
-      break;
-
-    default:
-      value = `+233${splitContact}`;
-  }
-
-  return await value;
+  return pn.getNumber()
 };
 
 module.exports = {
   paymentType,
   groupType,
   countryCode,
+  transformNumber
 };
