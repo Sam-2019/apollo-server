@@ -82,6 +82,5 @@ const transformNumber = (country, contact) => {
 module.exports = {
   paymentType,
   groupType,
-  countryCode,
   transformNumber
 };
