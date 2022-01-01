@@ -21,6 +21,9 @@ const SLACK_WEBHOOK = process.env.SLACK_WEBHOOK;
 
 const NODE_ENV = process.env.NODE_ENV;
 
+const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
+const TELEGRAM_CHATID = process.env.TELEGRAM_CHATID;
+
 module.exports = {
   CLIENT_ID,
   CLIENT_SECRET,
@@ -40,4 +43,6 @@ module.exports = {
   SLACK_WEBHOOK,
   AUTHORIZATION_TOKEN,
   NODE_ENV,
+  TELEGRAM_TOKEN,
+  TELEGRAM_CHATID,
 };
