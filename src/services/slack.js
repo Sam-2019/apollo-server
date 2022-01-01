@@ -16,6 +16,38 @@ const memberRegistration = async (name, chapel) =>
     ],
   });
 
+const memberDetailsUpdate = async (name) =>
+  await webhook.send({
+    text: "Member Details Update",
+    attachments: [
+      {
+        type: "header",
+        text: {
+          type: "plain_text",
+          text: name,
+        },
+      },
+      {
+        type: "section",
+        fields: [
+          {
+            type: "mrkdwn",
+            text: "*New:*\nPaid Time Off",
+          },
+        ],
+      },
+      {
+        type: "section",
+        fields: [
+          {
+            type: "mrkdwn",
+            text: "*Old:*\nPaid Time Off",
+          },
+        ],
+      },
+    ],
+  });
+
 const general = async () =>
   await webhook.send({
     icon_url:
@@ -123,4 +155,5 @@ const general = async () =>
 module.exports = {
   memberRegistration,
   general,
+  memberDetailsUpdate,
 };
