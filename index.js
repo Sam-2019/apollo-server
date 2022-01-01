@@ -12,6 +12,7 @@ const result = dotenv.config();
 
 const { redisClient } = require("./src/services/redis");
 const { graceful, bree } = require("./src/services/bree");
+const { bot } = require("./src/services/telegram");
 
 require("./src/db");
 
@@ -26,6 +27,7 @@ async function data() {
   redisClient;
   graceful.listen();
   bree.start();
+  bot.launch();
 
   const app = express();
   app.use("*", cors());
