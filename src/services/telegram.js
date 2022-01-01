@@ -18,8 +18,15 @@ bot.command("quit", (ctx) => {
   ctx.reply("Session ended");
 });
 
+const sendMessage = (name) => {
+  if (!name) return;
+
+  bot.on((ctx) => ctx.reply(`${name} successfully registered`));
+};
+
 process.once("SIGTERM", () => bot.stop("SIGTERM"));
 
 module.exports = {
   bot,
+  sendMessage,
 };
