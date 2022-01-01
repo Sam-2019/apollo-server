@@ -2,6 +2,7 @@ const { extractMonth } = require("../../utils/index");
 const { transformNumber } = require("../../utils/switchModel");
 const { writeRedis } = require("../../services/redis");
 const { memberRegistration } = require("../../services/slack");
+const { sendMessage } = require("../../services/telegram");
 
 const addMember = async (
   parent,
@@ -35,7 +36,7 @@ const addMember = async (
 ) => {
   const chapel = extractMonth(dateOfBirth);
   const newContact = transformNumber(country, contact);
-  const newEmergencyContact = transformNumber(country, contact);
+  const newEmergencyContact = transformNumber(country, emergencyContact);
 
   try {
     const saveData = await models.Member.create({
@@ -68,6 +69,7 @@ const addMember = async (
     if (saveData.emailAddress != "") {
       writeRedis("h3", `${firstName} ${lastName}`, emailAddress);
       memberRegistration(`${firstName} ${lastName}`, chapel);
+      sendMessage(`${firstName} ${lastName}`);
     }
 
     return saveData;
