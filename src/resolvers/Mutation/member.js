@@ -68,9 +68,10 @@ const addMember = async (
 
     if (saveData.emailAddress != "") {
       writeRedis("h3", `${firstName} ${lastName}`, emailAddress);
-      memberRegistration(`${firstName} ${lastName}`, chapel);
-      sendMessage(`${firstName} ${lastName}`);
     }
+
+    memberRegistration(`${firstName} ${lastName}`, chapel);
+    sendMessage(`${firstName} ${lastName}`);
 
     return saveData;
   } catch (err) {
@@ -119,7 +120,7 @@ const updateMember = async (
   { models }
 ) => {
   try {
-    return await models.Member.findByIdAndUpdate(
+    const updateData = await models.Member.findByIdAndUpdate(
       id,
       {
         $set: {
@@ -152,6 +153,7 @@ const updateMember = async (
         new: true,
       }
     );
+    return updateData;
   } catch (err) {
     console.error(err);
   }
