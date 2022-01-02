@@ -128,7 +128,7 @@ const payment = async (parent, { month, type }, { models }) => {
     // console.log(data);
 
     await dbModel.find({ month }).then((results) => {
-      for (result of results) {
+      for (let result of results) {
         const memberIDS = String(result.memberID);
         list.push(memberIDS);
       }
@@ -240,7 +240,7 @@ const groupStat = async (parent, { type }, { models }) => {
   try {
     const results = await models.SundayService.find().limit(8).sort("-date");
 
-    for (result of results) {
+    for (let result of results) {
       const adultMaleData = {
         sundayService: result.id,
         date: result.date,
@@ -408,7 +408,7 @@ const sundayStat = async (parent, { type, vehicles }, { models }) => {
       .limit(8)
       .sort("-date");
 
-    for (result of results) {
+    for (let result of results) {
       const adultData = {
         sundayService: result.id,
         date: result.date,
