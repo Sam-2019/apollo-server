@@ -24,6 +24,13 @@ const sendMessage = (name) => {
   bot.on((ctx) => ctx.reply(`${name} successfully registered`));
 };
 
+bot.command("getMember", (ctx) => {
+  const data = ctx.message.text.slice(11);
+  // console.log(data);
+  // ctx.reply("Enter member's name");
+  // console.log(ctx.message.text);
+});
+
 process.once("SIGTERM", () => bot.stop("SIGTERM"));
 
 module.exports = {
