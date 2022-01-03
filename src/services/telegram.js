@@ -18,10 +18,16 @@ bot.command("quit", (ctx) => {
   ctx.reply("Session ended");
 });
 
-const sendMessage = (name) => {
+const sendMessage = (name, type) => {
   if (!name) return;
 
-  bot.on((ctx) => ctx.reply(`${name} successfully registered`));
+  if (type === "member") {
+    return bot.on((ctx) =>
+      ctx.reply(`${name} successfully registered as a amember.`)
+    );
+  }
+
+  bot.on((ctx) => ctx.reply(`${name} successfully registered as a visitor.`));
 };
 
 bot.command("getMember", (ctx) => {
