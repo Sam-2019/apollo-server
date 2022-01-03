@@ -1,3 +1,5 @@
+const { registration } = require("../../services/slack");
+const { sendMessage } = require("../../services/telegram");
 const { extractMonth, extractYear } = require("../../utils/index");
 
 const addVisitor = async (
@@ -42,6 +44,9 @@ const addVisitor = async (
     if (saveData.emailAddress != "") {
       writeRedis("visitor", `${firstName} ${lastName}`, emailAddress);
     }
+
+    registration(`${firstName} ${lastName}`, chapel);
+    sendMessage(`${firstName} ${lastName}`, 'Visitor');
   } catch (err) {
     console.error(err);
   }

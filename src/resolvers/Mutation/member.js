@@ -1,7 +1,7 @@
 const { extractMonth } = require("../../utils/index");
 const { transformNumber } = require("../../utils/switchModel");
 const { writeRedis } = require("../../services/redis");
-const { memberRegistration } = require("../../services/slack");
+const { registration } = require("../../services/slack");
 const { sendMessage } = require("../../services/telegram");
 
 const addMember = async (
@@ -70,8 +70,8 @@ const addMember = async (
       writeRedis("h3", `${firstName} ${lastName}`, emailAddress);
     }
 
-    memberRegistration(`${firstName} ${lastName}`, chapel);
-    sendMessage(`${firstName} ${lastName}`);
+    registration(`${firstName} ${lastName}`, chapel);
+    sendMessage(`${firstName} ${lastName}`, "Member");
 
     return saveData;
   } catch (err) {
