@@ -46,11 +46,12 @@ const addVisitor = async (
     }
 
     registration(`${firstName} ${lastName}`, chapel);
-    sendMessage(`${firstName} ${lastName}`, 'Visitor');
+    sendMessage(`${firstName} ${lastName}`, "Visitor");
   } catch (err) {
     console.error(err);
   }
 };
+
 const deleteVisitor = async (parent, { id }, { models }) => {
   try {
     return await models.Visitor.findByIdAndDelete(id);
@@ -58,6 +59,7 @@ const deleteVisitor = async (parent, { id }, { models }) => {
     console.error(err);
   }
 };
+
 const updateVisitor = async (
   parent,
   {
