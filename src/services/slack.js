@@ -3,9 +3,9 @@ const { SLACK_WEBHOOK } = require("../utils/config");
 
 const webhook = new IncomingWebhook(SLACK_WEBHOOK);
 
-const memberRegistration = async (name, chapel) =>
+const registration = async (name, chapel, type) =>
   await webhook.send({
-    text: "Member Registration",
+    text: `${type} Registration`,
     attachments: [
       {
         fields: [
@@ -153,7 +153,7 @@ const general = async () =>
   });
 
 module.exports = {
-  memberRegistration,
+  registration,
   general,
   memberDetailsUpdate,
 };
