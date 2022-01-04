@@ -11,7 +11,7 @@ const bree = new Bree({
     {
       name: "welcomeEmail",
       path: path.resolve("src", "jobs", "welcomeEmail.js"),
-      cron: "* 2 * * *",
+      cron: "* * * * *",
     },
   ],
 });
