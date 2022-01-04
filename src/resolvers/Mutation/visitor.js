@@ -41,10 +41,6 @@ const addVisitor = async (
       chapel,
     });
 
-    if (saveData.emailAddress != "") {
-      writeRedis("visitor", `${firstName} ${lastName}`, emailAddress);
-    }
-
     registration(`${firstName} ${lastName}`, chapel);
     sendMessage(`${firstName} ${lastName}`, "Visitor");
   } catch (err) {
