@@ -70,7 +70,7 @@ const addMember = async (
       writeRedis("h3", `${firstName} ${lastName}`, emailAddress);
     }
 
-    registration(`${firstName} ${lastName}`, chapel);
+    registration(`${firstName} ${lastName}`, chapel, "Member");
     sendMessage(`${firstName} ${lastName}`, "Member");
 
     return saveData;
