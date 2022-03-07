@@ -52,7 +52,9 @@ async function data() {
 
   app.listen({ port }, () => {
     console.log(
-      `Apollo Server on  http://localhost:${port}${server.graphqlPath}`
+      process.env.NODE_ENV === "production"
+        ? `server live`
+        : `server live on http://localhost:${port}${server.graphqlPath}`
     );
   });
 }
