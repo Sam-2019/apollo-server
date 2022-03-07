@@ -10,15 +10,14 @@ const result = dotenv.config();
 // const { graceful, bree } = require("./src/services/bree");
 // const { bot } = require("./src/services/telegram");
 
+dotenv.config();
 require("./src/db");
 
 const models = require("./src/db/models");
 const schema = require("./src/schema");
 
 async function data() {
-  if (result.error) {
-    throw result.error;
-  }
+
 
   // redisClient;
   // graceful.listen();
