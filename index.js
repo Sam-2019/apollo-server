@@ -1,5 +1,9 @@
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
+const {
+  ApolloServerPluginLandingPageLocalDefault,
+  ApolloServerPluginLandingPageDisabled,
+} = require("apollo-server-core");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const depthLimit = require("graphql-depth-limit");
@@ -23,6 +27,11 @@ const server = new ApolloServer({
   context: () => {
     return { models };
   },
+  plugins: [
+    process.env.NODE_ENV === "production"
+      ? ApolloServerPluginLandingPageDisabled()
+      : ApolloServerPluginLandingPageLocalDefault({ footer: false }),
+  ],
 });
 
 async function data() {
