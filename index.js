@@ -4,6 +4,9 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const depthLimit = require("graphql-depth-limit");
 const { createComplexityLimitRule } = require("graphql-validation-complexity");
+// const { redisClient } = require("./src/services/redis");
+// const { graceful, bree } = require("./src/services/bree");
+// const { bot } = require("./src/services/telegram");
 
 dotenv.config();
 
@@ -23,6 +26,10 @@ const server = new ApolloServer({
 });
 
 async function data() {
+  // await redisClient;
+  // await graceful.listen();
+  // await bree.start();
+  // await bot.launch();
   await server.start();
 
   server.applyMiddleware({ app, path: "/graphql" });
