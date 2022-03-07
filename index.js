@@ -12,7 +12,7 @@ const result = dotenv.config();
 
 // const { redisClient } = require("./src/services/redis");
 // const { graceful, bree } = require("./src/services/bree");
-const { bot } = require("./src/services/telegram");
+// const { bot } = require("./src/services/telegram");
 
 require("./src/db");
 
