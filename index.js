@@ -10,8 +10,8 @@ const depthLimit = require("graphql-depth-limit");
 const { createComplexityLimitRule } = require("graphql-validation-complexity");
 const result = dotenv.config();
 
-const { redisClient } = require("./src/services/redis");
-const { graceful, bree } = require("./src/services/bree");
+// const { redisClient } = require("./src/services/redis");
+// const { graceful, bree } = require("./src/services/bree");
 const { bot } = require("./src/services/telegram");
 
 require("./src/db");
@@ -24,10 +24,10 @@ async function data() {
     throw result.error;
   }
 
-  redisClient;
-  graceful.listen();
-  bree.start();
-  bot.launch();
+  // redisClient;
+  // graceful.listen();
+  // bree.start();
+  // bot.launch();
 
   const app = express();
   app.use("*", cors());
