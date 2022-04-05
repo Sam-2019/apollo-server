@@ -2,7 +2,7 @@ const models = require("../db/models");
 const countries = require("i18n-iso-countries");
 const PhoneNumber = require("awesome-phonenumber");
 
-const paymentType = async (type) => {
+const paymentType = (type) => {
   let model;
 
   switch (type) {
@@ -30,7 +30,7 @@ const paymentType = async (type) => {
       model = null;
   }
 
-  return await model;
+  return model;
 };
 
 const groupType = async (type) => {
