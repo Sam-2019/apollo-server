@@ -11,21 +11,30 @@ const pledgeSchema = new mongoose.Schema({
   lastName: {
     type: String,
   },
-  status: {
+  othername: {
     type: String,
-    default: 'PENDING'
   },
-  pledgeDate: {
+  contact: {
+    type: String,
+  },
+  emailAddress: {
     type: String,
   },
   programme: {
     type: String,
   },
+  amount: {
+    type: Number,
+  },
+  pledgeDate: {
+    type: String,
+  },
   redeemedDate: {
     type: String,
   },
-  amount: {
-    type: Number,
+  status: {
+    type: String,
+    default: 'PENDING'
   },
 });
 
