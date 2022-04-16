@@ -238,14 +238,16 @@ const typeDefs = gql`
 
   type Pledge {
     id: ID
-    pledgeeID: ID
     firstName: String
     lastName: String
-    amount: String
+    otherName: String
+    contact: String
+    emailAddress: String
     programme: String
-    status: PledgeStatus
+    amount: Int
     pledgeDate: String
     redeemedDate: String
+    status: PledgeStatus
   }
 
   type PledgeFeed {
@@ -255,7 +257,6 @@ const typeDefs = gql`
   }
 
   input AddPledge {
-    pledgeDate: String
     firstName: String
     lastName: String
     otherName: String
@@ -263,7 +264,9 @@ const typeDefs = gql`
     emailAddress: String
     programme: String
     redeemedDate: String
+    pledgeDate: String
     amount: Int
+    status: String
   }
 
   type Vehicles {
@@ -291,7 +294,8 @@ const typeDefs = gql`
     member(id: ID): Member
     memberByName(firstName: String, lastName: String): Member
 
-    pledge: [Pledge]
+    pledges: [Pledge]
+    pledge(id: ID): Pledge
     pledgeFeed(cursor: String): [PledgeFeed]
 
     visitors: [Visitor]
@@ -362,6 +366,7 @@ const typeDefs = gql`
     addPledge(input: AddPledge): Pledge
     deletePledge(id: ID): Payload
     updatePledge(id: ID, input: AddPledge): Pledge
+    updatePledgeStatus(id: ID, input: AddPledge) : Pledge
 
     addVehicles(input: AddVehicles): Vehicles
     deleteVehicles(id: ID): Payload
