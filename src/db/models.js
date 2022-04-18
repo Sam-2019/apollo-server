@@ -10,6 +10,7 @@ const Welfare = require("./schema/welfare");
 const ProjectOffering = require("./schema/project offering");
 
 const Vehicle = require("./schema/vehicle");
+const User = require("./schema/user");
 
 const models = {
   Member,
@@ -22,6 +23,7 @@ const models = {
   Welfare,
   ProjectOffering,
   Vehicle,
+  User,
 };
 
 module.exports = models;
