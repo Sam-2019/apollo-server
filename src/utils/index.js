@@ -1,3 +1,6 @@
+const bcrypt = require("bcryptjs");
+const saltRounds = 12;
+
 // export const extractMonth = (value) => {
 //   const extractChapel = value;
 //   const chapel = extractChapel.substring(5, 7);
@@ -21,8 +24,20 @@ const extractYear = (date) => {
   return year.toLocaleString(this.locale, { year: "numeric" });
 };
 
+const hashPassword = (password) => {
+  const result = bcrypt.hashSync(password, saltRounds);
+  return result;
+};
+
+const comparePassword = (password, userPassword) => {
+  const result = bcrypt.compare(password, userPassword);
+  return result;
+};
+
 module.exports = {
   extractMonth,
   extractYear,
   sumData,
+  hashPassword,
+  comparePassword,
 };
