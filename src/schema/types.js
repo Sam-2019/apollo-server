@@ -288,6 +288,31 @@ const typeDefs = gql`
     bicycles: Int
   }
 
+  type User {
+    id: ID
+    firstName: String
+    lastName: String
+    userName: String
+    emailAddress: String
+    password: String
+    verified: Boolean
+  }
+
+  type UsersFeed {
+    users: [User]
+    cursor: String
+    hasNextPage: Boolean
+  }
+
+  input AddUser {
+    firstName: String
+    lastName: String
+    userName: String
+    emailAddress: String
+    password: String
+    verified: Boolean
+  }
+
   type Query {
     members: [Member]
     membersFeed(cursor: String): [MembersFeed]
@@ -322,6 +347,11 @@ const typeDefs = gql`
 
     vehicles: [Vehicles]
     vehiclesFeed(cursor: String): [VehiclesFeed]
+
+    users: [User]
+    usersFeed(cursor: String): [UsersFeed]
+    user(id: ID): User
+    login(emailAddress: String, password: String): User
 
     chapel(chapel: String): [Member]
     department(department: String): [Member]
@@ -366,11 +396,16 @@ const typeDefs = gql`
     addPledge(input: AddPledge): Pledge
     deletePledge(id: ID): Payload
     updatePledge(id: ID, input: AddPledge): Pledge
-    updatePledgeStatus(id: ID, input: AddPledge) : Pledge
+    updatePledgeStatus(id: ID, input: AddPledge): Pledge
 
     addVehicles(input: AddVehicles): Vehicles
     deleteVehicles(id: ID): Payload
     updateVehicles(id: ID, input: AddVehicles): Vehicles
+
+    signup(input: AddUser): User
+    deleteUser(id: ID): Payload
+    updateUser(id: ID, input: AddUser): User
+    verifyUser(id: ID): User
   }
 `;
 
