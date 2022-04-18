@@ -1,4 +1,80 @@
 const { paymentType } = require("../../utils/switchModel");
+const { comparePassword } = require("../../utils/index");
+
+const users = async (parent, args, { models }) => {
+  return models.User.find();
+};
+
+const usersFeed = async (parent, { cursor }, { models }) => {
+  const limit = 10;
+  let hasNextPage = false;
+  let cursorQuery = {};
+
+  if (cursor) {
+    cursorQuery = { _id: { $lt: cursor } };
+  }
+
+  let users = await models.User.find(cursorQuery)
+    .sort({ _id: -1 })
+    .limit(limit + 1);
+
+  if (users.length > limit) {
+    hasNextPage = true;
+    users = users.slice(0, -1);
+  }
+
+  const newCursor = users[users.length - 1]._id;
+
+  return {
+    users,
+    cursor: newCursor,
+    hasNextPage,
+  };
+};
+
+const user = async (parent, { id }, { models }) => {
+  return await models.User.findById(id);
+};
+
+const login = async (
+  parent,
+  { emailAddress, password },
+  { models }
+) => {
+  try {
+    if (emailAddress) {
+      const user = await models.User.findOne({ emailAddress });
+
+      if (!user) {
+        return new Error("Invalid Email");
+      }
+
+      const emailPassword = await comparePassword(password, user.password);
+
+      if (!emailPassword) {
+        return new Error("Password is incorrect");
+      }
+
+      return user;
+    }
+
+    const data = await models.User.findOne({ userName });
+
+    if (!data) {
+      return new Error("Invalid Username");
+    }
+
+    const usernamePassword = await comparePassword(password, data.password);
+
+    if (!usernamePassword) {
+      return new Error("Password is incorrect");
+    }
+
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 const members = async (parent, args, { models }) => {
   return await models.Member.find();
@@ -36,7 +112,7 @@ const member = async (parent, { id }, { models }) => {
 };
 
 const memberByName = async (parent, { firstName, lastName }, { models }) => {
-  return await models.Member.find({ firstName, lastName });
+  return await models.Member.findOne({ firstName, lastName });
 };
 
 const pledge = async (parent, { id }, { models }) => {
@@ -124,7 +200,7 @@ const department = async (parent, { department }, { models }) => {
 };
 
 const payment = async (parent, { month, type }, { models }) => {
-  let dbModel = await paymentType(type);
+  let dbModel = paymentType(type);
 
   try {
     let list = [];
@@ -518,4 +594,9 @@ module.exports = {
 
   groupStat,
   sundayStat,
+
+  users,
+  usersFeed,
+  user,
+  login,
 };
