@@ -293,9 +293,13 @@ const typeDefs = gql`
     firstName: String
     lastName: String
     userName: String
+    gender: String
+    contact: String
     emailAddress: String
+    homeAddress: String
     password: String
     verified: Boolean
+    dob: String
   }
 
   type UsersFeed {
@@ -308,9 +312,13 @@ const typeDefs = gql`
     firstName: String
     lastName: String
     userName: String
+    gender: String
+    contact: String
     emailAddress: String
+    homeAddress: String
     password: String
     verified: Boolean
+    dob: String
   }
 
   type Query {
