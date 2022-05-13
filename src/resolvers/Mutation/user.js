@@ -31,7 +31,20 @@ const deleteUser = async (parent, { id }, { models }) => {
 
 const updateUser = async (
   parent,
-  { id, input: { firstName, lastName, userName, emailAddress, password } },
+  {
+    id,
+    input: {
+      firstName,
+      lastName,
+      userName,
+      gender,
+      contact,
+      emailAddress,
+      homeAddress,
+      password,
+      dob,
+    },
+  },
   { models }
 ) => {
   try {
@@ -42,8 +55,12 @@ const updateUser = async (
           firstName,
           lastName,
           userName,
+          gender,
+          contact,
           emailAddress,
+          homeAddress,
           password,
+          dob,
         },
       },
       {
