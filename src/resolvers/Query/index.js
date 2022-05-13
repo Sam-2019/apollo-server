@@ -1,5 +1,5 @@
 const { paymentType } = require("../../utils/switchModel");
-const { comparePassword } = require("../../utils/index");
+const { comparePasswor } = require("../../utils/index");
 
 const users = async (parent, args, { models }) => {
   return models.User.find();
@@ -36,11 +36,7 @@ const user = async (parent, { id }, { models }) => {
   return await models.User.findById(id);
 };
 
-const login = async (
-  parent,
-  { emailAddress, password },
-  { models }
-) => {
+const login = async (parent, { emailAddress, password }, { models }) => {
   try {
     if (emailAddress) {
       const user = await models.User.findOne({ emailAddress });
