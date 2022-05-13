@@ -10,7 +10,16 @@ const userSchema = new mongoose.Schema({
   userName: {
     type: String,
   },
+  gender: {
+    type: String,
+  },
+  contact: {
+    type: String,
+  },
   emailAddress: {
+    type: String,
+  },
+  homeAddress: {
     type: String,
   },
   password: {
@@ -19,6 +28,9 @@ const userSchema = new mongoose.Schema({
   verified: {
     type: Boolean,
     default: false
+  },
+  dob: {
+    type: String,
   },
 });
 
