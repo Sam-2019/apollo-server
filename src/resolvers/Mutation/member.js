@@ -159,9 +159,27 @@ const updateMember = async (
   }
 };
 
-const uploadImage = async (parent, { input: { id, imageURL } }, { models }) => {
+const uploadImage = async (
+  parent,
+  { id, input: { imageURL, type } },
+  { models }
+) => {
+
+  console.log(id, imageURL, type)
   try {
-    return await models.Member.findByIdAndUpdate(
+    if (type === "member") {
+      return await models.Member.findByIdAndUpdate(
+        id,
+        {
+          $set: { imageURL },
+        },
+        {
+          new: true,
+        }
+      );
+    }
+
+    return await models.User.findByIdAndUpdate(
       id,
       {
         $set: { imageURL },
