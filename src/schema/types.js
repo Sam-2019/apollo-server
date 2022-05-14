@@ -54,8 +54,8 @@ const typeDefs = gql`
   }
 
   input AddImage {
-    id: ID
     imageURL: String
+    type: String
   }
 
   type Member {
@@ -300,6 +300,7 @@ const typeDefs = gql`
     password: String
     verified: Boolean
     dob: String
+    imageURL: String
   }
 
   type UsersFeed {
@@ -376,7 +377,7 @@ const typeDefs = gql`
     deleteMember(id: ID): Member
     updateMember(id: ID, input: AddMember): Member
 
-    uploadImage(input: AddImage): ProfileImage
+    uploadImage(id: ID, input: AddImage): ProfileImage
 
     addChild(input: AddChild): Payload
     deleteChild(id: ID): Payload
