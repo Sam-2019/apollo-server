@@ -1,5 +1,5 @@
 const { paymentType } = require("../../utils/switchModel");
-const { comparePasswor } = require("../../utils/index");
+const { comparePassword } = require("../../utils/index");
 
 const users = async (parent, args, { models }) => {
   return models.User.find();
