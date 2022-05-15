@@ -2,6 +2,24 @@ const models = require("../db/models");
 const countries = require("i18n-iso-countries");
 const PhoneNumber = require("awesome-phonenumber");
 
+const imageUploadType = (type) => {
+  let model;
+
+  switch (type) {
+    case "member":
+      model = models.Member;
+      break;
+
+    case "user":
+      model = models.User;
+      break;
+
+    default:
+      model = null;
+  }
+  return model;
+};
+
 const paymentType = (type) => {
   let model;
 
@@ -77,6 +95,7 @@ const transformNumber = (country, contact) => {
 };
 
 module.exports = {
+  imageUploadType,
   paymentType,
   groupType,
   transformNumber,
