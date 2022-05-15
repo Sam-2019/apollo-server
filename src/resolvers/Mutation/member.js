@@ -165,6 +165,7 @@ const uploadImage = async (
   { models }
 ) => {
   let dbModel = await imageUploadType(type);
+  
   try {
     return await dbModel.findByIdAndUpdate(
       id,
