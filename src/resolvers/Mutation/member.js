@@ -1,5 +1,5 @@
-const { extractMonth } = require("../../utils/index");
-const { transformNumber, imageUploadType } = require("../../utils/switchModel");
+const { extractMonth, transformNumber } = require("../../utils/index");
+const { imageUploadType } = require("../../utils/switchModel");
 const { writeRedis } = require("../../services/redis");
 const { registration } = require("../../services/slack");
 const { sendMessage } = require("../../services/telegram");
@@ -165,7 +165,7 @@ const uploadImage = async (
   { models }
 ) => {
   let dbModel = await imageUploadType(type);
-  
+
   try {
     return await dbModel.findByIdAndUpdate(
       id,

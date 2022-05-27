@@ -1,6 +1,4 @@
 const models = require("../db/models");
-const countries = require("i18n-iso-countries");
-const PhoneNumber = require("awesome-phonenumber");
 
 const imageUploadType = (type) => {
   let model;
@@ -87,16 +85,8 @@ const groupType = async (type) => {
   };
 };
 
-const transformNumber = (country, contact) => {
-  let getData = countries.getAlpha2Code(country, "en");
-  let pn = new PhoneNumber(contact, `${getData}`);
-
-  return pn.getNumber();
-};
-
 module.exports = {
   imageUploadType,
   paymentType,
   groupType,
-  transformNumber,
 };
