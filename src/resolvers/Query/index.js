@@ -38,35 +38,26 @@ const user = async (parent, { id }, { models }) => {
 
 const login = async (parent, { emailAddress, password }, { models }) => {
   try {
-    if (emailAddress) {
-      const user = await models.User.findOne({ emailAddress });
-
-      if (!user) {
-        return new Error("Invalid Email");
-      }
-
-      const emailPassword = await comparePassword(password, user.password);
-
-      if (!emailPassword) {
-        return new Error("Password is incorrect");
-      }
-
-      return user;
+    const user = await models.User.findOne({ emailAddress });
+    if (!user) {
+      return new Error("Invalid Email or Password");
     }
 
-    const data = await models.User.findOne({ userName });
-
-    if (!data) {
-      return new Error("Invalid Username");
+    const emailPassword = await comparePassword(password, user.password);
+    if (!emailPassword) {
+      return new Error("Invalid Email or Password");
     }
 
-    const usernamePassword = await comparePassword(password, data.password);
-
-    if (!usernamePassword) {
-      return new Error("Password is incorrect");
-    }
-
-    return data;
+    return user;
+    // const data = await models.User.findOne({ userName });
+    // if (!data) {
+    //   return new Error("Invalid Username");
+    // }
+    // const usernamePassword = await comparePassword(password, data.password);
+    // if (!usernamePassword) {
+    //   return new Error("Password is incorrect");
+    // }
+    // return data;
   } catch (err) {
     console.log(err);
   }
@@ -190,6 +181,12 @@ const chapel = async (parent, { chapel }, { models }) => {
 };
 
 const department = async (parent, { department }, { models }) => {
+  return await models.Member.find({
+    department: { $regex: department, $options: "i" },
+  });
+};
+
+const departmentImage = async (parent, { department }, { models }) => {
   return await models.Member.find({
     department: { $regex: department, $options: "i" },
   });
@@ -583,6 +580,7 @@ module.exports = {
   sundayServiceFeed,
   chapel,
   department,
+  departmentImage,
   vehicles,
 
   payment,
