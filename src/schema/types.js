@@ -364,6 +364,8 @@ const typeDefs = gql`
 
     chapel(chapel: String): [Member]
     department(department: String): [Member]
+    departmentImage(department: String): [Member]
+    
 
     payment(month: String, type: String): [PaymentPayer]
     countGender(group: String): [CountGender]
