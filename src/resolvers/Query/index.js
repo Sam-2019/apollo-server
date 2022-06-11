@@ -180,13 +180,19 @@ const chapel = async (parent, { chapel }, { models }) => {
   });
 };
 
-const department = async (parent, { department }, { models }) => {
+const groupImage = async (parent, { type, group }, { models }) => {
+  if (type === "departments") {
+    return await models.Member.find({
+      department: { $regex: group, $options: "i" },
+    });
+  }
+
   return await models.Member.find({
-    department: { $regex: department, $options: "i" },
+    chapel: { $regex: group, $options: "i" },
   });
 };
 
-const departmentImage = async (parent, { department }, { models }) => {
+const department = async (parent, { department }, { models }) => {
   return await models.Member.find({
     department: { $regex: department, $options: "i" },
   });
@@ -580,8 +586,9 @@ module.exports = {
   sundayServiceFeed,
   chapel,
   department,
-  departmentImage,
   vehicles,
+
+  groupImage,
 
   payment,
   countGender,
