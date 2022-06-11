@@ -364,14 +364,14 @@ const typeDefs = gql`
 
     chapel(chapel: String): [Member]
     department(department: String): [Member]
-    departmentImage(department: String): [Member]
-    
 
     payment(month: String, type: String): [PaymentPayer]
     countGender(group: String): [CountGender]
 
     groupStat(type: String): [CountVehicle]
     sundayStat(type: String, vehicles: Boolean): [CountVehicle]
+
+    groupImage(type: String, group: String): [Member]
   }
 
   type Mutation {
