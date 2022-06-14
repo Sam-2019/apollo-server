@@ -1,8 +1,24 @@
 const models = require("../db/models");
-const countries = require("i18n-iso-countries");
-const PhoneNumber = require("awesome-phonenumber");
 
-const paymentType = async (type) => {
+const imageUploadType = (type) => {
+  let model;
+
+  switch (type) {
+    case "member":
+      model = models.Member;
+      break;
+
+    case "user":
+      model = models.User;
+      break;
+
+    default:
+      model = null;
+  }
+  return model;
+};
+
+const paymentType = (type) => {
   let model;
 
   switch (type) {
@@ -30,7 +46,7 @@ const paymentType = async (type) => {
       model = null;
   }
 
-  return await model;
+  return model;
 };
 
 const groupType = async (type) => {
@@ -69,15 +85,8 @@ const groupType = async (type) => {
   };
 };
 
-const transformNumber = (country, contact) => {
-  let getData = countries.getAlpha2Code(country, "en");
-  let pn = new PhoneNumber(contact, `${getData}`);
-
-  return pn.getNumber();
-};
-
 module.exports = {
+  imageUploadType,
   paymentType,
   groupType,
-  transformNumber,
 };

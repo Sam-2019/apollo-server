@@ -1,5 +1,5 @@
-const { extractMonth } = require("../../utils/index");
-const { transformNumber } = require("../../utils/switchModel");
+const { extractMonth, transformNumber } = require("../../utils/index");
+const { imageUploadType } = require("../../utils/switchModel");
 const { writeRedis } = require("../../services/redis");
 const { registration } = require("../../services/slack");
 const { sendMessage } = require("../../services/telegram");
@@ -159,9 +159,15 @@ const updateMember = async (
   }
 };
 
-const uploadImage = async (parent, { input: { id, imageURL } }, { models }) => {
+const uploadImage = async (
+  parent,
+  { id, input: { imageURL, type } },
+  { models }
+) => {
+  let dbModel = await imageUploadType(type);
+
   try {
-    return await models.Member.findByIdAndUpdate(
+    return await dbModel.findByIdAndUpdate(
       id,
       {
         $set: { imageURL },

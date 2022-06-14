@@ -54,8 +54,8 @@ const typeDefs = gql`
   }
 
   input AddImage {
-    id: ID
     imageURL: String
+    type: String
   }
 
   type Member {
@@ -238,14 +238,16 @@ const typeDefs = gql`
 
   type Pledge {
     id: ID
-    pledgeeID: ID
     firstName: String
     lastName: String
-    amount: String
+    otherName: String
+    contact: String
+    emailAddress: String
     programme: String
-    status: PledgeStatus
+    amount: Int
     pledgeDate: String
     redeemedDate: String
+    status: PledgeStatus
   }
 
   type PledgeFeed {
@@ -255,7 +257,6 @@ const typeDefs = gql`
   }
 
   input AddPledge {
-    pledgeDate: String
     firstName: String
     lastName: String
     otherName: String
@@ -263,7 +264,9 @@ const typeDefs = gql`
     emailAddress: String
     programme: String
     redeemedDate: String
+    pledgeDate: String
     amount: Int
+    status: String
   }
 
   type Vehicles {
@@ -285,13 +288,48 @@ const typeDefs = gql`
     bicycles: Int
   }
 
+  type User {
+    id: ID
+    firstName: String
+    lastName: String
+    userName: String
+    gender: String
+    contact: String
+    emailAddress: String
+    homeAddress: String
+    password: String
+    verified: Boolean
+    dob: String
+    imageURL: String
+  }
+
+  type UsersFeed {
+    users: [User]
+    cursor: String
+    hasNextPage: Boolean
+  }
+
+  input AddUser {
+    firstName: String
+    lastName: String
+    userName: String
+    gender: String
+    contact: String
+    emailAddress: String
+    homeAddress: String
+    password: String
+    verified: Boolean
+    dob: String
+  }
+
   type Query {
     members: [Member]
     membersFeed(cursor: String): [MembersFeed]
     member(id: ID): Member
     memberByName(firstName: String, lastName: String): Member
 
-    pledge: [Pledge]
+    pledges: [Pledge]
+    pledge(id: ID): Pledge
     pledgeFeed(cursor: String): [PledgeFeed]
 
     visitors: [Visitor]
@@ -319,6 +357,11 @@ const typeDefs = gql`
     vehicles: [Vehicles]
     vehiclesFeed(cursor: String): [VehiclesFeed]
 
+    users: [User]
+    usersFeed(cursor: String): [UsersFeed]
+    user(id: ID): User
+    login(emailAddress: String, password: String): User
+
     chapel(chapel: String): [Member]
     department(department: String): [Member]
 
@@ -327,6 +370,8 @@ const typeDefs = gql`
 
     groupStat(type: String): [CountVehicle]
     sundayStat(type: String, vehicles: Boolean): [CountVehicle]
+
+    groupImage(type: String, group: String): [Member]
   }
 
   type Mutation {
@@ -334,7 +379,7 @@ const typeDefs = gql`
     deleteMember(id: ID): Member
     updateMember(id: ID, input: AddMember): Member
 
-    uploadImage(input: AddImage): ProfileImage
+    uploadImage(id: ID, input: AddImage): ProfileImage
 
     addChild(input: AddChild): Payload
     deleteChild(id: ID): Payload
@@ -362,10 +407,16 @@ const typeDefs = gql`
     addPledge(input: AddPledge): Pledge
     deletePledge(id: ID): Payload
     updatePledge(id: ID, input: AddPledge): Pledge
+    updatePledgeStatus(id: ID, input: AddPledge): Pledge
 
     addVehicles(input: AddVehicles): Vehicles
     deleteVehicles(id: ID): Payload
     updateVehicles(id: ID, input: AddVehicles): Vehicles
+
+    signup(input: AddUser): User
+    deleteUser(id: ID): Payload
+    updateUser(id: ID, input: AddUser): User
+    verifyUser(id: ID): User
   }
 `;
 
