@@ -7,6 +7,9 @@
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
+    "engines": {
+    "node": "16.13.0"
+  },
   "dependencies": {
     "@graphql-tools/schema": "^8.3.2",
     "@ladjs/graceful": "^1.1.5",
