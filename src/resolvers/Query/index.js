@@ -1,5 +1,6 @@
 const { paymentType } = require("../../utils/switchModel");
 const { comparePassword } = require("../../utils/index");
+const { generateJWT } = require("../../utils/jwt");
 
 const users = async (parent, args, { models }) => {
   return models.User.find();
@@ -36,19 +37,25 @@ const user = async (parent, { id }, { models }) => {
   return await models.User.findById(id);
 };
 
-const login = async (parent, { emailAddress, password }, { models }) => {
+const login = async (
+  parent,
+  { emailAddress, password, username },
+  { models }
+) => {
   try {
     const user = await models.User.findOne({ emailAddress });
     if (!user) {
       return new Error("Invalid Email or Password");
     }
 
-    const emailPassword = await comparePassword(password, user.password);
-    if (!emailPassword) {
+    const valid = await comparePassword(password, user.password);
+    if (!valid) {
       return new Error("Invalid Email or Password");
     }
 
-    return user;
+    return {
+      token: generateJWT(user),
+    };
     // const data = await models.User.findOne({ userName });
     // if (!data) {
     //   return new Error("Invalid Username");
