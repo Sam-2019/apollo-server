@@ -1,4 +1,5 @@
 const { hashPassword } = require("../../utils/index");
+const { generateJWT } = require("../../utils/jwt");
 
 const signup = async (
   parent,
@@ -6,16 +7,19 @@ const signup = async (
   { models }
 ) => {
   const hash = hashPassword(password);
+  const trimEmail = emailAddress.trim().toLowerCase();
   try {
     const saveData = await models.User.create({
       firstName,
       lastName,
       userName,
-      emailAddress,
+      emailAddress: trimEmail,
       password: hash,
     });
 
-    return saveData;
+    return {
+      token: generateJWT(saveData),
+    };
   } catch (err) {
     console.error(err);
   }
