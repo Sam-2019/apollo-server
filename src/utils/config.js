@@ -23,6 +23,7 @@ const NODE_ENV = process.env.NODE_ENV;
 
 const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
 const TELEGRAM_CHATID = process.env.TELEGRAM_CHATID;
+const TOKEN = process.env.JWT_SECRET;
 
 module.exports = {
   CLIENT_ID,
@@ -45,4 +46,5 @@ module.exports = {
   NODE_ENV,
   TELEGRAM_TOKEN,
   TELEGRAM_CHATID,
+  TOKEN,
 };
