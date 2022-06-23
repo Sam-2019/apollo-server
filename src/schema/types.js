@@ -322,6 +322,10 @@ const typeDefs = gql`
     dob: String
   }
 
+  type JWT {
+    token: String
+  }
+
   type Query {
     members: [Member]
     membersFeed(cursor: String): [MembersFeed]
@@ -360,7 +364,7 @@ const typeDefs = gql`
     users: [User]
     usersFeed(cursor: String): [UsersFeed]
     user(id: ID): User
-    login(emailAddress: String, password: String): User
+    login(emailAddress: String, password: String): JWT
 
     chapel(chapel: String): [Member]
     department(department: String): [Member]
@@ -413,7 +417,7 @@ const typeDefs = gql`
     deleteVehicles(id: ID): Payload
     updateVehicles(id: ID, input: AddVehicles): Vehicles
 
-    signup(input: AddUser): User
+    signup(input: AddUser): JWT
     deleteUser(id: ID): Payload
     updateUser(id: ID, input: AddUser): User
     verifyUser(id: ID): User
