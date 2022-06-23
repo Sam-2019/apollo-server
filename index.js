@@ -7,6 +7,7 @@ const { createComplexityLimitRule } = require("graphql-validation-complexity");
 // const { redisClient } = require("./src/services/redis");
 // const { graceful, bree } = require("./src/services/bree");
 // const { bot } = require("./src/services/telegram");
+const { getUser } = require("./src/utils/jwt");
 
 dotenv.config();
 
@@ -20,8 +21,13 @@ app.use("*", cors());
 const server = new ApolloServer({
   schema,
   validationRules: [depthLimit(5), createComplexityLimitRule(1000)],
-  context: () => {
-    return { models };
+  context: ({ req }) => {
+    // get the user token from the headers
+    const token = req.headers.authorization;
+    // try to retrieve a user with the token
+    const user = getUser(token);
+    console.log({data: user});
+    return { models, user };
   },
 });
 
