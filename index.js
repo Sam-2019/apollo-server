@@ -4,16 +4,16 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const depthLimit = require("graphql-depth-limit");
 const { createComplexityLimitRule } = require("graphql-validation-complexity");
-// const { redisClient } = require("./src/services/redis");
-// const { graceful, bree } = require("./src/services/bree");
-// const { bot } = require("./src/services/telegram");
-const { getUser } = require("./src/utils/jwt");
 
 dotenv.config();
 
 require("./src/db");
 const models = require("./src/db/models");
 const schema = require("./src/schema");
+const { getUser } = require("./src/utils/jwt");
+// const { redisClient } = require("./src/services/redis");
+// const { graceful, bree } = require("./src/services/bree");
+// const { bot } = require("./src/services/telegram");
 
 const app = express();
 app.use("*", cors());
