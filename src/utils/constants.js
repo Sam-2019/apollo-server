@@ -1,0 +1,9 @@
+MEMBER_REGISTRATION = "Membership";
+VISITOR_REGISTRATION = "Visitor";
+TWITTER_LINK = "https://twitter.com";
+
+module.exports = {
+  MEMBER_REGISTRATION,
+  VISITOR_REGISTRATION,
+  TWITTER_LINK,
+};
