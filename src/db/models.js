@@ -7,7 +7,7 @@ const Visitor = require("./schema/visitor");
 const Mmv = require("./schema/mmv");
 const Pvv = require("./schema/pvv");
 const Welfare = require("./schema/welfare");
-const ProjectOffering = require("./schema/project offering");
+const ProjectOffering = require("./schema/projectOffering");
 
 const Vehicle = require("./schema/vehicle");
 const User = require("./schema/user");
@@ -23,7 +23,7 @@ const models = {
   Welfare,
   ProjectOffering,
   Vehicle,
-  User,
+  User
 };
 
 module.exports = models;
