@@ -1,8 +1,12 @@
 const { Telegraf } = require("telegraf");
 const { TELEGRAM_TOKEN } = require("../utils/config");
+const { TWITTER_LINK } = require("../utils/constants");
+const { checkTwiter } = require("../utils");
 
 const bot = new Telegraf(TELEGRAM_TOKEN);
-bot.use(Telegraf.log());
+bot.launch();
+
+// bot.use(Telegraf.log());
 
 bot.start((ctx) => {
   ctx.reply("Hello " + ctx.from.first_name + "!");
@@ -30,13 +34,29 @@ const sendMessage = (name, type) => {
   bot.on((ctx) => ctx.reply(`${name} successfully registered as a visitor.`));
 };
 
-bot.command("getMember", (ctx) => {
-  const data = ctx.message.text.slice(11);
-  // console.log(data);
-  // ctx.reply("Enter member's name");
-  // console.log(ctx.message.text);
+// bot.command("getMember", (ctx) => {
+//   const data = ctx.message.text.slice(11);
+//   console.log(data);
+//   ctx.reply("Enter member's name");
+//   console.log(ctx.message.text);
+// });
+
+bot.on("text", async (ctx) => {
+  const data = ctx.message.text;
+
+  if (!data) {
+    ctx.reply("No message");
+  }
+
+  if (data.includes(TWITTER_LINK)) {
+    const info = await checkTwiter(data);
+    return ctx.reply(info);
+  }
+
+  return null;
 });
 
+process.once("SIGINT", () => bot.stop("SIGINT"));
 process.once("SIGTERM", () => bot.stop("SIGTERM"));
 
 module.exports = {
