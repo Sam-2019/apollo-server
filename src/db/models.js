@@ -11,6 +11,7 @@ const ProjectOffering = require("./schema/projectOffering");
 
 const Vehicle = require("./schema/vehicle");
 const User = require("./schema/user");
+const Job = require('./schema/job');
 
 const models = {
   Member,
@@ -23,7 +24,8 @@ const models = {
   Welfare,
   ProjectOffering,
   Vehicle,
-  User
+  User,
+  Job
 };
 
 module.exports = models;
