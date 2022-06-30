@@ -326,6 +326,31 @@ const typeDefs = gql`
     token: String
   }
 
+  input AddJob {
+    title: String
+    description: String
+    domain: String
+    imgURL: String
+    favicon: String
+    url: String
+  }
+
+  type Job {
+    id: ID
+    title: String
+    description: String
+    domain: String
+    imgURL: String
+    favicon: String
+    url: String
+  }
+
+  type JobsFeed {
+    jobs: [Job]
+    cursor: String
+    hasNextPage: Boolean
+  }
+
   type Query {
     members: [Member]
     membersFeed(cursor: String): [MembersFeed]
@@ -376,6 +401,11 @@ const typeDefs = gql`
     sundayStat(type: String, vehicles: Boolean): [CountVehicle]
 
     groupImage(type: String, group: String): [Member]
+
+    jobs: [Job]
+    jobsFeed(cursor: String): [JobsFeed]
+    job(id: ID): Job
+    jobbyTitle(title: String): Job
   }
 
   type Mutation {
@@ -421,6 +451,10 @@ const typeDefs = gql`
     deleteUser(id: ID): Payload
     updateUser(id: ID, input: AddUser): User
     verifyUser(id: ID): User
+
+    addJob(input: AddJob): Job
+    deleteJob(id: ID): Job
+    updateJob(id: ID, input: AddJob): Job
   }
 `;
 
