@@ -570,6 +570,41 @@ const vehicles = async (parent, { id }, { models, user }) => {
   return await models.Vehicle.find();
 };
 
+const jobs = async (parent, args, { models }) => {
+  return models.Job.find();
+};
+
+const jobsFeed = async (parent, { cursor }, { models }) => {
+  const limit = 10;
+  let hasNextPage = false;
+  let cursorQuery = {};
+
+  if (cursor) {
+    cursorQuery = { _id: { $lt: cursor } };
+  }
+
+  let jobs = await models.Job.find(cursorQuery)
+    .sort({ _id: -1 })
+    .limit(limit + 1);
+
+  if (jobs.length > limit) {
+    hasNextPage = true;
+    jobs = jobs.slice(0, -1);
+  }
+
+  const newCursor = jobs[jobs.length - 1]._id;
+
+  return {
+    jobs,
+    cursor: newCursor,
+    hasNextPage,
+  };
+};
+
+const job = async (parent, { id }, { models }) => {
+  return await models.Job.findById(id);
+};
+
 module.exports = {
   members,
   membersFeed,
@@ -610,5 +645,9 @@ module.exports = {
   users,
   usersFeed,
   user,
-  login
+  login,
+
+  jobs,
+  jobsFeed,
+  job,
 };
