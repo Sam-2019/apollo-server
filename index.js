@@ -21,9 +21,9 @@ app.use("*", cors());
 const server = new ApolloServer({
   schema,
   validationRules: [depthLimit(5), createComplexityLimitRule(1000)],
-  context: ({ req }) => {
+  context: ({ req, res, next }) => {
     const token = req.headers.authorization;
-    const user = getUser(token);
+    const user = getUser(token, next);
     return { models, user };
   },
 });
