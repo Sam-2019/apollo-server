@@ -1,14 +1,18 @@
 const jwt = require("jsonwebtoken");
 const { TOKEN } = require("./config");
 
-const generateAccessToken = async (user) => {
+const generateAccessToken = (user) => {
   if (!user) return false;
-  return await jwt.sign({ id: user._id }, TOKEN);
+  return jwt.sign({ id: user._id }, TOKEN, {
+    expiresIn: "15m",
+  });
 };
 
-const validateAccessToken = async (token) => {
+const validateAccessToken = (token) => {
   if (!user) return;
-  return await jwt.verify(token, TOKEN);
+  return jwt.verify(token, TOKEN, {
+    expiresIn: "7d",
+  });
 };
 
 const getUser = (token) => {
