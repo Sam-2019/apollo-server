@@ -22,11 +22,8 @@ const server = new ApolloServer({
   schema,
   validationRules: [depthLimit(5), createComplexityLimitRule(1000)],
   context: ({ req }) => {
-    // get the user token from the headers
     const token = req.headers.authorization;
-    // try to retrieve a user with the token
     const user = getUser(token);
-    console.log({data: user});
     return { models, user };
   },
 });
