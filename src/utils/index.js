@@ -66,43 +66,36 @@ const checkTwiter = async (data) => {
 
   const info = await linkPreviewGenerator(data);
 
-  if (info) {
-    const sanitized_description = info.description.replace(
-      special_characters,
-      ""
-    );
-    const description = String(
-      sanitized_description.match(description_pattern)
-    );
-
-    const url = String(sanitized_description.match(url_pattern));
-
-    try {
-      const saveData = await Job.create({
-        title: info.title,
-        description: description.rm_space(),
-        domain: info.domain,
-        imgURL: info.img,
-        favicon: info.favicon,
-        url: url,
-      });
-
-      if (saveData) {
-        return "Data saved!";
-      }
-    } catch (err) {
-      console.error(err);
-    }
+  if (!info) {
+    return;
   }
 
-  // return {
-  //   title: info.title,
-  //   description: description.rm_space(),
-  //   domain: info.domain,
-  //   img: info.img,
-  //   favicon: info.favicon,
-  //   url: url,
-  // };
+  const sanitized_description = info.description.replace(
+    special_characters,
+    ""
+  );
+  const description = String(sanitized_description.match(description_pattern));
+
+  const url = String(sanitized_description.match(url_pattern));
+
+  try {
+    const saveData = await Job.create({
+      title: info.title,
+      description: description.rm_space(),
+      domain: info.domain,
+      imgURL: info.img,
+      favicon: info.favicon,
+      url: url,
+    });
+
+    if (!saveData) {
+      return "Error!";
+    }
+
+    return "Data saved!";
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 // const trial = () => {
