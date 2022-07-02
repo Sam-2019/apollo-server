@@ -27,7 +27,7 @@ const validateAccessToken = (token, next) => {
   }
 };
 
-function validateRefreshToken(token, next) {
+const validateRefreshToken = (token, next) => {
   if (!token) return next();
   try {
     return verify(token, TOKEN, {
@@ -36,7 +36,7 @@ function validateRefreshToken(token, next) {
   } catch {
     throw new Error("Invalid refresh token");
   }
-}
+};
 
 const getUser = (token, next) => {
   if (!token) {
