@@ -4,7 +4,7 @@ const { generateJWT } = require("../../utils/jwt");
 const signup = async (
   parent,
   { input: { firstName, lastName, userName, emailAddress, password } },
-  { models }
+  { models, user }
 ) => {
   const hash = hashPassword(password);
   const trimEmail = emailAddress.trim().toLowerCase();
@@ -25,7 +25,10 @@ const signup = async (
   }
 };
 
-const deleteUser = async (parent, { id }, { models }) => {
+const deleteUser = async (parent, { id }, { models, user }) => {
+  if (!user) {
+    throw new Error("You must be signed in");
+  }
   try {
     return await models.User.findByIdAndDelete(id);
   } catch (err) {
@@ -49,7 +52,7 @@ const updateUser = async (
       dob,
     },
   },
-  { models }
+  { models, user }
 ) => {
   try {
     const updateData = await models.User.findByIdAndUpdate(
@@ -77,7 +80,10 @@ const updateUser = async (
   }
 };
 
-const verifyUser = async (parent, { id }, { models }) => {
+const verifyUser = async (parent, { id }, { models, user }) => {
+  if (!user) {
+    throw new Error("You must be signed in");
+  }
   try {
     const updateData = await models.User.findByIdAndUpdate(id, {
       verified: true,

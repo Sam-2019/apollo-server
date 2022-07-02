@@ -23,8 +23,11 @@ const addSundayService = async (
       type,
     },
   },
-  { models }
+  { models, user }
 ) => {
+  if (!user) {
+    throw new Error("You must be signed in");
+  }
   try {
     return await models.SundayService.create({
       adultFemale,
@@ -52,7 +55,10 @@ const addSundayService = async (
   }
 };
 
-const deleteSundayService = async (parent, { id }, { models }) => {
+const deleteSundayService = async (parent, { id }, { models, user }) => {
+  if (!user) {
+    throw new Error("You must be signed in");
+  }
   try {
     return await models.SundayService.findByIdAndDelete(id);
   } catch (err) {
@@ -63,8 +69,11 @@ const deleteSundayService = async (parent, { id }, { models }) => {
 const updateSundayService = async (
   parent,
   { id, input: { preacher } },
-  { models }
+  { models, user }
 ) => {
+  if (!user) {
+    throw new Error("You must be signed in");
+  }
   try {
     return await models.SundayService.findByIdAndUpdate(
       id,
