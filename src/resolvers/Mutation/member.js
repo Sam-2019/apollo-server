@@ -32,8 +32,11 @@ const addMember = async (
       group,
     },
   },
-  { models }
+  { models, user }
 ) => {
+  if (!user) {
+    throw new Error("You must be signed in");
+  }
   const chapel = extractMonth(dateOfBirth);
   const newContact = transformNumber(country, contact);
   const newEmergencyContact = transformNumber(country, emergencyContact);
@@ -79,7 +82,10 @@ const addMember = async (
   }
 };
 
-const deleteMember = async (parent, { id }, { models }) => {
+const deleteMember = async (parent, { id }, { models, user }) => {
+  if (!user) {
+    throw new Error("You must be signed in");
+  }
   try {
     return await models.Member.findByIdAndDelete(id);
   } catch (err) {
@@ -117,8 +123,11 @@ const updateMember = async (
       group,
     },
   },
-  { models }
+  { models, user }
 ) => {
+  if (!user) {
+    throw new Error("You must be signed in");
+  }
   try {
     const updateData = await models.Member.findByIdAndUpdate(
       id,
@@ -162,8 +171,11 @@ const updateMember = async (
 const uploadImage = async (
   parent,
   { id, input: { imageURL, type } },
-  { models }
+  { models, user }
 ) => {
+  if (!user) {
+    throw new Error("You must be signed in");
+  }
   let dbModel = await imageUploadType(type);
 
   try {
