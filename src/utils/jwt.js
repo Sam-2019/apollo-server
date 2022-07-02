@@ -1,12 +1,13 @@
 const jwt = require("jsonwebtoken");
 const { TOKEN } = require("./config");
 
-
-const generateJWT = async (user) => {
+const generateAccessToken = async (user) => {
+  if (!user) return false;
   return await jwt.sign({ id: user._id }, TOKEN);
 };
 
-const validateJWT = async (token) => {
+const validateAccessToken = async (token) => {
+  if (!user) return;
   return await jwt.verify(token, TOKEN);
 };
 
@@ -25,7 +26,7 @@ const getUser = (token) => {
 };
 
 module.exports = {
-  generateJWT,
-  validateJWT,
+  generateAccessToken,
+  validateAccessToken,
   getUser,
 };

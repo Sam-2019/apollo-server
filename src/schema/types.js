@@ -390,6 +390,7 @@ const typeDefs = gql`
     usersFeed(cursor: String): [UsersFeed]
     user(id: ID): User
     login(emailAddress: String, password: String): JWT
+    logout: Boolean
 
     chapel(chapel: String): [Member]
     department(department: String): [Member]

@@ -1,6 +1,6 @@
 const { paymentType } = require("../../utils/switchModel");
 const { comparePassword } = require("../../utils/index");
-const { generateJWT } = require("../../utils/jwt");
+const { generateAccessToken } = require("../../utils/jwt");
 
 const users = async (parent, args, { models, user }) => {
   return models.User.find();
@@ -54,7 +54,8 @@ const login = async (
     }
 
     return {
-      token: generateJWT(user),
+      token: generateAccessToken(user),
+      user,
     };
     // const data = await models.User.findOne({ userName });
     // if (!data) {
@@ -65,6 +66,14 @@ const login = async (
     //   return new Error("Password is incorrect");
     // }
     // return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const logout = async (parent, {}, {}) => {
+  try {
+    return generateAccessToken();
   } catch (err) {
     console.log(err);
   }
@@ -646,6 +655,7 @@ module.exports = {
   usersFeed,
   user,
   login,
+  logout,
 
   jobs,
   jobsFeed,
