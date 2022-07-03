@@ -1,7 +1,6 @@
 const { Telegraf } = require("telegraf");
 const { TELEGRAM_TOKEN } = require("../utils/config");
-const { TWITTER_LINK } = require("../utils/constants");
-const { checkTwiter } = require("../utils");
+const { jobTransformer } = require("../utils/linkPreview");
 
 const bot = new Telegraf(TELEGRAM_TOKEN);
 bot.launch();
@@ -41,19 +40,15 @@ const sendMessage = (name, type) => {
 //   console.log(ctx.message.text);
 // });
 
-bot.on("text", async (ctx) => {
+bot.on("text", (ctx) => {
   const data = ctx.message.text;
 
   if (!data) {
     ctx.reply("No message");
   }
 
-  if (data.includes(TWITTER_LINK)) {
-    const info = await checkTwiter(data);
-    return ctx.reply(info);
-  }
-
-  return null;
+  const info = jobTransformer(data);
+  return ctx.reply(info);
 });
 
 process.once("SIGINT", () => bot.stop("SIGINT"));
