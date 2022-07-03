@@ -15,8 +15,8 @@ const generaterefreshToken = (user) => {
   });
 };
 
-const validateAccessToken = (token, next) => {
-  if (!token) return next();
+const validateAccessToken = (token) => {
+  if (!token) return;
 
   try {
     return verify(token, TOKEN, {
@@ -27,8 +27,8 @@ const validateAccessToken = (token, next) => {
   }
 };
 
-const validateRefreshToken = (token, next) => {
-  if (!token) return next();
+const validateRefreshToken = (token) => {
+  if (!token) return;
   try {
     return verify(token, TOKEN, {
       expiresIn: "7d",
@@ -38,14 +38,14 @@ const validateRefreshToken = (token, next) => {
   }
 };
 
-const getUser = (token, next) => {
+const getUser = (token) => {
   if (!token) {
-    return next();
+    return;
   }
 
   try {
     // return the user information from the token
-    return validateAccessToken(token, next);
+    return validateAccessToken(token);
   } catch (err) {
     // if there's a problem with the token, throw an error
     throw new Error("Session Invalid");
