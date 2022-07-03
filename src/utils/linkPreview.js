@@ -65,6 +65,8 @@ const jobTransformer = async (data) => {
   if (info.domain.includes(TWITTER_LINK)) {
     return checkTwiter(info);
   }
+
+  return "Unsupported website";
 };
 
 module.exports = {
