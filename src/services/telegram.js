@@ -40,14 +40,14 @@ const sendMessage = (name, type) => {
 //   console.log(ctx.message.text);
 // });
 
-bot.on("text", (ctx) => {
+bot.on("text", async (ctx) => {
   const data = ctx.message.text;
 
   if (!data) {
     ctx.reply("No message");
   }
 
-  const info = jobTransformer(data);
+  const info = await jobTransformer(data);
   return ctx.reply(info);
 });
 
