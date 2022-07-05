@@ -1,3 +1,39 @@
+const { Job } = require("../../db/models");
+const {
+  url_pattern,
+  description_pattern,
+  special_characters,
+} = require("../../utils");
+
+String.prototype.rm_space = function () {
+  return this.replace(/((\s*\S+)*)\s*/, "$1");
+};
+
+const addJob = async (info) => {
+  const sanitized_description = info.description.replace(
+    special_characters,
+    ""
+  );
+  const description = String(sanitized_description.match(description_pattern));
+  const url = String(sanitized_description.match(url_pattern));
+  try {
+    const saveData = await Job.create({
+      title: info.title,
+      description: description.rm_space(),
+      domain: info.domain,
+      imgURL: info.img,
+      favicon: info.favicon,
+      url: url,
+    });
+    if (!saveData) {
+      return "Error!";
+    }
+    return "Data saved!";
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 const deleteJob = async (parent, { id }, { models }) => {
   try {
     return await models.Job.findByIdAndDelete(id);
@@ -38,6 +74,7 @@ const updateJob = async (
 };
 
 module.exports = {
+  addJob,
   deleteJob,
   updateJob,
 };
