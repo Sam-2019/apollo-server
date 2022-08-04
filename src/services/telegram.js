@@ -3,7 +3,7 @@ const { TELEGRAM_TOKEN } = require("../utils/config");
 const { jobTransformer } = require("../utils/linkPreview");
 
 const bot = new Telegraf(TELEGRAM_TOKEN);
-bot.launch();
+// bot.launch();
 
 // bot.use(Telegraf.log());
 
