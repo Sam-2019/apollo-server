@@ -6,6 +6,7 @@ const pledge = require("./pledge");
 const visitor = require("./visitor");
 // const vehicle = require("./vehicles");
 const user = require("./user");
+const logout = require("./logout");
 
 const resolvers = {
   ...child,
@@ -16,6 +17,7 @@ const resolvers = {
   ...visitor,
   // ...vehicle,
   ...user,
+  ...logout,
 };
 
 module.exports = resolvers;
