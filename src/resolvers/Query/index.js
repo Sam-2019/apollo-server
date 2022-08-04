@@ -1,6 +1,12 @@
+const { UserInputError } = require("apollo-server");
 const { paymentType } = require("../../utils/switchModel");
 const { comparePassword } = require("../../utils/index");
-const { generateAccessToken } = require("../../utils/jwt");
+const {
+  generateAccessToken,
+  generateRefreshToken,
+  setCookie,
+  sendRefreshToken,
+} = require("../../utils/jwt");
 
 const users = async (parent, args, { models, user }) => {
   return models.User.find();
@@ -33,29 +39,30 @@ const usersFeed = async (parent, { cursor }, { models, user }) => {
   };
 };
 
-const user = async (parent, { id }, { models, user }) => {
+const user = async (parent, args, { models, req }) => {
   return await models.User.findById(user.id);
 };
 
 const login = async (
   parent,
   { emailAddress, password, username },
-  { models, user }
+  { models, user, req, res }
 ) => {
   try {
     const user = await models.User.findOne({ emailAddress });
     if (!user) {
-      return new Error("Invalid Email or Password");
+      throw new UserInputError("Invalid Email or Password");
     }
 
     const valid = await comparePassword(password, user.password);
     if (!valid) {
-      return new Error("Invalid Email or Password");
+      throw new UserInputError("Invalid Email or Password");
     }
 
+    // sendRefreshToken(res, user);
     return {
-      token: generateAccessToken(user),
-      user,
+      accessToken: generateAccessToken(user),
+      refreshToken: generateRefreshToken(user),
     };
     // const data = await models.User.findOne({ userName });
     // if (!data) {
@@ -67,15 +74,19 @@ const login = async (
     // }
     // return data;
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 
-const logout = async (parent, {}, {}) => {
+const logout = async (parent, {}, { models, user, req, res }) => {
   try {
-    return generateAccessToken();
+    sendRefreshToken(res, "");
+    return {
+      accessToken: "",
+      refreshToken: "",
+    };
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 
