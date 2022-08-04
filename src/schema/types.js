@@ -323,7 +323,8 @@ const typeDefs = gql`
   }
 
   type JWT {
-    token: String
+    accessToken: String
+    refreshToken: String
   }
 
   input AddJob {
@@ -388,9 +389,9 @@ const typeDefs = gql`
 
     users: [User]
     usersFeed(cursor: String): [UsersFeed]
-    user(id: ID): User
+    user: User
     login(emailAddress: String, password: String): JWT
-    logout: Boolean
+    logout: JWT
 
     chapel(chapel: String): [Member]
     department(department: String): [Member]
@@ -456,6 +457,9 @@ const typeDefs = gql`
     addJob(input: AddJob): Job
     deleteJob(id: ID): Job
     updateJob(id: ID, input: AddJob): Job
+
+    logout: Boolean
+
   }
 `;
 
