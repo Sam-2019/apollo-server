@@ -40,7 +40,6 @@ app.use((req, res, next) => isAuth(req, res, next));
 
 app.post("/refresh_token", async (req, res) => {
   const token = req.cookies["refreshToken"];
-  console.log({ refreshToken: token });
 
   if (!token) {
     return res.send({ res: false, accessToken: "" });

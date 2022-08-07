@@ -2,7 +2,6 @@ const { validateAccessToken } = require("./jwt");
 
 const isAuth = (req, res, next) => {
   const authorization = req.headers["authorization"];
-  console.log({ authorization: authorization });
 
   if (!authorization) {
     // throw new AuthenticationError("not authenticated");
