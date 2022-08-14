@@ -4,7 +4,6 @@ const { comparePassword } = require("../../utils/index");
 const {
   generateAccessToken,
   generateRefreshToken,
-  setCookie,
   sendRefreshToken,
 } = require("../../utils/jwt");
 
@@ -40,7 +39,8 @@ const usersFeed = async (parent, { cursor }, { models, user }) => {
 };
 
 const user = async (parent, args, { models, req }) => {
-  return await models.User.findById(user.id);
+  if (!req.id) return;
+  return await models.User.findById(req.id);
 };
 
 const login = async (
@@ -78,7 +78,8 @@ const login = async (
   }
 };
 
-const logout = async (parent, {}, { models, user, req, res }) => {
+const logout = async (parent, {}, { models, req, res }) => {
+  if (!req.id) return;
   try {
     sendRefreshToken(res, "");
     return {
@@ -90,11 +91,13 @@ const logout = async (parent, {}, { models, user, req, res }) => {
   }
 };
 
-const members = async (parent, args, { models, user }) => {
+const members = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Member.find();
 };
 
-const membersFeed = async (parent, { cursor }, { models, user }) => {
+const membersFeed = async (parent, { cursor }, { models, req }) => {
+  if (!req.id) return;
   const limit = 10;
   let hasNextPage = false;
   let cursorQuery = {};
@@ -121,97 +124,119 @@ const membersFeed = async (parent, { cursor }, { models, user }) => {
   };
 };
 
-const member = async (parent, { id }, { models, user }) => {
+const member = async (parent, { id }, { models, req }) => {
+  if (!req.id) return;
   return await models.Member.findById(id);
 };
 
 const memberByName = async (
   parent,
   { firstName, lastName },
-  { models, user }
+  { models, req }
 ) => {
+  if (!req.id) return;
   return await models.Member.findOne({ firstName, lastName });
 };
 
-const pledge = async (parent, { id }, { models, user }) => {
+const pledge = async (parent, { id }, { models, req }) => {
+  if (!req.id) return;
   return await models.Pledge.findById(id);
 };
 
-const pledges = async (parent, args, { models, user }) => {
+const pledges = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Pledge.find();
 };
 
-const pledgeFeed = async (parent, args, { models, user }) => {
+const pledgeFeed = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Pledge.find();
 };
 
-const visitors = async (parent, args, { models, user }) => {
+const visitors = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Visitor.find();
 };
 
-const visitorsFeed = async (parent, args, { models, user }) => {
+const visitorsFeed = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Visitor.find();
 };
 
-const visitor = async (parent, { id }, { models, user }) => {
+const visitor = async (parent, { id }, { models, req }) => {
+  if (!req.id) return;
   return await models.Visitor.findById(id);
 };
 
-const tithe = async (parent, args, { models, user }) => {
+const tithe = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Tithe.find();
 };
 
-const titheFeed = async (parent, args, { models, user }) => {
+const titheFeed = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Tithe.find();
 };
 
-const sundayService = async (parent, args, { models, user }) => {
+const sundayService = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.SundayService.find();
 };
 
-const sundayServiceFeed = async (parent, args, { models, user }) => {
+const sundayServiceFeed = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.SundayService.find();
 };
 
-const welfare = async (parent, args, { models, user }) => {
+const welfare = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Welfare.find();
 };
 
-const welfareFeed = async (parent, args, { models, user }) => {
+const welfareFeed = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Welfare.find();
 };
 
-const projectOffering = async (parent, args, { models, user }) => {
+const projectOffering = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.ProjectOffering.find();
 };
 
-const projectOfferingFeed = async (parent, args, { models, user }) => {
+const projectOfferingFeed = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.ProjectOffering.find();
 };
 
-const pvv = async (parent, args, { models, user }) => {
+const pvv = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Pvv.find();
 };
 
-const pvvFeed = async (parent, args, { models, user }) => {
+const pvvFeed = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Pvv.find();
 };
 
-const mmv = async (parent, args, { models, user }) => {
+const mmv = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Mmv.find();
 };
 
-const mmvFeed = async (parent, args, { models, user }) => {
+const mmvFeed = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Mmv.find();
 };
 
-const chapel = async (parent, { chapel }, { models, user }) => {
+const chapel = async (parent, { chapel }, { models, req }) => {
+  if (!req.id) return;
   return await models.Member.find({
     chapel: { $regex: chapel, $options: "i" },
   });
 };
 
-const groupImage = async (parent, { type, group }, { models, user }) => {
+const groupImage = async (parent, { type, group }, { models, req }) => {
+  if (!req.id) return;
   if (type === "departments") {
     return await models.Member.find({
       department: { $regex: group, $options: "i" },
@@ -223,13 +248,15 @@ const groupImage = async (parent, { type, group }, { models, user }) => {
   });
 };
 
-const department = async (parent, { department }, { models, user }) => {
+const department = async (parent, { department }, { models, req }) => {
+  if (!req.id) return;
   return await models.Member.find({
     department: { $regex: department, $options: "i" },
   });
 };
 
-const payment = async (parent, { month, type }, { models, user }) => {
+const payment = async (parent, { month, type }, { models, req }) => {
+  if (!req.id) return;
   let dbModel = paymentType(type);
 
   try {
@@ -294,7 +321,8 @@ const payment = async (parent, { month, type }, { models, user }) => {
   }
 };
 
-const countGender = async (parent, { group }, { models, user }) => {
+const countGender = async (parent, { group }, { models, req }) => {
+  if (!req.id) return;
   let genderData = [];
 
   if (group != "") {
@@ -342,7 +370,8 @@ const countGender = async (parent, { group }, { models, user }) => {
   return genderData;
 };
 
-const groupStat = async (parent, { type }, { models, user }) => {
+const groupStat = async (parent, { type }, { models, req }) => {
+  if (!req.id) return;
   let adult = [];
   let omega = [];
   let children = [];
@@ -417,7 +446,7 @@ const groupStat = async (parent, { type }, { models, user }) => {
   }
 };
 
-// const sundayStat = async (parent, { type }, { models, user }) => {
+// const sundayStat = async (parent, { type }, { models, req }) => {
 //   let adult = [];
 //   let omega = [];
 //   let children = [];
@@ -504,7 +533,8 @@ const groupStat = async (parent, { type }, { models, user }) => {
 
 //vehicles
 
-const sundayStat = async (parent, { type, vehicles }, { models, user }) => {
+const sundayStat = async (parent, { type, vehicles }, { models, req }) => {
+  if (!req.id) return;
   let adult = [];
   let omega = [];
   let children = [];
@@ -586,15 +616,18 @@ const sundayStat = async (parent, { type, vehicles }, { models, user }) => {
   }
 };
 
-const vehicles = async (parent, { id }, { models, user }) => {
+const vehicles = async (parent, { id }, { models, req }) => {
+  if (!req.id) return;
   return await models.Vehicle.find();
 };
 
 const jobs = async (parent, args, { models }) => {
+  if (!req.id) return;
   return models.Job.find();
 };
 
 const jobsFeed = async (parent, { cursor }, { models }) => {
+  if (!req.id) return;
   const limit = 10;
   let hasNextPage = false;
   let cursorQuery = {};
@@ -622,6 +655,7 @@ const jobsFeed = async (parent, { cursor }, { models }) => {
 };
 
 const job = async (parent, { id }, { models }) => {
+  if (!req.id) return;
   return await models.Job.findById(id);
 };
 
