@@ -17,6 +17,7 @@ const {
   validateRefreshToken,
   generateAccessToken,
   sendRefreshToken,
+  getUser
 } = require("./src/utils/jwt");
 const { isAuth } = require("./src/utils/auth");
 // const { redisClient } = require("./src/services/redis");
@@ -82,6 +83,10 @@ const server = new ApolloServer({
     return err;
   },
   context: ({ req, res }) => {
+  
+    const authorization = req.headers["authorization"];
+    const token = authorization.split(" ")[1];
+    // const getID = getUser(token)
     return { models, req, res };
   },
 });
