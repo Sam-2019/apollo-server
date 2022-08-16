@@ -17,9 +17,14 @@ const {
   validateRefreshToken,
   generateAccessToken,
   sendRefreshToken,
-  getUser
+  getUser,
 } = require("./src/utils/jwt");
 const { isAuth } = require("./src/utils/auth");
+const {
+  ORIGIN_DEVELOP,
+  ORIGIN_DEVELOP_PATH,
+  ORIGIN_PROD,
+} = require("./src/utils/config");
 // const { redisClient } = require("./src/services/redis");
 // const { graceful, bree } = require("./src/services/bree");
 // const { bot } = require("./src/services/telegram");
@@ -27,11 +32,7 @@ const { isAuth } = require("./src/utils/auth");
 const app = express();
 app.use(
   cors({
-    origin: [
-      "http://localhost:8080/graphql",
-      "http://localhost:3000",
-      "https://studio.apollographql.com",
-    ],
+    origin: [ORIGIN_DEVELOP, ORIGIN_DEVELOP_PATH, ORIGIN_PROD],
     credentials: true,
   })
 );
@@ -41,6 +42,7 @@ app.use((req, res, next) => isAuth(req, res, next));
 
 app.post("/refresh_token", async (req, res) => {
   const token = req.cookies["refreshToken"];
+  console.log({ refreshToken: token });
 
   if (!token) {
     return res.send({ res: false, accessToken: "" });
@@ -83,10 +85,10 @@ const server = new ApolloServer({
     return err;
   },
   context: ({ req, res }) => {
-  
-    const authorization = req.headers["authorization"];
-    const token = authorization.split(" ")[1];
+    // const authorization = req.headers["authorization"];
+    // const token = authorization.split(" ")[1];
     // const getID = getUser(token)
+    // console.log({ getID: getID.id });
     return { models, req, res };
   },
 });
