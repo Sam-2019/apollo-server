@@ -79,7 +79,6 @@ const login = async (
 };
 
 const logout = async (parent, {}, { models, req, res }) => {
-  if (!req.id) return;
   try {
     sendRefreshToken(res, "");
     return {
