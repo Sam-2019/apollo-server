@@ -34,7 +34,7 @@ const getUser = (token) => {
   try {
     // return the user information from the token
     const data = validateAccessToken(token);
-    console.log({ data: data });
+    return data
   } catch (err) {
     // if there's a problem with the token, throw an error
     throw new ApolloError("Session Invalid");
