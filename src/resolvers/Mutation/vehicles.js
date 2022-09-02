@@ -1,9 +1,9 @@
 const addVehicles = async (
   parent,
   { input: { bicycles, cars, sundayService, motors } },
-  { models, user }
+  { models, req }
 ) => {
-  if (!user) {
+  if (!req.id) {
     throw new Error("You must be signed in");
   }
   console.log(bicycles, motors, cars, sundayService);
@@ -19,8 +19,8 @@ const addVehicles = async (
   }
 };
 
-const deleteVehicles = async (parent, { id }, { models, user }) => {
-  if (!user) {
+const deleteVehicles = async (parent, { id }, { models, req }) => {
+  if (!req.id) {
     throw new Error("You must be signed in");
   }
   try {
@@ -32,9 +32,9 @@ const deleteVehicles = async (parent, { id }, { models, user }) => {
 const updateVehicles = async (
   parent,
   { id, input: { bicycles, cars, motors } },
-  { models, user }
+  { models, req }
 ) => {
-  if (!user) {
+  if (!req.id) {
     throw new Error("You must be signed in");
   }
   try {

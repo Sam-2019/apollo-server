@@ -23,9 +23,9 @@ const addSundayService = async (
       type,
     },
   },
-  { models, user }
+  { models, req }
 ) => {
-  if (!user) {
+  if (!req.id) {
     throw new Error("You must be signed in");
   }
   try {
@@ -55,8 +55,8 @@ const addSundayService = async (
   }
 };
 
-const deleteSundayService = async (parent, { id }, { models, user }) => {
-  if (!user) {
+const deleteSundayService = async (parent, { id }, { models, req }) => {
+  if (!req.id) {
     throw new Error("You must be signed in");
   }
   try {
@@ -69,9 +69,9 @@ const deleteSundayService = async (parent, { id }, { models, user }) => {
 const updateSundayService = async (
   parent,
   { id, input: { preacher } },
-  { models, user }
+  { models, req }
 ) => {
-  if (!user) {
+  if (!req.id) {
     throw new Error("You must be signed in");
   }
   try {
