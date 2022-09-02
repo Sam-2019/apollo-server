@@ -5,7 +5,7 @@ const { ACCESS_SECRET, REFRESH_SECRET } = require("./config");
 const generateAccessToken = (user) => {
   if (!user) return false;
   return sign({ id: String(user._id) }, ACCESS_SECRET, {
-    expiresIn: "15min",
+    expiresIn: "1d",
   });
 };
 
