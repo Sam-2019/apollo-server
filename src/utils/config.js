@@ -23,6 +23,12 @@ const NODE_ENV = process.env.NODE_ENV;
 
 const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
 const TELEGRAM_CHATID = process.env.TELEGRAM_CHATID;
+const ACCESS_SECRET = process.env.JWT_ACCESS_SECRET;
+const REFRESH_SECRET = process.env.JWT_REFRESH_SECRET;
+
+const ORIGIN_DEVELOP = process.env.ORIGIN_HOST_LOCAL;
+const ORIGIN_DEVELOP_PATH = process.env.ORIGIN_HOST_LOCAL_PATH;
+const ORIGIN_PROD = process.env.ORIGIN_HOST_PROD;
 
 module.exports = {
   CLIENT_ID,
@@ -45,4 +51,9 @@ module.exports = {
   NODE_ENV,
   TELEGRAM_TOKEN,
   TELEGRAM_CHATID,
+  ACCESS_SECRET,
+  REFRESH_SECRET,
+  ORIGIN_DEVELOP,
+  ORIGIN_DEVELOP_PATH,
+  ORIGIN_PROD,
 };

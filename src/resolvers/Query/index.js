@@ -1,11 +1,17 @@
+const { UserInputError } = require("apollo-server");
 const { paymentType } = require("../../utils/switchModel");
 const { comparePassword } = require("../../utils/index");
+const {
+  generateAccessToken,
+  generateRefreshToken,
+  sendRefreshToken,
+} = require("../../utils/jwt");
 
-const users = async (parent, args, { models }) => {
+const users = async (parent, args, { models, user }) => {
   return models.User.find();
 };
 
-const usersFeed = async (parent, { cursor }, { models }) => {
+const usersFeed = async (parent, { cursor }, { models, user }) => {
   const limit = 10;
   let hasNextPage = false;
   let cursorQuery = {};
@@ -32,23 +38,32 @@ const usersFeed = async (parent, { cursor }, { models }) => {
   };
 };
 
-const user = async (parent, { id }, { models }) => {
-  return await models.User.findById(id);
+const user = async (parent, args, { models, req }) => {
+  if (!req.id) return;
+  return await models.User.findById(req.id);
 };
 
-const login = async (parent, { emailAddress, password }, { models }) => {
+const login = async (
+  parent,
+  { emailAddress, password, username },
+  { models, user, req, res }
+) => {
   try {
     const user = await models.User.findOne({ emailAddress });
     if (!user) {
-      return new Error("Invalid Email or Password");
+      throw new UserInputError("Invalid Email or Password");
     }
 
-    const emailPassword = await comparePassword(password, user.password);
-    if (!emailPassword) {
-      return new Error("Invalid Email or Password");
+    const valid = await comparePassword(password, user.password);
+    if (!valid) {
+      throw new UserInputError("Invalid Email or Password");
     }
 
-    return user;
+    // sendRefreshToken(res, user);
+    return {
+      accessToken: generateAccessToken(user),
+      refreshToken: generateRefreshToken(user),
+    };
     // const data = await models.User.findOne({ userName });
     // if (!data) {
     //   return new Error("Invalid Username");
@@ -59,15 +74,29 @@ const login = async (parent, { emailAddress, password }, { models }) => {
     // }
     // return data;
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 
-const members = async (parent, args, { models }) => {
+const logout = async (parent, {}, { models, req, res }) => {
+  try {
+    sendRefreshToken(res, "");
+    return {
+      accessToken: "",
+      refreshToken: "",
+    };
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+const members = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Member.find();
 };
 
-const membersFeed = async (parent, { cursor }, { models }) => {
+const membersFeed = async (parent, { cursor }, { models, req }) => {
+  if (!req.id) return;
   const limit = 10;
   let hasNextPage = false;
   let cursorQuery = {};
@@ -94,93 +123,119 @@ const membersFeed = async (parent, { cursor }, { models }) => {
   };
 };
 
-const member = async (parent, { id }, { models }) => {
+const member = async (parent, { id }, { models, req }) => {
+  if (!req.id) return;
   return await models.Member.findById(id);
 };
 
-const memberByName = async (parent, { firstName, lastName }, { models }) => {
+const memberByName = async (
+  parent,
+  { firstName, lastName },
+  { models, req }
+) => {
+  if (!req.id) return;
   return await models.Member.findOne({ firstName, lastName });
 };
 
-const pledge = async (parent, { id }, { models }) => {
+const pledge = async (parent, { id }, { models, req }) => {
+  if (!req.id) return;
   return await models.Pledge.findById(id);
 };
 
-const pledges = async (parent, args, { models }) => {
+const pledges = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Pledge.find();
 };
 
-const pledgeFeed = async (parent, args, { models }) => {
+const pledgeFeed = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Pledge.find();
 };
 
-const visitors = async (parent, args, { models }) => {
+const visitors = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Visitor.find();
 };
 
-const visitorsFeed = async (parent, args, { models }) => {
+const visitorsFeed = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Visitor.find();
 };
 
-const visitor = async (parent, { id }, { models }) => {
+const visitor = async (parent, { id }, { models, req }) => {
+  if (!req.id) return;
   return await models.Visitor.findById(id);
 };
 
-const tithe = async (parent, args, { models }) => {
+const tithe = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Tithe.find();
 };
 
-const titheFeed = async (parent, args, { models }) => {
+const titheFeed = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Tithe.find();
 };
 
-const sundayService = async (parent, args, { models }) => {
+const sundayService = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.SundayService.find();
 };
 
-const sundayServiceFeed = async (parent, args, { models }) => {
+const sundayServiceFeed = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.SundayService.find();
 };
 
-const welfare = async (parent, args, { models }) => {
+const welfare = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Welfare.find();
 };
 
-const welfareFeed = async (parent, args, { models }) => {
+const welfareFeed = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Welfare.find();
 };
 
-const projectOffering = async (parent, args, { models }) => {
+const projectOffering = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.ProjectOffering.find();
 };
 
-const projectOfferingFeed = async (parent, args, { models }) => {
+const projectOfferingFeed = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.ProjectOffering.find();
 };
 
-const pvv = async (parent, args, { models }) => {
+const pvv = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Pvv.find();
 };
 
-const pvvFeed = async (parent, args, { models }) => {
+const pvvFeed = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Pvv.find();
 };
 
-const mmv = async (parent, args, { models }) => {
+const mmv = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Mmv.find();
 };
 
-const mmvFeed = async (parent, args, { models }) => {
+const mmvFeed = async (parent, args, { models, req }) => {
+  if (!req.id) return;
   return await models.Mmv.find();
 };
 
-const chapel = async (parent, { chapel }, { models }) => {
+const chapel = async (parent, { chapel }, { models, req }) => {
+  if (!req.id) return;
   return await models.Member.find({
     chapel: { $regex: chapel, $options: "i" },
   });
 };
 
-const groupImage = async (parent, { type, group }, { models }) => {
+const groupImage = async (parent, { type, group }, { models, req }) => {
+  if (!req.id) return;
   if (type === "departments") {
     return await models.Member.find({
       department: { $regex: group, $options: "i" },
@@ -192,13 +247,15 @@ const groupImage = async (parent, { type, group }, { models }) => {
   });
 };
 
-const department = async (parent, { department }, { models }) => {
+const department = async (parent, { department }, { models, req }) => {
+  if (!req.id) return;
   return await models.Member.find({
     department: { $regex: department, $options: "i" },
   });
 };
 
-const payment = async (parent, { month, type }, { models }) => {
+const payment = async (parent, { month, type }, { models, req }) => {
+  if (!req.id) return;
   let dbModel = paymentType(type);
 
   try {
@@ -263,7 +320,8 @@ const payment = async (parent, { month, type }, { models }) => {
   }
 };
 
-const countGender = async (parent, { group }, { models }) => {
+const countGender = async (parent, { group }, { models, req }) => {
+  if (!req.id) return;
   let genderData = [];
 
   if (group != "") {
@@ -311,7 +369,8 @@ const countGender = async (parent, { group }, { models }) => {
   return genderData;
 };
 
-const groupStat = async (parent, { type }, { models }) => {
+const groupStat = async (parent, { type }, { models, req }) => {
+  if (!req.id) return;
   let adult = [];
   let omega = [];
   let children = [];
@@ -386,7 +445,7 @@ const groupStat = async (parent, { type }, { models }) => {
   }
 };
 
-// const sundayStat = async (parent, { type }, { models }) => {
+// const sundayStat = async (parent, { type }, { models, req }) => {
 //   let adult = [];
 //   let omega = [];
 //   let children = [];
@@ -473,7 +532,8 @@ const groupStat = async (parent, { type }, { models }) => {
 
 //vehicles
 
-const sundayStat = async (parent, { type, vehicles }, { models }) => {
+const sundayStat = async (parent, { type, vehicles }, { models, req }) => {
+  if (!req.id) return;
   let adult = [];
   let omega = [];
   let children = [];
@@ -555,8 +615,47 @@ const sundayStat = async (parent, { type, vehicles }, { models }) => {
   }
 };
 
-const vehicles = async (parent, { id }, { models }) => {
+const vehicles = async (parent, { id }, { models, req }) => {
+  if (!req.id) return;
   return await models.Vehicle.find();
+};
+
+const jobs = async (parent, args, { models }) => {
+  if (!req.id) return;
+  return models.Job.find();
+};
+
+const jobsFeed = async (parent, { cursor }, { models }) => {
+  if (!req.id) return;
+  const limit = 10;
+  let hasNextPage = false;
+  let cursorQuery = {};
+
+  if (cursor) {
+    cursorQuery = { _id: { $lt: cursor } };
+  }
+
+  let jobs = await models.Job.find(cursorQuery)
+    .sort({ _id: -1 })
+    .limit(limit + 1);
+
+  if (jobs.length > limit) {
+    hasNextPage = true;
+    jobs = jobs.slice(0, -1);
+  }
+
+  const newCursor = jobs[jobs.length - 1]._id;
+
+  return {
+    jobs,
+    cursor: newCursor,
+    hasNextPage,
+  };
+};
+
+const job = async (parent, { id }, { models }) => {
+  if (!req.id) return;
+  return await models.Job.findById(id);
 };
 
 module.exports = {
@@ -600,4 +699,9 @@ module.exports = {
   usersFeed,
   user,
   login,
+  logout,
+
+  jobs,
+  jobsFeed,
+  job,
 };

@@ -1,8 +1,11 @@
 const addVehicles = async (
   parent,
   { input: { bicycles, cars, sundayService, motors } },
-  { models }
+  { models, req }
 ) => {
+  if (!req.id) {
+    throw new Error("You must be signed in");
+  }
   console.log(bicycles, motors, cars, sundayService);
   try {
     return await models.Vehicle.create({
@@ -16,7 +19,10 @@ const addVehicles = async (
   }
 };
 
-const deleteVehicles = async (parent, { id }, { models }) => {
+const deleteVehicles = async (parent, { id }, { models, req }) => {
+  if (!req.id) {
+    throw new Error("You must be signed in");
+  }
   try {
   } catch (err) {
     console.error(err);
@@ -26,8 +32,11 @@ const deleteVehicles = async (parent, { id }, { models }) => {
 const updateVehicles = async (
   parent,
   { id, input: { bicycles, cars, motors } },
-  { models }
+  { models, req }
 ) => {
+  if (!req.id) {
+    throw new Error("You must be signed in");
+  }
   try {
     return await models.Vehicles.findByIdAndUpdate(
       id,

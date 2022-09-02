@@ -322,6 +322,36 @@ const typeDefs = gql`
     dob: String
   }
 
+  type JWT {
+    accessToken: String
+    refreshToken: String
+  }
+
+  input AddJob {
+    title: String
+    description: String
+    domain: String
+    imgURL: String
+    favicon: String
+    url: String
+  }
+
+  type Job {
+    id: ID
+    title: String
+    description: String
+    domain: String
+    imgURL: String
+    favicon: String
+    url: String
+  }
+
+  type JobsFeed {
+    jobs: [Job]
+    cursor: String
+    hasNextPage: Boolean
+  }
+
   type Query {
     members: [Member]
     membersFeed(cursor: String): [MembersFeed]
@@ -359,8 +389,9 @@ const typeDefs = gql`
 
     users: [User]
     usersFeed(cursor: String): [UsersFeed]
-    user(id: ID): User
-    login(emailAddress: String, password: String): User
+    user: User
+    login(emailAddress: String, password: String): JWT
+    logout: JWT
 
     chapel(chapel: String): [Member]
     department(department: String): [Member]
@@ -372,6 +403,11 @@ const typeDefs = gql`
     sundayStat(type: String, vehicles: Boolean): [CountVehicle]
 
     groupImage(type: String, group: String): [Member]
+
+    jobs: [Job]
+    jobsFeed(cursor: String): [JobsFeed]
+    job(id: ID): Job
+    jobbyTitle(title: String): Job
   }
 
   type Mutation {
@@ -413,10 +449,17 @@ const typeDefs = gql`
     deleteVehicles(id: ID): Payload
     updateVehicles(id: ID, input: AddVehicles): Vehicles
 
-    signup(input: AddUser): User
+    signup(input: AddUser): JWT
     deleteUser(id: ID): Payload
     updateUser(id: ID, input: AddUser): User
     verifyUser(id: ID): User
+
+    addJob(input: AddJob): Job
+    deleteJob(id: ID): Job
+    updateJob(id: ID, input: AddJob): Job
+
+    logout: Boolean
+
   }
 `;
 

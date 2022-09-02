@@ -1,4 +1,11 @@
-const addChild = async (parent, { input: { age, firstName } }, { models }) => {
+const addChild = async (
+  parent,
+  { input: { age, firstName } },
+  { models, req }
+) => {
+  if (!req.id) {
+    throw new Error("You must be signed in");
+  }
   try {
     return await models.Child.create({
       age,
@@ -8,7 +15,10 @@ const addChild = async (parent, { input: { age, firstName } }, { models }) => {
     console.error(err);
   }
 };
-const deleteChild = async (parent, { id }, { models }) => {
+const deleteChild = async (parent, { id }, { models, req }) => {
+  if (!req.id) {
+    throw new Error("You must be signed in");
+  }
   try {
     return await models.Child.findByIdAndDelete(id);
   } catch (err) {
@@ -18,8 +28,11 @@ const deleteChild = async (parent, { id }, { models }) => {
 const updateChild = async (
   parent,
   { id, input: { firstName } },
-  { models }
+  { models, req }
 ) => {
+  if (!req.id) {
+    throw new Error("You must be signed in");
+  }
   try {
     return await models.Child.findByIdAndUpdate(
       id,

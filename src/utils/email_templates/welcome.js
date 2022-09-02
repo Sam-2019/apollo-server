@@ -1,4 +1,4 @@
-const { MEMBER_REGISTRATION, VISITOR_REGISTRATION } = require("./constants");
+const { MEMBER_REGISTRATION, VISITOR_REGISTRATION } = require("../constants");
 
 const member = (name) =>
   `<h1>Hello ${name}</h1>

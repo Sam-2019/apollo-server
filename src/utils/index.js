@@ -50,6 +50,11 @@ const transformNumber = (country, contact) => {
   return pn.getNumber();
 };
 
+const url_pattern =
+  /[A-Za-z]+:\/\/[A-Za-z0-9\-_]+\.[A-Za-z0-9\-_:%&;\?\#\/.=]+/g;
+const description_pattern = /^.*?(?=-)/gm;
+const special_characters = /['“”\\\\]/gm;
+
 module.exports = {
   extractMonth,
   extractYear,
@@ -58,4 +63,7 @@ module.exports = {
   comparePassword,
   // isEmail,
   transformNumber,
+  url_pattern,
+  description_pattern,
+  special_characters,
 };
