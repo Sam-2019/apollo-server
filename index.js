@@ -85,10 +85,6 @@ const server = new ApolloServer({
     return err;
   },
   context: ({ req, res }) => {
-    // const authorization = req.headers["authorization"];
-    // const token = authorization.split(" ")[1];
-    // const getID = getUser(token)
-    // console.log({ getID: getID.id });
     return { models, req, res };
   },
 });
