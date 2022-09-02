@@ -20,9 +20,9 @@ const addVisitor = async (
       monthOfBirth,
     },
   },
-  { models, user }
+  { models, req }
 ) => {
-  if (!user) {
+  if (!req.id) {
     throw new Error("You must be signed in");
   }
   const chapel = extractMonth(monthOfBirth);
@@ -51,8 +51,8 @@ const addVisitor = async (
   }
 };
 
-const deleteVisitor = async (parent, { id }, { models, user }) => {
-  if (!user) {
+const deleteVisitor = async (parent, { id }, { models, req }) => {
+  if (!req.id) {
     throw new Error("You must be signed in");
   }
   try {
@@ -81,9 +81,9 @@ const updateVisitor = async (
       monthOfBirth,
     },
   },
-  { models, user }
+  { models, req }
 ) => {
-  if (!user) {
+  if (!req.id) {
     throw new Error("You must be signed in");
   }
   try {

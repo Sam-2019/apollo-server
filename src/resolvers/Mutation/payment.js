@@ -3,9 +3,9 @@ const { paymentType } = require("../../utils/switchModel");
 const addPaymentPayer = async (
   parent,
   { input: { members, month, type } },
-  { models, user }
+  { models, req }
 ) => {
-  if (!user) {
+  if (!req.id) {
     throw new Error("You must be signed in");
   }
   let dbModel = await paymentType(type);
@@ -34,8 +34,8 @@ const addPaymentPayer = async (
   }
 };
 
-const deletePaymentPayer = async (parent, { id, type }, { models, user }) => {
-  if (!user) {
+const deletePaymentPayer = async (parent, { id, type }, { models, req }) => {
+  if (!req.id) {
     throw new Error("You must be signed in");
   }
   let dbModel = await paymentType(type);
@@ -50,9 +50,9 @@ const deletePaymentPayer = async (parent, { id, type }, { models, user }) => {
 const updatePaymentPayer = async (
   parent,
   { id, type, input: { member } },
-  { models, user }
+  { models, req }
 ) => {
-  if (!user) {
+  if (!req.id) {
     throw new Error("You must be signed in");
   }
   let dbModel = await paymentType(type);

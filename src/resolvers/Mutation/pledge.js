@@ -13,9 +13,9 @@ const addPledge = async (
       amount,
     },
   },
-  { models, user }
+  { models, req }
 ) => {
-  if (!user) {
+  if (!req.id) {
     throw new Error("You must be signed in");
   }
   //check if name exists
@@ -39,8 +39,8 @@ const addPledge = async (
   }
 };
 
-const deletePledge = async (parent, { id }, { models, user }) => {
-  if (!user) {
+const deletePledge = async (parent, { id }, { models, req }) => {
+  if (!req.id) {
     throw new Error("You must be signed in");
   }
   try {
@@ -64,9 +64,9 @@ const updatePledge = async (
       amount,
     },
   },
-  { models, user }
+  { models, req }
 ) => {
-  if (!user) {
+  if (!req.id) {
     throw new Error("You must be signed in");
   }
   try {
@@ -95,9 +95,9 @@ const updatePledge = async (
 const updatePledgeStatus = async (
   parent,
   { id, input: { status } },
-  { models, user }
+  { models, req }
 ) => {
-  if (!user) {
+  if (!req.id) {
     throw new Error("You must be signed in");
   }
   try {
