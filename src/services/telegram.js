@@ -21,16 +21,10 @@ bot.command("quit", (ctx) => {
   ctx.reply("Session ended");
 });
 
-const sendMessage = (name, type) => {
+const telegramAlert = (name, type) => {
   if (!name) return;
 
-  if (type === "member") {
-    return bot.on((ctx) =>
-      ctx.reply(`${name} successfully registered as a amember.`)
-    );
-  }
-
-  bot.on((ctx) => ctx.reply(`${name} successfully registered as a visitor.`));
+  bot.on((ctx) => ctx.reply(`${name} successfully registered  as a ${type}`));
 };
 
 // bot.command("getMember", (ctx) => {
@@ -56,5 +50,5 @@ process.once("SIGTERM", () => bot.stop("SIGTERM"));
 
 module.exports = {
   bot,
-  sendMessage,
+  telegramAlert,
 };

@@ -3,7 +3,7 @@ const { SLACK_WEBHOOK } = require("../utils/config");
 
 const webhook = new IncomingWebhook(SLACK_WEBHOOK);
 
-const registration = async (name, chapel, type) =>
+const SlackAlert = async (name, chapel, type) =>
   await webhook.send({
     text: `${type} Registration`,
     attachments: [
@@ -153,7 +153,7 @@ const general = async () =>
   });
 
 module.exports = {
-  registration,
+  SlackAlert,
   general,
   memberDetailsUpdate,
 };
