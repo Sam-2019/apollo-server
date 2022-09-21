@@ -46,6 +46,8 @@ const addVisitor = async (
 
     SlackAlert(`${firstName} ${lastName}`, chapel);
     telegramAlert(`${firstName} ${lastName}`, "Visitor");
+
+    return saveData;
   } catch (err) {
     console.error(err);
   }
