@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 
-const sundayTotalSchema = new mongoose.Schema(
+const kidSchema = new mongoose.Schema(
   {
     sundayService: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "SundayService",
     },
-    type: {
+    group: {
       type: String,
     },
     date: {
@@ -19,5 +19,5 @@ const sundayTotalSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const SundayTotal = mongoose.model("SundayTotal", sundayTotalSchema);
-module.exports = SundayTotal;
+const Kid = mongoose.model("Kid", kidSchema);
+module.exports = Kid;

@@ -364,6 +364,7 @@ const typeDefs = gql`
 
     visitors: [Visitor]
     visitorsFeed(cursor: String): [VisitorFeed]
+    visitorsFollowup: [Visitor]
     visitor(id: ID): Visitor
 
     sundayService: [SundayService]

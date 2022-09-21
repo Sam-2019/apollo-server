@@ -1,8 +1,8 @@
 const { extractMonth, transformNumber } = require("../../utils/index");
 const { imageUploadType } = require("../../utils/switchModel");
 const { writeRedis } = require("../../services/redis");
-const { registration } = require("../../services/slack");
-const { sendMessage } = require("../../services/telegram");
+const { SlackAlert } = require("../../services/slack");
+const { telegramAlert } = require("../../services/telegram");
 
 const addMember = async (
   parent,
@@ -38,8 +38,8 @@ const addMember = async (
     throw new Error("You must be signed in");
   }
   const chapel = extractMonth(dateOfBirth);
-  const newContact = transformNumber(country, contact);
-  const newEmergencyContact = transformNumber(country, emergencyContact);
+  const validContact = transformNumber(country, contact);
+  const validEmergencyContact = transformNumber(country, emergencyContact);
 
   try {
     const saveData = await models.Member.create({
@@ -55,8 +55,8 @@ const addMember = async (
       region,
       country,
       residentialAddress,
-      contact: newContact,
-      emergencyContact: newEmergencyContact,
+      contact: validContact,
+      emergencyContact: validEmergencyContact,
       emailAddress,
       postalAddress,
       maritalStatus,
@@ -69,12 +69,24 @@ const addMember = async (
       group,
     });
 
+    if (nameOfChildren.length > 0) {
+      await nameOfChildren.forEach((text) => {
+        const name = text.split(" ");
+        models.Child.create({
+          firstName: name ? name[0] : null,
+          lastName: name ? name[1] : null,
+          memberID: saveData.id,
+        });
+        telegramAlert(`${name[0]} ${name[1]}`, "Child");
+      });
+    }
+
     if (saveData.emailAddress != "") {
       writeRedis("h3", `${firstName} ${lastName}`, emailAddress);
     }
-
-    registration(`${firstName} ${lastName}`, chapel, "Member");
-    sendMessage(`${firstName} ${lastName}`, "Member");
+    
+    SlackAlert(`${firstName} ${lastName}`, chapel, "Member");
+    telegramAlert(`${firstName} ${lastName}`, "Member");
 
     return saveData;
   } catch (err) {

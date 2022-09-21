@@ -8,13 +8,14 @@ const addChild = async (
   }
   try {
     return await models.Child.create({
-      age,
-      firstName,
+      // firstName,
+      // lastName,
     });
   } catch (err) {
     console.error(err);
   }
 };
+
 const deleteChild = async (parent, { id }, { models, req }) => {
   if (!req.id) {
     throw new Error("You must be signed in");
@@ -25,9 +26,10 @@ const deleteChild = async (parent, { id }, { models, req }) => {
     console.error(err);
   }
 };
+
 const updateChild = async (
   parent,
-  { id, input: { firstName } },
+  { id, input: { firstName, lastName } },
   { models, req }
 ) => {
   if (!req.id) {
@@ -37,7 +39,7 @@ const updateChild = async (
     return await models.Child.findByIdAndUpdate(
       id,
       {
-        $set: { firstName },
+        $set: { firstName, lastName },
       },
       {
         new: true,

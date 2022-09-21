@@ -1,5 +1,5 @@
-const { registration } = require("../../services/slack");
-const { sendMessage } = require("../../services/telegram");
+const { SlackAlert } = require("../../services/slack");
+const { telegramAlert } = require("../../services/telegram");
 const { extractMonth, extractYear } = require("../../utils/index");
 
 const addVisitor = async (
@@ -44,8 +44,10 @@ const addVisitor = async (
       chapel,
     });
 
-    registration(`${firstName} ${lastName}`, chapel);
-    sendMessage(`${firstName} ${lastName}`, "Visitor");
+    SlackAlert(`${firstName} ${lastName}`, chapel);
+    telegramAlert(`${firstName} ${lastName}`, "Visitor");
+
+    return saveData;
   } catch (err) {
     console.error(err);
   }

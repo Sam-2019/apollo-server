@@ -157,6 +157,34 @@ const visitors = async (parent, args, { models, req }) => {
   return await models.Visitor.find();
 };
 
+const visitorsFollowup = async (parent, args, { models, req }) => {
+  if (!req.id) return;
+
+  const nowDate = Date.now();
+  // const currentDay = new Date("August 16, 2022 23:15:30");
+  const currentDay = new Date(nowDate);
+  const getDay = currentDay.getUTCDay();
+  const formatCurrentDay = currentDay.toISOString().slice(0, 10);
+
+  const getSunday = currentDay.setDate(currentDay.getDate() - 2);
+  const formatGetSunday = new Date(getSunday).toISOString().slice(0, 10);
+
+  // const output = await models.Visitor.find({
+  //   createdAt: { $gte: formatGetSunday, $lte: formatCurrentDay },
+  // });
+  // console.log({ output });
+
+  if (getDay === 2) {
+    const data = await models.Visitor.find({
+      createdAt: { $gte: formatGetSunday, $lte: formatCurrentDay },
+    });
+    console.log({ data });
+    return data;
+  }
+
+  return;
+};
+
 const visitorsFeed = async (parent, args, { models, req }) => {
   if (!req.id) return;
   return await models.Visitor.find();
@@ -668,6 +696,7 @@ module.exports = {
   pledgeFeed,
   visitors,
   visitorsFeed,
+  visitorsFollowup,
   visitor,
   tithe,
   titheFeed,
