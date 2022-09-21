@@ -8,7 +8,8 @@ const addPaymentPayer = async (
   if (!req.id) {
     throw new Error("You must be signed in");
   }
-  let dbModel = await paymentType(type);
+
+  let dbModel = paymentType(type);
 
   try {
     const data = await members.forEach((text) => {
@@ -38,7 +39,7 @@ const deletePaymentPayer = async (parent, { id, type }, { models, req }) => {
   if (!req.id) {
     throw new Error("You must be signed in");
   }
-  let dbModel = await paymentType(type);
+  let dbModel = paymentType(type);
 
   try {
     return await dbModel.findByIdAndDelete(id);
@@ -55,7 +56,7 @@ const updatePaymentPayer = async (
   if (!req.id) {
     throw new Error("You must be signed in");
   }
-  let dbModel = await paymentType(type);
+  let dbModel = paymentType(type);
   try {
     return await dbModel.findByIdAndUpdate(
       id,
