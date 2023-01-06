@@ -648,12 +648,12 @@ const vehicles = async (parent, { id }, { models, req }) => {
   return await models.Vehicle.find();
 };
 
-const jobs = async (parent, args, { models }) => {
+const jobs = async (parent, args, { models, req }) => {
   if (!req.id) return;
   return models.Job.find();
 };
 
-const jobsFeed = async (parent, { cursor }, { models }) => {
+const jobsFeed = async (parent, { cursor }, { models, req }) => {
   if (!req.id) return;
   const limit = 10;
   let hasNextPage = false;
@@ -681,7 +681,7 @@ const jobsFeed = async (parent, { cursor }, { models }) => {
   };
 };
 
-const job = async (parent, { id }, { models }) => {
+const job = async (parent, { id }, { models, req }) => {
   if (!req.id) return;
   return await models.Job.findById(id);
 };
