@@ -344,6 +344,8 @@ const typeDefs = gql`
     imgURL: String
     favicon: String
     url: String
+    created_at: DateTime
+    updatedAt: DateTime
   }
 
   type JobsFeed {

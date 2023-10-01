@@ -649,7 +649,7 @@ const vehicles = async (parent, { id }, { models, req }) => {
 };
 
 const jobs = async (parent, args, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return models.Job.find();
 };
 
