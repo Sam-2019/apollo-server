@@ -87,7 +87,7 @@ const logout = async (parent, {}, { models, req, res }) => {
 };
 
 const members = async (parent, args, { models, req }) => {
-  // if (!req.id) return;
+  if (!req.id) return;
   return await models.Member.find();
 };
 
