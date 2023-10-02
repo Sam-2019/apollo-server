@@ -1,4 +1,4 @@
-const { MEMBER_REGISTRATION, VISITOR_REGISTRATION } = require("../constants");
+import { MEMBER_REGISTRATION, VISITOR_REGISTRATION } from "../constants.js";
 
 const member = (name) =>
   `<h1>Hello ${name}</h1>
@@ -46,7 +46,7 @@ const mailSubject = async (type) => {
   return subject;
 };
 
-module.exports = {
+export  {
   mailTemplate,
   mailSubject,
 };

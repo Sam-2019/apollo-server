@@ -1,6 +1,6 @@
-const { ApolloError } = require("apollo-server-errors");
-const { sign, verify } = require("jsonwebtoken");
-const { ACCESS_SECRET, REFRESH_SECRET } = require("./config");
+import { ApolloError } from "apollo-server-errors";
+import jwt from "jsonwebtoken";
+import { ACCESS_SECRET, REFRESH_SECRET } from "./config.js";
 
 const generateAccessToken = (user) => {
   if (!user) return false;
@@ -11,19 +11,19 @@ const generateAccessToken = (user) => {
 
 const generateRefreshToken = (user) => {
   if (!user) return "";
-  return sign({ id: String(user._id) }, REFRESH_SECRET, {
+  return jwt.sign({ id: String(user._id) }, REFRESH_SECRET, {
     expiresIn: "7d",
   });
 };
 
 const validateAccessToken = (token) => {
   if (!token) return;
-  return verify(token, ACCESS_SECRET);
+  return jwt.verify(token, ACCESS_SECRET);
 };
 
 const validateRefreshToken = (token) => {
   if (!token) return;
-  return verify(token, REFRESH_SECRET);
+  return jwt.verify(token, REFRESH_SECRET);
 };
 
 const getUser = (token) => {
@@ -34,7 +34,7 @@ const getUser = (token) => {
   try {
     // return the user information from the token
     const data = validateAccessToken(token);
-    return data
+    return data;
   } catch (err) {
     // if there's a problem with the token, throw an error
     throw new ApolloError("Session Invalid");
@@ -70,7 +70,7 @@ const sendRefreshToken = (res, user) => {
 //   });
 // };
 
-module.exports = {
+export {
   generateAccessToken,
   generateRefreshToken,
   validateAccessToken,

@@ -50,8 +50,4 @@ const updateChild = async (
   }
 };
 
-module.exports = {
-  addChild,
-  deleteChild,
-  updateChild,
-};
+export { addChild, deleteChild, updateChild }

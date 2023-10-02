@@ -1,9 +1,5 @@
-MEMBER_REGISTRATION = "Membership";
-VISITOR_REGISTRATION = "Visitor";
-TWITTER_LINK = "twitter.com";
+const MEMBER_REGISTRATION = "Membership";
+const VISITOR_REGISTRATION = "Visitor";
+const TWITTER_LINK = "twitter.com";
 
-module.exports = {
-  MEMBER_REGISTRATION,
-  VISITOR_REGISTRATION,
-  TWITTER_LINK,
-};
+export { MEMBER_REGISTRATION, VISITOR_REGISTRATION, TWITTER_LINK };

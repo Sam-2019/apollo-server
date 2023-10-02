@@ -1,6 +1,6 @@
-const { Telegraf } = require("telegraf");
-const { TELEGRAM_TOKEN } = require("../utils/config");
-const { jobTransformer } = require("../utils/linkPreview");
+import { Telegraf } from "telegraf";
+import { TELEGRAM_TOKEN } from "../utils/config.js";
+import { jobTransformer } from "../utils/linkPreview.js";
 
 const bot = new Telegraf(TELEGRAM_TOKEN);
 // bot.launch();
@@ -48,7 +48,4 @@ bot.on("text", async (ctx) => {
 process.once("SIGINT", () => bot.stop("SIGINT"));
 process.once("SIGTERM", () => bot.stop("SIGTERM"));
 
-module.exports = {
-  bot,
-  telegramAlert,
-};
+export { bot, telegramAlert };

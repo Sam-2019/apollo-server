@@ -1,21 +1,12 @@
-const nodemailer = require("nodemailer");
-const {
-  CLIENT_ID,
-  USER_EMAIL,
-  CLIENT_SECRET,
-  REFRESH_TOKEN,
-  USER_NAME,
-} = require("../utils/config");
-const {
-  mailTemplate,
-  mailSubject,
-} = require("../utils/email_templates/welcome");
-const { oAuth2Client } = require("../utils/googleapis");
+import { createTransport } from "nodemailer";
+import { CLIENT_ID, USER_EMAIL, CLIENT_SECRET, REFRESH_TOKEN, USER_NAME } from "../utils/config.js";
+import { mailTemplate, mailSubject } from "../utils/email_templates/welcome.js";
+import { oAuth2Client } from "../utils/googleapis.js";
 
 const sendMail = async (email, subject, message) => {
   try {
     let accessToken = await oAuth2Client.getAccessToken();
-    const transport = nodemailer.createTransport({
+    const transport = createTransport({
       service: "gmail",
       auth: {
         type: "OAuth2",
@@ -79,7 +70,7 @@ const mailer = async (data) => {
   }
 };
 
-module.exports = {
+export {
   sendMail,
   mailer,
 };

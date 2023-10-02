@@ -89,8 +89,4 @@ const updateSundayService = async (
   }
 };
 
-module.exports = {
-  addSundayService,
-  deleteSundayService,
-  updateSundayService,
-};
+export { addSundayService, deleteSundayService, updateSundayService };

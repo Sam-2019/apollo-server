@@ -1,4 +1,4 @@
-const { paymentType } = require("../../utils/switchModel");
+import { paymentType } from "../../utils/switchModel.js";
 
 const addPaymentPayer = async (
   parent,
@@ -72,7 +72,7 @@ const updatePaymentPayer = async (
   }
 };
 
-module.exports = {
+export {
   addPaymentPayer,
   deletePaymentPayer,
   updatePaymentPayer,

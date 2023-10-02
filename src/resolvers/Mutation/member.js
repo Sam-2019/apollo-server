@@ -1,8 +1,8 @@
-const { extractMonth, transformNumber } = require("../../utils/index");
-const { imageUploadType } = require("../../utils/switchModel");
-const { writeRedis } = require("../../services/redis");
-const { SlackAlert } = require("../../services/slack");
-const { telegramAlert } = require("../../services/telegram");
+import { extractMonth, transformNumber } from "../../utils/index.js";
+import { imageUploadType } from "../../utils/switchModel.js";
+// import { writeRedis } from "../../services/redis.js";
+import { SlackAlert } from "../../services/slack.js";
+import { telegramAlert } from "../../services/telegram.js";
 
 const addMember = async (
   parent,
@@ -82,9 +82,9 @@ const addMember = async (
     }
 
     if (saveData.emailAddress != "") {
-      writeRedis("h3", `${firstName} ${lastName}`, emailAddress);
+      // writeRedis("h3", `${firstName} ${lastName}`, emailAddress);
     }
-    
+
     SlackAlert(`${firstName} ${lastName}`, chapel, "Member");
     telegramAlert(`${firstName} ${lastName}`, "Member");
 
@@ -205,9 +205,4 @@ const uploadImage = async (
   }
 };
 
-module.exports = {
-  addMember,
-  deleteMember,
-  updateMember,
-  uploadImage,
-};
+export { addMember, deleteMember, updateMember, uploadImage };

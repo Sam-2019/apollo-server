@@ -1,23 +1,23 @@
-const child = require("./child");
-const member = require("./member");
-const sundayService = require("./sundayService");
-const payment = require("./payment");
-const pledge = require("./pledge");
-const visitor = require("./visitor");
-// const vehicle = require("./vehicles");
-const user = require("./user");
-const logout = require("./logout");
+import * as Child from './child.js'
+import * as Member  from "./member.js";
+import * as SundayService  from "./sundayService.js";
+import * as Payment  from "./payment.js";
+import * as Pledge  from "./pledge.js";
+import * as Visitor  from "./visitor.js";
+// import * as Vehicle from "./vehicles.js";
+import * as User  from "./user.js";
+import * as Logout  from "./logout.js";
 
-const resolvers = {
-  ...child,
-  ...member,
-  ...sundayService,
-  ...payment,
-  ...pledge,
-  ...visitor,
-  // ...vehicle,
-  ...user,
-  ...logout,
+const Mutation = {
+  ...Child,
+  ...Member,
+  ...SundayService,
+  ...Payment,
+  ...Pledge,
+  ...Visitor,
+  // ...Vehicle,
+  ...User,
+  ...Logout,
 };
 
-module.exports = resolvers;
+export default Mutation;

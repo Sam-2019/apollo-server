@@ -1,4 +1,4 @@
-const { sendRefreshToken } = require("../../utils/jwt");
+import { sendRefreshToken } from "../../utils/jwt.js";
 
 const logout = async (parent, args, { models, req, res }) => {
   //   if (!req.id) {
@@ -25,6 +25,4 @@ const logout = async (parent, args, { models, req, res }) => {
   };
 };
 
-module.exports = {
-  logout,
-};
+export { logout };

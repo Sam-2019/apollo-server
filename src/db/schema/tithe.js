@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const titheSchema = new mongoose.Schema(
   {
@@ -14,4 +14,4 @@ const titheSchema = new mongoose.Schema(
 );
 
 const Tithe = mongoose.model("Tithe", titheSchema);
-module.exports = Tithe;
+export default Tithe;

@@ -1,9 +1,10 @@
-const { Job } = require("../../db/models");
-const {
+import { models } from "../../db/models.js";
+
+import {
   url_pattern,
   description_pattern,
   special_characters,
-} = require("../../utils");
+} from "../../utils/index.js";
 
 String.prototype.rm_space = function () {
   return this.replace(/((\s*\S+)*)\s*/, "$1");
@@ -17,7 +18,7 @@ const addJob = async (info) => {
   const description = String(sanitized_description.match(description_pattern));
   const url = String(sanitized_description.match(url_pattern));
   try {
-    const saveData = await Job.create({
+    const saveData = await models.Job.create({
       title: info.title,
       description: description.rm_space(),
       domain: info.domain,
@@ -73,8 +74,4 @@ const updateJob = async (
   }
 };
 
-module.exports = {
-  addJob,
-  deleteJob,
-  updateJob,
-};
+export { addJob, deleteJob, updateJob };

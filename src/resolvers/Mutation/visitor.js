@@ -1,6 +1,6 @@
-const { SlackAlert } = require("../../services/slack");
-const { telegramAlert } = require("../../services/telegram");
-const { extractMonth, extractYear } = require("../../utils/index");
+import { SlackAlert } from "../../services/slack.js";
+import { telegramAlert } from "../../services/telegram.js";
+import { extractMonth, extractYear } from "../../utils/index.js";
 
 const addVisitor = async (
   parent,
@@ -116,8 +116,4 @@ const updateVisitor = async (
   }
 };
 
-module.exports = {
-  addVisitor,
-  deleteVisitor,
-  updateVisitor,
-};
+export { addVisitor, deleteVisitor, updateVisitor };

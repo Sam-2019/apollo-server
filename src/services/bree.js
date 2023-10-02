@@ -1,7 +1,7 @@
 const path = require("path");
 const Bree = require("bree");
 const Graceful = require("@ladjs/graceful");
-const Cabin = require("cabin");
+// const Cabin = require("cabin");
 
 const bree = new Bree({
   logger: new Cabin(),
@@ -18,9 +18,6 @@ const bree = new Bree({
 
 const graceful = new Graceful({ brees: [bree] });
 
-module.exports = {
-  bree,
-  graceful,
-};
+export { bree, graceful };
 
 // https://www.geeksforgeeks.org/how-to-run-cron-jobs-in-node-js/

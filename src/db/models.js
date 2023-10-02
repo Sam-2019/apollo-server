@@ -1,18 +1,18 @@
-const Member = require("./schema/member");
-const SundayService = require("./schema/sundayService");
-const Tithe = require("./schema/tithe");
-const Pledge = require("./schema/pledge");
-const Visitor = require("./schema/visitor");
+import Member from "./schema/member.js";
+import SundayService from "./schema/sundayService.js";
+import Tithe from "./schema/tithe.js";
+import Pledge from "./schema/pledge.js";
+import Visitor from "./schema/visitor.js";
 
-const Mmv = require("./schema/mmv");
-const Pvv = require("./schema/pvv");
-const Welfare = require("./schema/welfare");
-const ProjectOffering = require("./schema/projectOffering");
+import Mmv from "./schema/mmv.js";
+import Pvv from "./schema/pvv.js";
+import Welfare from "./schema/welfare.js";
+import ProjectOffering from "./schema/projectOffering.js";
 
-const Vehicle = require("./schema/vehicle");
-const User = require("./schema/user");
-const Child = require("./schema/child");
-const Job = require("./schema/job");
+import Vehicle from "./schema/vehicle.js";
+import User from "./schema/user.js";
+import Child from "./schema/child.js";
+import Job from "./schema/job.js";
 
 const models = {
   Member,
@@ -30,4 +30,4 @@ const models = {
   Job,
 };
 
-module.exports = models;
+export { models };

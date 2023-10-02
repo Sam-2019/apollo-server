@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const adultSchema = new mongoose.Schema(
   {
@@ -20,4 +20,4 @@ const adultSchema = new mongoose.Schema(
 );
 
 const Adult = mongoose.model("Adult", adultSchema);
-module.exports = Adult;
+export default Adult;

@@ -1,7 +1,7 @@
-const { getEmailsFromRedisAndSend } = require("../services/redis");
+// import { getEmailsFromRedisAndSend } from "../services/redis";
 
-const memberKey = "h3";
-const visitorKey = "h4";
+// const memberKey = "h3";
+// const visitorKey = "h4";
 
-getEmailsFromRedisAndSend(memberKey);
-getEmailsFromRedisAndSend(visitorKey);
+// getEmailsFromRedisAndSend(memberKey);
+// getEmailsFromRedisAndSend(visitorKey);

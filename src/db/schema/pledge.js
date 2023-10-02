@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const pledgeSchema = new mongoose.Schema(
   {
@@ -42,4 +42,4 @@ const pledgeSchema = new mongoose.Schema(
 );
 
 const Pledge = mongoose.model("Pledge", pledgeSchema);
-module.exports = Pledge;
+export default Pledge;

@@ -1,11 +1,7 @@
-const { UserInputError } = require("apollo-server");
-const { paymentType } = require("../../utils/switchModel");
-const { comparePassword } = require("../../utils/index");
-const {
-  generateAccessToken,
-  generateRefreshToken,
-  sendRefreshToken,
-} = require("../../utils/jwt");
+import { UserInputError } from "apollo-server";
+import { paymentType } from "../../utils/switchModel.js";
+import { comparePassword } from "../../utils/index.js";
+import { generateAccessToken, generateRefreshToken, sendRefreshToken } from "../../utils/jwt.js";
 
 const users = async (parent, args, { models, user }) => {
   return models.User.find();
@@ -91,12 +87,12 @@ const logout = async (parent, {}, { models, req, res }) => {
 };
 
 const members = async (parent, args, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Member.find();
 };
 
 const membersFeed = async (parent, { cursor }, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   const limit = 10;
   let hasNextPage = false;
   let cursorQuery = {};
@@ -686,7 +682,7 @@ const job = async (parent, { id }, { models, req }) => {
   return await models.Job.findById(id);
 };
 
-module.exports = {
+export default {
   members,
   membersFeed,
   member,

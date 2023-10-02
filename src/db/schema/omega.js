@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const omegaSchema = new mongoose.Schema(
   {
@@ -20,4 +20,4 @@ const omegaSchema = new mongoose.Schema(
 );
 
 const Omega = mongoose.model("Omega", omegaSchema);
-module.exports = Omega;
+export default Omega;

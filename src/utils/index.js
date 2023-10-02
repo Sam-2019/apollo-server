@@ -1,6 +1,6 @@
-const countries = require("i18n-iso-countries");
-const PhoneNumber = require("awesome-phonenumber");
-const bcrypt = require("bcryptjs");
+import countries from "i18n-iso-countries";
+import PhoneNumber from "awesome-phonenumber";
+import bcrypt from "bcryptjs";
 const saltRounds = 12;
 
 // const validate = require("deep-email-validator");
@@ -55,7 +55,7 @@ const url_pattern =
 const description_pattern = /^.*?(?=-)/gm;
 const special_characters = /['“”\\\\]/gm;
 
-module.exports = {
+export {
   extractMonth,
   extractYear,
   sumData,

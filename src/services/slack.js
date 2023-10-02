@@ -1,5 +1,5 @@
-const { IncomingWebhook } = require("@slack/webhook");
-const { SLACK_WEBHOOK } = require("../utils/config");
+import { IncomingWebhook } from "@slack/webhook";
+import { SLACK_WEBHOOK } from "../utils/config.js";
 
 const webhook = new IncomingWebhook(SLACK_WEBHOOK);
 
@@ -152,7 +152,7 @@ const general = async () =>
     ],
   });
 
-module.exports = {
+export  {
   SlackAlert,
   general,
   memberDetailsUpdate,

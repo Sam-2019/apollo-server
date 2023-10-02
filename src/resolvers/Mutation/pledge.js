@@ -117,7 +117,7 @@ const updatePledgeStatus = async (
   }
 };
 
-module.exports = {
+export {
   addPledge,
   deletePledge,
   updatePledge,

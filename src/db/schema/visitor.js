@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const visitorSchema = new mongoose.Schema(
   {
@@ -49,4 +49,4 @@ const visitorSchema = new mongoose.Schema(
 );
 
 const Visitor = mongoose.model("Visitor", visitorSchema);
-module.exports = Visitor;
+export default Visitor;

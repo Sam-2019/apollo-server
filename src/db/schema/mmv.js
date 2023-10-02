@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const mmvSchema = new mongoose.Schema(
   {
@@ -14,4 +14,4 @@ const mmvSchema = new mongoose.Schema(
 );
 
 const MMV = mongoose.model("MMV", mmvSchema);
-module.exports = MMV;
+export default MMV;

@@ -1,10 +1,5 @@
-const { google } = require("googleapis");
-const {
-  CLIENT_ID,
-  REDIRECT_URI,
-  CLIENT_SECRET,
-  REFRESH_TOKEN,
-} = require("../utils/config");
+import { google } from "googleapis";
+import { CLIENT_ID, REDIRECT_URI, CLIENT_SECRET, REFRESH_TOKEN } from "../utils/config.js";
 
 const oAuth2Client = new google.auth.OAuth2(
   CLIENT_ID,
@@ -13,6 +8,6 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
-module.exports = {
+export {
   oAuth2Client,
 };

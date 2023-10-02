@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const sundayTotalSchema = new mongoose.Schema(
   {
@@ -20,4 +20,4 @@ const sundayTotalSchema = new mongoose.Schema(
 );
 
 const SundayTotal = mongoose.model("SundayTotal", sundayTotalSchema);
-module.exports = SundayTotal;
+export default SundayTotal;

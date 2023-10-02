@@ -1,15 +1,11 @@
-const mongoose = require("mongoose");
-const { DB_URI } = require("../utils/config");
+import mongoose from "mongoose";
+import { DB_URI } from "../utils/config.js";
 
-const mongoURI = DB_URI;
-
-mongoose.connect(mongoURI, {
+mongoose.connect(DB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   autoIndex: false,
 });
 
-var dbConn = mongoose.connection;
-dbConn.on("connected", function () {
-  console.log("Mongoose connected");
-});
+const dbConn = mongoose.connection;
+export { dbConn };

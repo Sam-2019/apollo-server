@@ -1,3 +1,7 @@
+import dotenv from "dotenv"
+dotenv.config();
+
+
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
@@ -30,7 +34,7 @@ const ORIGIN_DEVELOP = process.env.ORIGIN_HOST_LOCAL;
 const ORIGIN_DEVELOP_PATH = process.env.ORIGIN_HOST_LOCAL_PATH;
 const ORIGIN_PROD = process.env.ORIGIN_HOST_PROD;
 
-module.exports = {
+export {
   CLIENT_ID,
   CLIENT_SECRET,
   REDIRECT_URI,

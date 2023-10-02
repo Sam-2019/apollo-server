@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const sundayServiceSchema = new mongoose.Schema(
   {
@@ -67,4 +67,4 @@ const sundayServiceSchema = new mongoose.Schema(
 );
 
 const SundayService = mongoose.model("SundayService", sundayServiceSchema);
-module.exports = SundayService;
+export default SundayService;

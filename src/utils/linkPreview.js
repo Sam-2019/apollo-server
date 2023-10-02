@@ -1,6 +1,6 @@
-const linkPreviewGenerator = require("link-preview-generator");
-const { addJob } = require("../resolvers/Mutation/job");
-const { TWITTER_LINK } = require("../utils/constants");
+// import linkPreviewGenerator from "link-preview-generator";
+import {addJob} from "../resolvers/Mutation/job.js";
+import { TWITTER_LINK } from "../utils/constants.js";
 
 const checkTwiter = async (info) => {
   return await addJob(info);
@@ -28,14 +28,14 @@ const checkTwiter = async (info) => {
 const jobTransformer = async (data) => {
   if (!data) return;
 
-  const info = await linkPreviewGenerator(data);
-  if (info.domain.includes(TWITTER_LINK)) {
-    return checkTwiter(info);
-  }
+  // const info = await linkPreviewGenerator(data);
+  // if (info.domain.includes(TWITTER_LINK)) {
+  //   return checkTwiter(info);
+  // }
 
   return "Unsupported website";
 };
 
-module.exports = {
+export {
   jobTransformer,
 };

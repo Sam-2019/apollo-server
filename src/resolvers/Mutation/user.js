@@ -1,5 +1,5 @@
-const { hashPassword } = require("../../utils/index");
-const { generateJWT } = require("../../utils/jwt");
+import { hashPassword } from "../../utils/index.js";
+// import { generateJWT } from "../../utils/jwt.js";
 
 const signup = async (
   parent,
@@ -18,7 +18,7 @@ const signup = async (
     });
 
     return {
-      token: generateJWT(saveData),
+      // token: generateJWT(saveData),
     };
   } catch (err) {
     console.error(err);
@@ -95,7 +95,7 @@ const verifyUser = async (parent, { id }, { models, req }) => {
   }
 };
 
-module.exports = {
+export {
   signup,
   deleteUser,
   updateUser,

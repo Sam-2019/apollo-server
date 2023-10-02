@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const pvvSchema = new mongoose.Schema(
   {
@@ -14,4 +14,4 @@ const pvvSchema = new mongoose.Schema(
 );
 
 const PVV = mongoose.model("PVV", pvvSchema);
-module.exports = PVV;
+export default PVV;

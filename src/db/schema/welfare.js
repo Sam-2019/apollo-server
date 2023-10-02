@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const welfareSchema = new mongoose.Schema(
   {
@@ -14,4 +14,4 @@ const welfareSchema = new mongoose.Schema(
 );
 
 const Welfare = mongoose.model("Welfare", welfareSchema);
-module.exports = Welfare;
+export default Welfare;

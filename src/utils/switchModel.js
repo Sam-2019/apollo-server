@@ -1,4 +1,4 @@
-const models = require("../db/models");
+import { models } from "../db/models.js";
 
 const imageUploadType = (type) => {
   let model;
@@ -85,8 +85,4 @@ const groupType = async (type) => {
   };
 };
 
-module.exports = {
-  imageUploadType,
-  paymentType,
-  groupType,
-};
+export { imageUploadType, paymentType, groupType };

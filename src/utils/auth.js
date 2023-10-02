@@ -1,4 +1,4 @@
-const { validateAccessToken } = require("./jwt");
+import { validateAccessToken } from "./jwt.js";
 
 const isAuth = (req, res, next) => {
   const authorization = req.headers["authorization"];
@@ -17,6 +17,6 @@ const isAuth = (req, res, next) => {
   return next();
 };
 
-module.exports = {
+export {
   isAuth,
 };

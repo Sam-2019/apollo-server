@@ -52,8 +52,4 @@ const updateVehicles = async (
   }
 };
 
-module.exports = {
-  addVehicles,
-  deleteVehicles,
-  updateVehicles,
-};
+export { addVehicles, deleteVehicles, updateVehicles };

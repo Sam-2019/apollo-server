@@ -1,41 +1,42 @@
-const express = require("express");
-const { ApolloServer } = require("apollo-server-express");
-const {
-  ApolloServerPluginLandingPageGraphQLPlayground,
-} = require("apollo-server-core");
-const dotenv = require("dotenv");
-const depthLimit = require("graphql-depth-limit");
-const { createComplexityLimitRule } = require("graphql-validation-complexity");
-const cookieParser = require("cookie-parser");
-const cors = require("cors");
+import dotenv from "dotenv";
 dotenv.config();
 
-require("./src/db");
-const models = require("./src/db/models");
-const schema = require("./src/schema");
-const {
+import { ApolloServer } from "@apollo/server";
+import { expressMiddleware } from "@apollo/server/express4";
+import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
+import express from "express";
+import http from "http";
+import cors from "cors";
+import { dbConn } from "./src/db/index.js";
+import cookieParser from "cookie-parser";
+import pkg from "body-parser";
+const { json } = pkg;
+
+import { models } from "./src/db/models.js";
+import schema from "./src/schema/index.js";
+
+import {
   validateRefreshToken,
   generateAccessToken,
   sendRefreshToken,
   getUser,
-} = require("./src/utils/jwt");
-const { isAuth } = require("./src/utils/auth");
-const {
+} from "./src/utils/jwt.js";
+import { isAuth } from "./src/utils/auth.js";
+import {
   ORIGIN_DEVELOP,
   ORIGIN_DEVELOP_PATH,
   ORIGIN_PROD,
-} = require("./src/utils/config");
-// const { redisClient } = require("./src/services/redis");
-// const { graceful, bree } = require("./src/services/bree");
-// const { bot } = require("./src/services/telegram");
+} from "./src/utils/config.js";
+
+import { bot } from "./src/services/telegram.js";
 
 const app = express();
-app.use(
-  cors({
-    origin: [ORIGIN_DEVELOP, ORIGIN_DEVELOP_PATH, ORIGIN_PROD],
-    credentials: true,
-  })
-);
+const httpServer = http.createServer(app);
+const server = new ApolloServer({
+  schema: schema,
+  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+});
+
 app.set("trust proxy", true);
 app.use(cookieParser());
 app.use((req, res, next) => isAuth(req, res, next));
@@ -73,34 +74,26 @@ app.post("/refresh_token", async (req, res) => {
   });
 });
 
-const server = new ApolloServer({
-  schema,
-  validationRules: [depthLimit(5), createComplexityLimitRule(1000)],
-  plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
-  formatError: (err) => {
-    if (err.message.startsWith("Database Error: ")) {
-      return new Error("Internal server error");
-    }
-
-    return err;
-  },
-  context: ({ req, res }) => {
-    return { models, req, res };
-  },
-});
-
 async function data() {
-  // await redisClient;
-  // await graceful.listen();
-  // await bree.start();
-  // await bot.launch();
-  await server.start();
-
-  server.applyMiddleware({
-    app,
-    cors: false,
-    path: "/graphql",
+  dbConn.on("connected", function () {
+    console.log("Mongoose connected");
   });
+
+  await bot.launch();
+  await server.start();
+  app.use(
+    "/graphql",
+    cors({
+      origin: [ORIGIN_DEVELOP, ORIGIN_DEVELOP_PATH, ORIGIN_PROD],
+      credentials: true,
+    }),
+    json(),
+    expressMiddleware(server, {
+      context: async ({ req, res }) => {
+        return { models, req, res };
+      },
+    })
+  );
 }
 
 data().catch((err) => console.error(err));
@@ -111,6 +104,6 @@ app.listen({ port }, () => {
   console.log(
     process.env.NODE_ENV === "production"
       ? `server live`
-      : `server live on http://localhost:${port}${server.graphqlPath}`
+      : `server live on http://localhost:${port}/graphql`
   );
 });
