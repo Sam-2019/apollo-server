@@ -28,8 +28,6 @@ import {
   ORIGIN_PROD,
 } from "./src/utils/config.js";
 
-import { bot } from "./src/services/telegram.js";
-
 const app = express();
 const httpServer = http.createServer(app);
 const server = new ApolloServer({
@@ -79,7 +77,6 @@ async function data() {
     console.log("Mongoose connected");
   });
 
-  await bot.launch();
   await server.start();
   app.use(
     "/graphql",
