@@ -2,6 +2,7 @@ node_modules
 src/schema/schema.graphql
 yarn-error.log
 .env
+.yarn
 
 
 src/resolvers/Mutation/pvv.js
