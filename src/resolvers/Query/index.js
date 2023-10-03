@@ -35,7 +35,7 @@ const usersFeed = async (parent, { cursor }, { models, user }) => {
 };
 
 const user = async (parent, args, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.User.findById(req.id);
 };
 
@@ -87,7 +87,7 @@ const logout = async (parent, {}, { models, req, res }) => {
 };
 
 const members = async (parent, args, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Member.find();
 };
 
@@ -120,7 +120,7 @@ const membersFeed = async (parent, { cursor }, { models, req }) => {
 };
 
 const member = async (parent, { id }, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Member.findById(id);
 };
 
@@ -129,32 +129,32 @@ const memberByName = async (
   { firstName, lastName },
   { models, req }
 ) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Member.findOne({ firstName, lastName });
 };
 
 const pledge = async (parent, { id }, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Pledge.findById(id);
 };
 
 const pledges = async (parent, args, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Pledge.find();
 };
 
 const pledgeFeed = async (parent, args, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Pledge.find();
 };
 
 const visitors = async (parent, args, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Visitor.find();
 };
 
 const visitorsFollowup = async (parent, args, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
 
   const nowDate = Date.now();
   // const currentDay = new Date("August 16, 2022 23:15:30");
@@ -182,84 +182,84 @@ const visitorsFollowup = async (parent, args, { models, req }) => {
 };
 
 const visitorsFeed = async (parent, args, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Visitor.find();
 };
 
 const visitor = async (parent, { id }, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Visitor.findById(id);
 };
 
 const tithe = async (parent, args, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Tithe.find();
 };
 
 const titheFeed = async (parent, args, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Tithe.find();
 };
 
 const sundayService = async (parent, args, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.SundayService.find();
 };
 
 const sundayServiceFeed = async (parent, args, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.SundayService.find();
 };
 
 const welfare = async (parent, args, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Welfare.find();
 };
 
 const welfareFeed = async (parent, args, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Welfare.find();
 };
 
 const projectOffering = async (parent, args, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.ProjectOffering.find();
 };
 
 const projectOfferingFeed = async (parent, args, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.ProjectOffering.find();
 };
 
 const pvv = async (parent, args, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Pvv.find();
 };
 
 const pvvFeed = async (parent, args, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Pvv.find();
 };
 
 const mmv = async (parent, args, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Mmv.find();
 };
 
 const mmvFeed = async (parent, args, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Mmv.find();
 };
 
 const chapel = async (parent, { chapel }, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Member.find({
     chapel: { $regex: chapel, $options: "i" },
   });
 };
 
 const groupImage = async (parent, { type, group }, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   if (type === "departments") {
     return await models.Member.find({
       department: { $regex: group, $options: "i" },
@@ -272,14 +272,14 @@ const groupImage = async (parent, { type, group }, { models, req }) => {
 };
 
 const department = async (parent, { department }, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Member.find({
     department: { $regex: department, $options: "i" },
   });
 };
 
 const payment = async (parent, { month, type }, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   let dbModel = paymentType(type);
 
   try {
@@ -345,7 +345,7 @@ const payment = async (parent, { month, type }, { models, req }) => {
 };
 
 const countGender = async (parent, { group }, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   let genderData = [];
 
   if (group != "") {
@@ -394,7 +394,7 @@ const countGender = async (parent, { group }, { models, req }) => {
 };
 
 const groupStat = async (parent, { type }, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   let adult = [];
   let omega = [];
   let children = [];
@@ -557,7 +557,7 @@ const groupStat = async (parent, { type }, { models, req }) => {
 //vehicles
 
 const sundayStat = async (parent, { type, vehicles }, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   let adult = [];
   let omega = [];
   let children = [];
@@ -640,7 +640,7 @@ const sundayStat = async (parent, { type, vehicles }, { models, req }) => {
 };
 
 const vehicles = async (parent, { id }, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Vehicle.find();
 };
 
@@ -650,7 +650,7 @@ const jobs = async (parent, args, { models, req }) => {
 };
 
 const jobsFeed = async (parent, { cursor }, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   const limit = 10;
   let hasNextPage = false;
   let cursorQuery = {};
@@ -678,7 +678,7 @@ const jobsFeed = async (parent, { cursor }, { models, req }) => {
 };
 
 const job = async (parent, { id }, { models, req }) => {
-  if (!req.id) return;
+  // if (!req.id) return;
   return await models.Job.findById(id);
 };
 
