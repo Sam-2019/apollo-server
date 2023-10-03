@@ -34,9 +34,9 @@ const addMember = async (
   },
   { models, req }
 ) => {
-  if (!req.id) {
-    throw new Error("You must be signed in");
-  }
+  // if (!req.id) {
+  //   throw new Error("You must be signed in");
+  // }
   const chapel = extractMonth(dateOfBirth);
   const validContact = transformNumber(country, contact);
   const validEmergencyContact = transformNumber(country, emergencyContact);
@@ -69,24 +69,24 @@ const addMember = async (
       group,
     });
 
-    if (nameOfChildren.length > 0) {
-      await nameOfChildren.forEach((text) => {
-        const name = text.split(" ");
-        models.Child.create({
-          firstName: name ? name[0] : null,
-          lastName: name ? name[1] : null,
-          memberID: saveData.id,
-        });
-        telegramAlert(`${name[0]} ${name[1]}`, "Child");
-      });
-    }
+    // if (nameOfChildren.length > 0) {
+    //   await nameOfChildren.forEach((text) => {
+    //     const name = text.split(" ");
+    //     models.Child.create({
+    //       firstName: name ? name[0] : null,
+    //       lastName: name ? name[1] : null,
+    //       memberID: saveData.id,
+    //     });
+    //     telegramAlert(`${name[0]} ${name[1]}`, "Child");
+    //   });
+    // }
 
     if (saveData.emailAddress != "") {
       // writeRedis("h3", `${firstName} ${lastName}`, emailAddress);
     }
 
-    SlackAlert(`${firstName} ${lastName}`, chapel, "Member");
-    telegramAlert(`${firstName} ${lastName}`, "Member");
+    // SlackAlert(`${firstName} ${lastName}`, chapel, "Member");
+    // telegramAlert(`${firstName} ${lastName}`, "Member");
 
     return saveData;
   } catch (err) {
@@ -95,9 +95,9 @@ const addMember = async (
 };
 
 const deleteMember = async (parent, { id }, { models, req }) => {
-  if (!req.id) {
-    throw new Error("You must be signed in");
-  }
+  // if (!req.id) {
+  //   throw new Error("You must be signed in");
+  // }
   try {
     return await models.Member.findByIdAndDelete(id);
   } catch (err) {
@@ -137,9 +137,9 @@ const updateMember = async (
   },
   { models, req }
 ) => {
-  if (!req.id) {
-    throw new Error("You must be signed in");
-  }
+  // if (!req.id) {
+  //   throw new Error("You must be signed in");
+  // }
   try {
     const updateData = await models.Member.findByIdAndUpdate(
       id,
@@ -185,9 +185,9 @@ const uploadImage = async (
   { id, input: { imageURL, type } },
   { models, req }
 ) => {
-  if (!req.id) {
-    throw new Error("You must be signed in");
-  }
+  // if (!req.id) {
+  //   throw new Error("You must be signed in");
+  // }
   let dbModel = imageUploadType(type);
 
   try {
