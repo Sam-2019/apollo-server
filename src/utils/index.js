@@ -19,12 +19,14 @@ const sumData = (male, female) => {
 
 const extractMonth = (date) => {
   const month = new Date(date);
-  return month.toLocaleString(this.locale, { month: "long" });
+  const options = { month: "long" };
+  return new Intl.DateTimeFormat("en-US", options).format(month);
 };
 
 const extractYear = (date) => {
   const year = new Date(date);
-  return year.toLocaleString(this.locale, { year: "numeric" });
+  const options = { month: "numeric" };
+  return new Intl.DateTimeFormat("en-US", options).format(year);
 };
 
 const hashPassword = (password) => {
